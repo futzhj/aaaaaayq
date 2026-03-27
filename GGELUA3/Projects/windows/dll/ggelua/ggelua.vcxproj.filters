@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="源文件\nanoid">
+      <UniqueIdentifier>{d7950e9e-b384-4d3b-90e9-e1e2322ea1e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\nanoid">
+      <UniqueIdentifier>{d7a572f6-8f6f-4db6-bba2-dfca8ea5a057}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\uuid">
+      <UniqueIdentifier>{3c6b9424-ab08-4ff5-bc41-fda95d1e17d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lbase64.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lfs.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lua_cmsgpack.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lua_zlib.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\md5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\script.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\hash.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\crypto_random.cpp">
+      <Filter>源文件\nanoid</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\nanoid.cpp">
+      <Filter>源文件\nanoid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\nanoid\lua.cpp">
+      <Filter>源文件\nanoid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\print\cprint.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\uuid\uuid4.c">
+      <Filter>源文件\uuid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\uuid\lua.c">
+      <Filter>源文件\uuid</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lua_aes.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\core.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\lfs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\luaopen.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lua.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SQLite3MultipleCiphers\src\rijndael.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\crypto_random.h">
+      <Filter>头文件\nanoid</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\nanoid.h">
+      <Filter>头文件\nanoid</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\settings.h">
+      <Filter>头文件\nanoid</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,299 @@
+name: Build iOS Dynamic Frameworks
+
+on:
+  push:
+    branches: [ main, master, 引擎升级 ]
+    paths:
+      - 'GGELUA3/**'
+      - '.github/workflows/build_ios.yml'
+  pull_request:
+    branches: [ main, master, 引擎升级 ]
+    paths:
+      - 'GGELUA3/**'
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: 'Build configuration'
+        required: true
+        default: 'Release'
+        type: choice
+        options:
+          - Debug
+          - Release
+
+env:
+  IOS_PROJECT_DIR: GGELUA3/Projects/ios
+
+jobs:
+  build-ios-frameworks:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        configuration: ${{ github.event_name == 'workflow_dispatch' && fromJSON(format('["{0}"]', inputs.configuration)) || fromJSON('["Release"]') }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+
+    - name: Cache OpenSSL (iphoneos)
+      uses: actions/cache@v4
+      id: openssl-cache
+      with:
+        path: openssl-ios-iphoneos
+        key: openssl-3.6.1-iphoneos-v1
+
+    - name: Build OpenSSL 3.6.1 for iOS (iphoneos)
+      if: steps.openssl-cache.outputs.cache-hit != 'true'
+      run: |
+        OPENSSL_VER="3.6.1"
+        OPENSSL_DIR="${{ github.workspace }}/openssl-build"
+        INSTALL_DIR="${{ github.workspace }}/openssl-ios-iphoneos"
+
+        curl -sL "https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VER}/openssl-${OPENSSL_VER}.tar.gz" \
+          -o /tmp/openssl.tar.gz
+        mkdir -p "${OPENSSL_DIR}"
+        tar xzf /tmp/openssl.tar.gz -C "${OPENSSL_DIR}" --strip-components=1
+
+        cd "${OPENSSL_DIR}"
+
+        ./Configure ios64-xcrun no-shared no-tests no-apps \
+          no-ssl3 no-comp no-engine no-deprecated \
+          --prefix="${INSTALL_DIR}" \
+          --openssldir="${INSTALL_DIR}/ssl"
+
+        make -j$(sysctl -n hw.logicalcpu) build_libs
+        make install_dev DESTDIR=""
+
+        echo "✅ OpenSSL ${OPENSSL_VER} libcrypto.a 编译完成"
+        ls -la "${INSTALL_DIR}/lib/libcrypto.a" || ls -la "${INSTALL_DIR}/lib64/libcrypto.a" || echo "⚠️ libcrypto.a 路径需要检查"
+
+    - name: Setup ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: ios-iphoneos
+        max-size: 500M
+
+    - name: Configure CMake (iphoneos)
+      run: |
+        IOS_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}"
+        OPENSSL_INSTALL="${{ github.workspace }}/openssl-ios-iphoneos"
+
+        # 定位 libcrypto.a
+        if [ -f "${OPENSSL_INSTALL}/lib/libcrypto.a" ]; then
+          CRYPTO_LIB="${OPENSSL_INSTALL}/lib/libcrypto.a"
+        elif [ -f "${OPENSSL_INSTALL}/lib64/libcrypto.a" ]; then
+          CRYPTO_LIB="${OPENSSL_INSTALL}/lib64/libcrypto.a"
+        else
+          echo "::error::libcrypto.a not found in OpenSSL install directory"
+          exit 1
+        fi
+        echo "Using libcrypto.a: ${CRYPTO_LIB}"
+
+        cmake -G Xcode \
+          -B "${IOS_DIR}/build-iphoneos" \
+          -S "${IOS_DIR}" \
+          -DCMAKE_TOOLCHAIN_FILE="${IOS_DIR}/ios.toolchain.cmake" \
+          -DIOS_PLATFORM=OS \
+          -DOPENSSL_CRYPTO_LIB="${CRYPTO_LIB}" \
+          -DOPENSSL_ROOT_DIR="${OPENSSL_INSTALL}" \
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+          -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+          -DCMAKE_INSTALL_PREFIX="${IOS_DIR}/install-iphoneos"
+
+    - name: Build iphoneos (${{ matrix.configuration }})
+      run: |
+        IOS_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}"
+        cmake --build "${IOS_DIR}/build-iphoneos" \
+          --config ${{ matrix.configuration }} \
+          -- -sdk iphoneos \
+             -quiet \
+             ONLY_ACTIVE_ARCH=NO
+
+    - name: Install artifacts
+      run: |
+        IOS_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}"
+        cmake --install "${IOS_DIR}/build-iphoneos" \
+          --config ${{ matrix.configuration }}
+
+    - name: Post-install - copy prebuilt libvgmstream
+      run: |
+        INSTALL_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos"
+        FW_DIR="${INSTALL_DIR}/Frameworks"
+
+        # --- 复制预编译的 libvgmstream.framework (fsb.c 用 dlopen 运行时加载) ---
+        VGMSTREAM_SRC="${{ github.workspace }}/GGELUA/build/ios/Frameworks/libvgmstream.framework"
+        if [ -d "$VGMSTREAM_SRC" ]; then
+          cp -R "${VGMSTREAM_SRC}" "${FW_DIR}/"
+          echo "  ✅ libvgmstream.framework (预编译，from template)"
+        else
+          echo "  ⚠️ libvgmstream.framework 预编译产物不存在，FSB 音频解码将不可用"
+        fi
+
+    - name: Validate dynamic frameworks
+      run: |
+        INSTALL_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos"
+        echo "=== 动态 Framework 编译产物 (iphoneos) ==="
+
+        REQUIRED_FW=(
+          "libggelua.framework"
+          "libgsdl2.framework"
+          "libmygxy.framework"
+          "libgastar.framework"
+          "liblsqlite3.framework"
+          "libhiredis.framework"
+          "SDL2.framework"
+          "SDL2_image.framework"
+          "SDL2_ttf.framework"
+          "SDL-Mixer-X.framework"
+          "openssl.framework"
+          "freetype.framework"
+        )
+
+        MISSING=()
+        for fw in "${REQUIRED_FW[@]}"; do
+          FW_PATH="${INSTALL_DIR}/Frameworks/${fw}"
+          FW_NAME="${fw%.framework}"
+          FW_BIN="${FW_PATH}/${FW_NAME}"
+          if [ -f "$FW_BIN" ]; then
+            SIZE=$(stat -f%z "$FW_BIN" 2>/dev/null || stat -c%s "$FW_BIN" 2>/dev/null)
+            SIZE_KB=$((SIZE / 1024))
+            echo "  ✅ ${fw} (${SIZE_KB} KB)"
+          else
+            echo "  ❌ ${fw} MISSING"
+            MISSING+=("${fw}")
+          fi
+        done
+
+        echo ""
+        echo "总计: ${#REQUIRED_FW[@]} frameworks, ${#MISSING[@]} 缺失"
+
+        if [ ${#MISSING[@]} -gt 0 ]; then
+          echo "::error::Build validation failed: missing frameworks: ${MISSING[*]}"
+          exit 1
+        fi
+
+    - name: Ad-hoc sign all frameworks and executable
+      run: |
+        INSTALL_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos"
+
+        echo "=== Ad-hoc 签名所有 framework ==="
+        for fw in "${INSTALL_DIR}"/Frameworks/*.framework; do
+          FW_NAME=$(basename "$fw")
+          echo "  Signing ${FW_NAME}..."
+          codesign --force --sign - --timestamp=none "$fw"
+          # 验证签名
+          if codesign --verify "$fw" 2>/dev/null; then
+            echo "  ✅ ${FW_NAME} signed"
+          else
+            echo "::error::Failed to sign ${FW_NAME}"
+            exit 1
+          fi
+        done
+
+        echo ""
+        echo "=== Ad-hoc 签名主程序 ==="
+        GGELUA_BIN="${INSTALL_DIR}/GGELUA.app/GGELUA"
+        if [ -f "$GGELUA_BIN" ]; then
+          codesign --force --sign - --timestamp=none "$GGELUA_BIN"
+          echo "  ✅ GGELUA executable signed"
+        else
+          echo "::error::GGELUA executable not found"
+          exit 1
+        fi
+
+    - name: Assemble prebuilt template (GGELUA.zip)
+      run: |
+        INSTALL_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos"
+        TEMPLATE_DIR="${{ github.workspace }}/ios-template-staging"
+        APP_DIR="${TEMPLATE_DIR}/GGELUA.app"
+        OUTPUT_ZIP="${INSTALL_DIR}/GGELUA.zip"
+
+        echo "=== 组装预编译模板 ==="
+
+        # 创建 .app 目录结构
+        mkdir -p "${APP_DIR}/Frameworks"
+        mkdir -p "${APP_DIR}/assets"
+
+        # 复制 Frameworks (含 _CodeSignature)
+        cp -R "${INSTALL_DIR}/Frameworks/"*.framework "${APP_DIR}/Frameworks/"
+        echo "  ✅ Frameworks 已复制"
+
+        # 复制主程序二进制
+        cp "${INSTALL_DIR}/GGELUA.app/GGELUA" "${APP_DIR}/GGELUA"
+        chmod 755 "${APP_DIR}/GGELUA"
+        echo "  ✅ GGELUA 主程序已复制"
+
+        # 复制 Info.plist
+        cp "${INSTALL_DIR}/GGELUA.app/Info.plist" "${APP_DIR}/Info.plist"
+        echo "  ✅ Info.plist 已复制"
+
+        # PkgInfo
+        echo -n "APPL????" > "${APP_DIR}/PkgInfo"
+
+        # 占位文件
+        touch "${APP_DIR}/Icon.png"
+        touch "${APP_DIR}/embedded.mobileprovision"
+
+        # 签名整个 app bundle
+        codesign --force --sign - --timestamp=none "${APP_DIR}"
+        echo "  ✅ GGELUA.app 已签名"
+
+        # 打包为 GGELUA.zip (macOS 原生 zip 保留 Unix 权限)
+        cd "${TEMPLATE_DIR}"
+        zip -r -y "${OUTPUT_ZIP}" GGELUA.app/
+        echo ""
+        echo "✅ GGELUA.zip 打包完成"
+        ls -la "${OUTPUT_ZIP}"
+
+    - name: Validate GGELUA.zip
+      run: |
+        INSTALL_DIR="${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos"
+        GGELUA_ZIP="${INSTALL_DIR}/GGELUA.zip"
+
+        echo "=== 验证 GGELUA.zip ==="
+
+        # 检查 _CodeSignature 存在
+        echo "--- _CodeSignature 检查 ---"
+        CODESIG_COUNT=$(unzip -l "$GGELUA_ZIP" | grep -c "_CodeSignature/CodeResources" || true)
+        echo "  找到 ${CODESIG_COUNT} 个 CodeResources 文件"
+        if [ "$CODESIG_COUNT" -lt 12 ]; then
+          echo "::warning::_CodeSignature 数量不足 (期望 ≥12，实际 ${CODESIG_COUNT})"
+        fi
+
+        # 检查 Unix 权限
+        echo "--- Unix 权限检查 ---"
+        python3 -c "
+        import zipfile, sys
+        errors = []
+        with zipfile.ZipFile('${GGELUA_ZIP}') as zf:
+            for info in zf.infolist():
+                perms = (info.external_attr >> 16) & 0xFFFF
+                name = info.filename
+                # Mach-O 二进制应有 0o100755
+                if name.endswith('/GGELUA') or (name.count('/') == 3 and not name.endswith('/') and not name.endswith('.plist') and 'CodeResources' not in name and 'CodeSignature' not in name and '.framework/' in name and '/Info.plist' not in name):
+                    if perms == 0:
+                        errors.append(f'  ❌ {name}: perms=0o{perms:06o} (should be 0o100755)')
+                    else:
+                        print(f'  ✅ {name}: perms=0o{perms:06o}')
+        if errors:
+            for e in errors: print(e)
+            sys.exit(1)
+        print('✅ All permissions OK')
+        "
+
+        echo ""
+        echo "=== 完整文件列表 ==="
+        unzip -l "$GGELUA_ZIP" | tail -n +4 | head -n -2
+
+    - name: Upload prebuilt template
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-prebuilt-template-${{ matrix.configuration }}
+        path: |
+          ${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos/GGELUA.zip
+          ${{ github.workspace }}/${{ env.IOS_PROJECT_DIR }}/install-iphoneos/Frameworks/
+        if-no-files-found: error
+        retention-days: 30

@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\adler32.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\crc32.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\deflate.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\infback.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\inffast.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\inflate.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\inftrees.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\trees.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\zutil.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\compress.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\uncompr.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\gzclose.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\gzlib.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\gzread.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\zlib-1.2.11\gzwrite.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-aggregate.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-apm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-array.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-async.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-async-cmd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-buffer.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-bulk-operation.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-change-stream.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client-pool.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client-side-encryption.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cluster.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cluster-aws.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cluster-sasl.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-collection.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-compression.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-counters.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-crypt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-array.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-cmd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-change-stream.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-cmd-deprecated.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-find.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-find-cmd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-find-opquery.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor-legacy.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-database.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-error.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-find-and-modify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-init.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-bucket.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-bucket-file.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-file.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-file-list.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-file-page.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-handshake.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-host-list.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-http.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-index.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-interrupt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-list.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-linux-distro-scanner.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-log.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-matcher.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-matcher-op.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-memcmp.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cmd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-opts-helpers.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-opts.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-queue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-read-concern.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-read-prefs.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-rpc.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-server-description.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-server-stream.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client-session.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-server-monitor.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-set.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-socket.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-buffered.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-file.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-gridfs.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-gridfs-download.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-gridfs-upload.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-socket.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-topology.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-topology-background-monitoring.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-topology-description.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-topology-description-apm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-topology-scanner.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-uri.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-util.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-version-functions.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-write-command.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-write-command-legacy.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-write-concern.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\common\common-b64.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\common\common-md5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\common\common-thread.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-crypto.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-scram.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-tls.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-ssl.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-crypto-cng.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-rand-cng.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-tls-secure-channel.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-secure-channel.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-sasl.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cluster-sspi.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-sspi.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\hexlify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_b64.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_caller_identity_request.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_crypto_apple.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_crypto_libcrypto.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_crypto_none.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_crypto_windows.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_decrypt_request.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_encrypt_request.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_kv_list.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_message.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_port.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_request.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_request_opt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_request_str.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_response.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\kms_response_parser.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\kms-message\src\sort.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mongoc-config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mongoc-version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-apm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-bulk-operation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-change-stream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client-pool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client-side-encryption.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-collection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-cursor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-database.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-flags.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-find-and-modify.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-bucket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-file.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-file-page.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-gridfs-file-list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-handshake.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-host-list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-init.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-index.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-iovec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-macros.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-matcher.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-opcode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-prelude.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-read-concern.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-read-prefs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-server-description.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-client-session.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-socket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-tls-libressl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-tls-openssl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-buffered.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-file.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-gridfs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-socket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-topology-description.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-uri.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-version-functions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-write-concern.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-rand.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-stream-tls.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\mongoc-ssl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libmongoc\src\mongoc\forwarding\mongoc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{3BC26B2C-D73B-37B7-86D2-22E27386D404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{907D44D8-0E2D-3D9A-A3E5-830CC375CB7A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

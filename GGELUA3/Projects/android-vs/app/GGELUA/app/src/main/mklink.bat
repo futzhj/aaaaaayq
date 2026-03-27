@@ -1,0 +1,1 @@
+mklink /j .\assets X:\GGELUA1\XYQ\assets

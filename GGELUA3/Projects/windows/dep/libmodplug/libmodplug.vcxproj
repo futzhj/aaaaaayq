@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>
+    </PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FD9BF821-EBCF-3349-A750-B25779A2AF02}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>libmodplug</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>HAVE_STDINT_H;HAVE_SINF;MMCMP_SUPPORT;MODPLUG_STATIC;MODPLUG_BUILD;NO_CXX_EXPORTS;WIN32;_WINDOWS;MODPLUG_BUILD;NO_CXX_EXPORTS;_USE_MATH_DEFINES;NOMINMAX;HAVE_STDINT_H;HAVE_SINF;MODPLUG_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;MODPLUG_BUILD;NO_CXX_EXPORTS;_USE_MATH_DEFINES;NOMINMAX;HAVE_STDINT_H;HAVE_SINF;MODPLUG_STATIC;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>HAVE_STDINT_H;HAVE_SINF;MMCMP_SUPPORT;MODPLUG_STATIC;MODPLUG_BUILD;NO_CXX_EXPORTS;WIN32;_WINDOWS;NDEBUG;MODPLUG_BUILD;NO_CXX_EXPORTS;_USE_MATH_DEFINES;NOMINMAX;HAVE_STDINT_H;HAVE_SINF;MODPLUG_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MODPLUG_BUILD;NO_CXX_EXPORTS;_USE_MATH_DEFINES;NOMINMAX;HAVE_STDINT_H;HAVE_SINF;MODPLUG_STATIC;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug\it_defs.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug\sndfile.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug\stdafx.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\fastmix.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_669.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_abc.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_amf.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_ams.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_dbm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_dmf.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_dsm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_far.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_gdm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_it.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_mdl.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_med.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_mid.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_mod.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_mt2.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_mtm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_okt.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_pat.cpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_pat.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_psm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_ptm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_s3m.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_stm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_ult.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_umx.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_wav.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\load_xm.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\mmcmp.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\modplug.cpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\modplug.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\snd_dsp.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\snd_flt.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\snd_fx.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\sndfile.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\sndmix.cpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\tables.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

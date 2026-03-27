@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\hash.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lbase64.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lfs.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lua_cmsgpack.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lua_zlib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\main.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\md5.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\crypto_random.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\nanoid\lua.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)nanoid\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)nanoid\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\nanoid.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\script.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\lua_aes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ggelua\core.c" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\print\cprint.c" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\uuid\lua.c">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)uuid\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)uuid\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\lib\ggelua\uuid\uuid4.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\lfs.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\luaopen.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\crypto_random.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\nanoid.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ggelua\nanoid\settings.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lua.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SQLite3MultipleCiphers\src\rijndael.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\zlib\zlib.vcxproj">
+      <Project>{5fca3894-feb8-4c7f-b5fa-baff2e69f619}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\lua\lua.vcxproj">
+      <Project>{0ffa55d6-c072-4ba9-a5ea-f08cffe7d641}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SDL2\SDL2.vcxproj">
+      <Project>{81ce8daf-ebb2-4761-8e45-b71abcca8c68}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SDL_image\SDL_image.vcxproj">
+      <Project>{2bd5534e-00e2-4bea-ac96-d9a92ea24696}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libjpeg\libjpeg.vcxproj">
+      <Project>{019dbd2a-273d-4ba4-bf86-b5efe2ed76b1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libpng\libpng.vcxproj">
+      <Project>{d6973076-9317-4ef2-a0b8-b7a18ac0713e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libwebp\libwebp.vcxproj">
+      <Project>{ea1d1b51-f067-3c93-8f54-669095725f4b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\ghv\ghv.vcxproj">
+      <Project>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</Project>
+      <SetPlatform>Platform=x64</SetPlatform>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4f7b97f6-1b8f-416c-a987-8dba9b105f5d}</ProjectGuid>
+    <RootNamespace>ggelua</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\lua.props" />
+    <Import Project="..\..\dll.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\lua.props" />
+    <Import Project="..\..\dll.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Sources\lib\ggelua;$(SolutionDir)..\..\Sources\lib\ggelua\uuid;$(SolutionDir)..\..\Sources\lib\ggelua\print;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\sdl\include;$(SolutionDir)..\..\Dependencies\zlib;$(SolutionDir)..\..\Dependencies\SQLite3MultipleCiphers\src;$(SolutionDir)..\..\Dependencies\libhv;$(SolutionDir)..\..\Dependencies\libhv\base;$(SolutionDir)..\..\Dependencies\libhv\evpp;$(SolutionDir)..\..\Sources\lib\ghv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\Dependencies\openssl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Sources\lib\ggelua;$(SolutionDir)..\..\Sources\lib\ggelua\uuid;$(SolutionDir)..\..\Sources\lib\ggelua\print;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\sdl\include;$(SolutionDir)..\..\Dependencies\zlib;$(SolutionDir)..\..\Dependencies\SQLite3MultipleCiphers\src;$(SolutionDir)..\..\Dependencies\libhv;$(SolutionDir)..\..\Dependencies\libhv\base;$(SolutionDir)..\..\Dependencies\libhv\evpp;$(SolutionDir)..\..\Sources\lib\ghv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>..\..\ggelua_all.def</ModuleDefinitionFile>
+      <AdditionalDependencies>setupapi.lib;winmm.lib;imm32.lib;version.lib;libcmt.lib;libvcruntime.lib;libucrt.lib;libcpmt.lib;kernel32.lib;user32.lib;gdi32.lib;ole32.lib;oleaut32.lib;shell32.lib;advapi32.lib;ws2_32.lib;crypt32.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\Dependencies\openssl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib;msvcrtd.lib;msvcprt.lib;msvcprtd.lib;libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,100 @@
+﻿閫傜敤浜?.NET Framework MSBuild 鐗堟湰 18.0.5+e22287bf1
+鐢熸垚鍚姩鏃堕棿涓?2026/3/21 6:21:16銆?
+
+椤圭洰鈥渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj鈥濆湪鑺傜偣 1 涓?Build 涓洰鏍?銆?
+椤圭洰鈥渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj鈥?1)姝ｅ湪鑺傜偣 1 涓婄敓鎴愨€渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\dll\lua\lua.vcxproj鈥?2) (榛樿鐩爣)銆?
+PrepareForBuild:
+  宸插惎鐢ㄧ粨鏋勫寲杈撳嚭銆傜紪璇戝櫒璇婃柇鐨勬牸寮忚缃皢鍙嶆槧閿欒灞傛缁撴瀯銆傛湁鍏宠缁嗕俊鎭紝璇峰弬闃?https://aka.ms/cpp/structured-output銆?
+InitializeBuildStatus:
+  姝ｅ湪鍒涘缓鈥?x64\Release\lua54.tlog\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
+  姝ｅ湪瀵光€?x64\Release\lua54.tlog\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
+ClCompile:
+  鎵€鏈夎緭鍑哄潎涓烘渶鏂般€?
+Lib:
+  鎵€鏈夎緭鍑哄潎涓烘渶鏂般€?
+  lua.vcxproj -> d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\dll\lua\.x64\Release\lua54.lib
+PostBuildEvent:
+  rem copy /y ".x64\Release\"lua54.lib d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\dll\lua\..\..\GGELUA\lua54.lib
+  :VCEnd
+FinalizeBuildStatus:
+  姝ｅ湪鍒犻櫎鏂囦欢鈥?x64\Release\lua54.tlog\unsuccessfulbuild鈥濄€?
+  姝ｅ湪瀵光€?x64\Release\lua54.tlog\lua54.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
+宸插畬鎴愮敓鎴愰」鐩€渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\dll\lua\lua.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
+PrepareForBuild:
+  姝ｅ湪鍒涘缓鐩綍鈥?x64\Release\鈥濄€?
+  宸插惎鐢ㄧ粨鏋勫寲杈撳嚭銆傜紪璇戝櫒璇婃柇鐨勬牸寮忚缃皢鍙嶆槧閿欒灞傛缁撴瀯銆傛湁鍏宠缁嗕俊鎭紝璇峰弬闃?https://aka.ms/cpp/structured-output銆?
+  姝ｅ湪鍒涘缓鐩綍鈥?x64\Release\ghv.tlog\鈥濄€?
+InitializeBuildStatus:
+  姝ｅ湪鍒涘缓鈥?x64\Release\ghv.tlog\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
+  姝ｅ湪瀵光€?x64\Release\ghv.tlog\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.50.35717\bin\HostX86\x64\CL.exe /c /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\libhv" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\libhv\base" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\libhv\event" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\libhv\evpp" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\libhv\http" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\libhv\http\client" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Sources\lib\ghv" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\lua" /I"d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\..\..\Dependencies\SDL\include" /Zi /nologo /W3 /WX- /diagnostics:column /O2 /Oi /D HV_STATICLIB /D HV_WITHOUT_SSL /D EVENT_IOCP /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D GHV_EXPORTS /D LUA_BUILD_AS_DLL /D LUA_BUILD_AS_DLL /D LUA_LIB /D LUA_COMPAT_APIINTCASTS /D _WINDLL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++14 /Fo".x64\Release\\" /Fd".x64\Release\vc145.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ..\..\..\..\Sources\lib\ghv\ghv_tcp_client.cpp ..\..\..\..\Sources\lib\ghv\ghv_tcp_server.cpp ..\..\..\..\Sources\lib\ghv\ghv_http.cpp ..\..\..\..\Sources\lib\ghv\ghv_download.cpp ..\..\..\..\Dependencies\libhv\http\HttpMessage.cpp ..\..\..\..\Dependencies\libhv\http\HttpParser.cpp ..\..\..\..\Dependencies\libhv\http\Http1Parser.cpp ..\..\..\..\Dependencies\libhv\http\client\AsyncHttpClient.cpp ..\..\..\..\Dependencies\libhv\http\client\HttpClient.cpp
+  ghv_tcp_client.cpp
+  ghv_tcp_server.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Sources/lib/ghv/ghv_tcp_client.cpp鈥?
+  
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Sources/lib/ghv/ghv_tcp_server.cpp鈥?
+  
+  ghv_http.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hlog.h(1,1): warning C4819: 璇ユ枃浠跺寘鍚笉鑳藉湪褰撳墠浠ｇ爜椤?936)涓〃绀虹殑瀛楃銆傝灏嗚鏂囦欢淇濆瓨涓?Unicode 鏍煎紡浠ラ槻姝㈡暟鎹涪澶?[d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Sources/lib/ghv/ghv_http.cpp鈥?
+  
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Sources/lib/ghv/ghv_http.cpp鈥?
+  
+  ghv_download.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\http\client\HttpClient.h(5,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉ssl.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Sources/lib/ghv/ghv_download.cpp鈥?
+  
+  HttpMessage.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Dependencies/libhv/http/HttpMessage.cpp鈥?
+  
+  HttpParser.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Dependencies/libhv/http/HttpParser.cpp鈥?
+  
+  Http1Parser.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Dependencies/libhv/http/Http1Parser.cpp鈥?
+  
+  AsyncHttpClient.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hlog.h(1,1): warning C4819: 璇ユ枃浠跺寘鍚笉鑳藉湪褰撳墠浠ｇ爜椤?936)涓〃绀虹殑瀛楃銆傝灏嗚鏂囦欢淇濆瓨涓?Unicode 鏍煎紡浠ラ槻姝㈡暟鎹涪澶?[d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Dependencies/libhv/http/client/AsyncHttpClient.cpp鈥?
+  
+d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Dependencies/libhv/http/client/AsyncHttpClient.cpp鈥?
+  
+  HttpClient.cpp
+d:\椤圭洰婧愮爜\GGELUA3\Dependencies\libhv\http\client\HttpClient.h(5,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉ssl.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  (缂栬瘧婧愭枃浠垛€?./../../../Dependencies/libhv/http/client/HttpClient.cpp鈥?
+  
+  姝ｅ湪鐢熸垚浠ｇ爜...
+宸插畬鎴愮敓鎴愰」鐩€渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj鈥?Build 涓洰鏍?鐨勬搷浣?- 澶辫触銆?
+
+鐢熸垚澶辫触銆?
+
+鈥渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj鈥?Build 鐩爣) (1) ->
+(ClCompile 鐩爣) -> 
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hlog.h(1,1): warning C4819: 璇ユ枃浠跺寘鍚笉鑳藉湪褰撳墠浠ｇ爜椤?936)涓〃绀虹殑瀛楃銆傝灏嗚鏂囦欢淇濆瓨涓?Unicode 鏍煎紡浠ラ槻姝㈡暟鎹涪澶?[d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hlog.h(1,1): warning C4819: 璇ユ枃浠跺寘鍚笉鑳藉湪褰撳墠浠ｇ爜椤?936)涓〃绀虹殑瀛楃銆傝灏嗚鏂囦欢淇濆瓨涓?Unicode 鏍煎紡浠ラ槻姝㈡暟鎹涪澶?[d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+
+
+鈥渄:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj鈥?Build 鐩爣) (1) ->
+(ClCompile 鐩爣) -> 
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\http\client\HttpClient.h(5,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉ssl.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\Dependencies\libhv\base\hplatform.h(4,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉config.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+  d:\椤圭洰婧愮爜\GGELUA3\Dependencies\libhv\http\client\HttpClient.h(5,10): error C1083: 鏃犳硶鎵撳紑鍖呮嫭鏂囦欢: 鈥渉ssl.h鈥? No such file or directory [d:\椤圭洰婧愮爜\GGELUA3\Projects\windows\lib\ghv\ghv.vcxproj]
+
+    2 涓鍛?
+    9 涓敊璇?
+
+宸茬敤鏃堕棿 00:00:07.66

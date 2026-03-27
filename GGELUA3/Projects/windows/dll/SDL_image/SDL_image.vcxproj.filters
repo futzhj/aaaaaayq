@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{6853248a-b486-4a93-9071-1323031637e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{43e74b2e-a49c-4d0c-8e82-12ab57566cd1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_bmp.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_gif.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_jpg.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_lbm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_pcx.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_png.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_pnm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_tga.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_tif.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_webp.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xcf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xpm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xv.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xxx.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_svg.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_qoi.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_avif.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_jxl.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_stb.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\SDL_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\version.rc" />
+  </ItemGroup>
+</Project>

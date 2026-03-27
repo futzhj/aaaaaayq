@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\fastmix.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_669.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_abc.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_amf.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_ams.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_dbm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_dmf.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_dsm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_far.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_gdm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_it.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_mdl.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_med.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_mid.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_mod.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_mt2.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_mtm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_okt.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_pat.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_psm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_ptm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_s3m.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_stm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_ult.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_umx.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_wav.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_xm.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\mmcmp.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\modplug.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\sndfile.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\sndmix.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\snd_dsp.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\snd_flt.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\snd_fx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\load_pat.h" />
+    <ClInclude Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\modplug.h" />
+    <ClInclude Include="..\..\..\..\Dependencies\audio_codecs\libmodplug-0.8.9.0\src\tables.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2e60cb5e-c15c-4a6d-a0e4-e84c5261a399}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>libmodplug</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\libmodplug-$(libmodplug_ver)\src\libmodplug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_SETENV;HAVE_SINF;HAVE_STDINT_H;MMCMP_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

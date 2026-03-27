@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{641C5F36-32EE-4323-B740-992B651CF9D6}</ProjectGuid>
+    <ProjectName>libzmq</ProjectName>
+    <PlatformToolset>v143</PlatformToolset>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType Condition="$(Configuration.IndexOf('DLL')) == -1">StaticLibrary</ConfigurationType>
+    <ConfigurationType Condition="$(Configuration.IndexOf('DLL')) != -1">DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <Option-tweet>true</Option-tweet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>ZMQ_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libzmq\src;$(SolutionDir)dep\libzmq;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Iphlpapi.lib;Ws2_32.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>ZMQ_STATIC;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libzmq\src;$(SolutionDir)dep\libzmq;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Iphlpapi.lib;Ws2_32.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\include\zmq.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\zmq_draft.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\address.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\array.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\atomic_counter.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\atomic_ptr.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\blob.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\client.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\clock.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\command.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\condition_variable.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\config.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ctx.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\curve_client.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\curve_server.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\decoder.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\decoder_allocators.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\devpoll.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dgram.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dish.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dist.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\encoder.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\epoll.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\err.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\fd.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\fq.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gather.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gssapi_client.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gssapi_mechanism_base.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gssapi_server.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\i_engine.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\i_poll_events.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\io_object.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\io_thread.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ip.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ipc_address.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ipc_connecter.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ipc_listener.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\kqueue.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\lb.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\likely.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mailbox.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mailbox_safe.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\msg.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mtrie.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mutex.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\object.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\options.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\own.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pair.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pgm_receiver.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pgm_sender.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pgm_socket.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pipe.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\server.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socks.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socks_connecter.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\poll.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\poller.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\poller_base.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\precompiled.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\proxy.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pub.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pull.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\push.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\radio.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\random.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\raw_decoder.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\raw_encoder.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\reaper.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\rep.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\req.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\scatter.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\select.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\session_base.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\signaler.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socket_base.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\stdint.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\stream_engine.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\sub.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp_address.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp_connecter.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp_listener.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\timers.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\thread.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\trie.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tweetnacl.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\udp_address.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\udp_engine.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v1_decoder.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v1_encoder.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v1_protocol.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\windows.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\wire.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\xpub.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\xrep.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\xreq.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\xsub.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ypipe.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libzmq\src\yqueue.hpp" />
+    <ClInclude Include="platform.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\address.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\client.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\clock.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ctx.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\curve_client.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\curve_mechanism_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\curve_server.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dealer.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\decoder_allocators.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\devpoll.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dgram.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dish.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\dist.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\epoll.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\err.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\fq.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gather.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gssapi_client.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gssapi_mechanism_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\gssapi_server.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\io_object.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\io_thread.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ip.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ipc_address.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ipc_connecter.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ipc_listener.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\kqueue.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\lb.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mailbox.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mailbox_safe.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mechanism.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mechanism_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\metadata.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\msg.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\mtrie.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\null_mechanism.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\object.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\options.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\own.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pair.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pgm_receiver.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pgm_sender.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pgm_socket.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pipe.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\plain_client.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\plain_server.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\poll.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\poller_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\precompiled.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\proxy.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pub.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pull.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\push.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\radio.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\random.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\raw_decoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\raw_encoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\reaper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\rep.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\req.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\router.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\scatter.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\select.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\server.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\session_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\signaler.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socket_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socket_poller.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socks.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\socks_connecter.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\stream.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\sub.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp_address.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp_connecter.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tcp_listener.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\thread.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\timers.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\trie.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\tweetnacl.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\udp_address.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\udp_engine.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v1_decoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v1_encoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v2_decoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v2_encoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\xpub.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\xsub.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\zap_client.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\zmq.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\zmq_utils.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\endpoint.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ip_resolver.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\norm_engine.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\polling_util.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\pollset.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\radix_tree.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\stream_connecter_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\stream_listener_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\external\sha1\sha1.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\external\wepoll\wepoll.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\channel.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\peer.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\raw_engine.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\stream_engine_base.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\v3_1_encoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ws_address.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ws_connecter.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ws_decoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ws_encoder.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ws_engine.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\ws_listener.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libzmq\src\zmtp_engine.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bcon.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-atomic.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-clock.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-context.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-decimal128.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-error.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-iso8601.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-iter.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-json.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-keys.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-md5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-memory.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-oid.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-reader.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-string.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-timegm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-utf8.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-value.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-version-functions.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-writer.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\jsonsl\jsonsl.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\common\common-b64.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\common\common-md5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\common\common-thread.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bson-config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bson-version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bcon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-atomic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-clock.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-compat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-context.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-decimal128.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-endian.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-iter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-json.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-keys.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-macros.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-memory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-oid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-prelude.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-reader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-string.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-utf8.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-value.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-version-functions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\bson-writer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mongo-c-driver\src\libbson\src\bson\forwarding\bson.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{907D44D8-0E2D-3D9A-A3E5-830CC375CB7A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{3BC26B2C-D73B-37B7-86D2-22E27386D404}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

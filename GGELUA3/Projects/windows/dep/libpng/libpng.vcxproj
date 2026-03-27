@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D6973076-9317-4EF2-A0B8-B7A18AC0713E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libpng</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <CustomBuildBeforeTargets />
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <CustomBuildBeforeTargets />
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
+      <BrowseInformation>true</BrowseInformation>
+      <CompileAs>CompileAsC</CompileAs>
+      <StringPooling>true</StringPooling>
+      <DisableSpecificWarnings>$(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
+      <BrowseInformation>true</BrowseInformation>
+      <CompileAs>CompileAsC</CompileAs>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings>$(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\png.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngerror.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngget.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngmem.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngpread.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngread.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngrio.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngrtran.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngrutil.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngset.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngtrans.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwio.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwrite.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwtran.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\png.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\pngconf.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\pnglibconf.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

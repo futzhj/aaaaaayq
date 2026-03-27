@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ghv</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\lib.props" />
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\lib.props" />
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+
+  <!-- Debug|x64 -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>HV_STATICLIB;HV_WITHOUT_SSL;EVENT_IOCP;_DEBUG;_WINDOWS;_USRDLL;GHV_EXPORTS;LUA_BUILD_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libhv;$(SolutionDir)..\..\Dependencies\libhv\base;$(SolutionDir)..\..\Dependencies\libhv\event;$(SolutionDir)..\..\Dependencies\libhv\evpp;$(SolutionDir)..\..\Dependencies\libhv\http;$(SolutionDir)..\..\Dependencies\libhv\http\client;$(SolutionDir)..\..\Dependencies\libhv\ssl;$(SolutionDir)..\..\Dependencies\libhv\cpputil;$(SolutionDir)..\..\Dependencies\libhv\util;$(SolutionDir)..\..\Dependencies\openssl\include;$(SolutionDir)..\..\Sources\lib\ghv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;crypt32.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\Dependencies\openssl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- Release|x64 -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader></PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>HV_STATICLIB;HV_WITHOUT_SSL;EVENT_IOCP;NDEBUG;_WINDOWS;_USRDLL;GHV_EXPORTS;LUA_BUILD_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libhv;$(SolutionDir)..\..\Dependencies\libhv\base;$(SolutionDir)..\..\Dependencies\libhv\event;$(SolutionDir)..\..\Dependencies\libhv\evpp;$(SolutionDir)..\..\Dependencies\libhv\http;$(SolutionDir)..\..\Dependencies\libhv\http\client;$(SolutionDir)..\..\Dependencies\libhv\ssl;$(SolutionDir)..\..\Dependencies\libhv\cpputil;$(SolutionDir)..\..\Dependencies\libhv\util;$(SolutionDir)..\..\Dependencies\openssl\include;$(SolutionDir)..\..\Sources\lib\ghv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>ws2_32.lib;crypt32.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\Dependencies\openssl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- ghv binding source files -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\lib\ghv\ghv_tcp_client.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ghv\ghv_tcp_server.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ghv\ghv_crypto.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ghv\ghv_http.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ghv\ghv_download.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\lib\ghv\ghv_loop_init.c" />
+  </ItemGroup>
+
+  <!-- libhv base sources -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hbase.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\herr.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hlog.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hsocket.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\htime.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hversion.c" />
+  </ItemGroup>
+
+  <!-- libhv event sources (IOCP for Windows) -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\hevent.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\hloop.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\iocp.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\nio.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\overlapio.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\unpack.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\noevent.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\select.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\event\wepoll\wepoll.c" />
+  </ItemGroup>
+
+  <!-- libhv http sources -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\HttpMessage.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\HttpParser.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\Http1Parser.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\client\AsyncHttpClient.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\client\HttpClient.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\http_content.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\httpdef.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\http_parser.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\multipart_parser.c" />
+  </ItemGroup>
+
+  <!-- libhv cpputil sources -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\ThreadLocalStorage.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hstring.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hurl.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hasync.cpp" />
+  </ItemGroup>
+
+  <!-- libhv util sources -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\util\base64.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\util\md5.c" />
+  </ItemGroup>
+
+  <!-- libhv ssl stub (no SSL) -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\ssl\nossl.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\ssl\hssl.c" />
+  </ItemGroup>
+
+  <!-- Header files -->
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\lib\ghv\ghv_common.h" />
+    <ClInclude Include="..\..\..\..\Sources\lib\ghv\ghv_crypto.h" />
+    <ClInclude Include="..\..\..\..\Sources\lib\ghv\ghv_net_protocol.h" />
+  </ItemGroup>
+
+  <!-- Project references (lua DLL) -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\dll\lua\lua.vcxproj">
+      <Project>{0ffa55d6-c072-4ba9-a5ea-f08cffe7d641}</Project>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

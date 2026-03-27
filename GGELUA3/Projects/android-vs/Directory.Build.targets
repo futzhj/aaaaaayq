@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Directory.Build.targets
+  MSBuild auto-imports this file AFTER all project-level definitions,
+  ensuring these settings override any per-project values.
+
+  构建输出归集 (由 build_android.ps1 在构建后完成):
+    .out/{abi}/  ← .so 产物（与 APK jniLibs 格式一致）
+
+  中间文件统一管理 (由本文件控制):
+    .obj/{Platform}/{Configuration}/{ProjectName}/  ← .o 中间文件
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      中间文件统一到 .obj/ 目录，按项目名隔离避免 .o 冲突。
+      OutDir 不修改，保留各项目默认值以确保 NDK 链接兼容性。
+    -->
+    <IntDir>$(SolutionDir).obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- Fix: c++17 -> c++1z (the valid MSBuild enum value for C++17 in Android Clang targets) -->
+      <CppLanguageStandard>c++1z</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

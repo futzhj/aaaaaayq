@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\plugins\auth\my_auth.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\plugins\auth\old_password.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\plugins\pvio\pvio_socket.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_array.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_charset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_hash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_net.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\mariadb_charset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_default.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_errmsg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\mariadb_lib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_pvio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_tls.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_alloc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_compress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_password.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_ll2str.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_sha1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\mariadb_stmt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_loaddata.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_stmt_codec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_dtoa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\mariadb_rpl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)dep\mariadb\ma_client_plugin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_io.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\secure\schannel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\secure\ma_schannel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\secure\schannel_certs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\win-iconv\win_iconv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\win32_errmsg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\adler32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\compress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\crc32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\deflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\gzclose.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\gzlib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\gzread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\gzwrite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\infback.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\inffast.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\inflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\inftrees.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\trees.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\uncompr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\zlib\zutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\mariadb_dyncol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\mariadb_async.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\ma_context.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\mariadb-connector-c\libmariadb\win32_errmsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{51C02D7F-4633-31BE-A8A7-106B8FD69558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2E536ABF-B711-3D62-8F93-B379F70B445E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

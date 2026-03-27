@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\common.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_HttpClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PackAgent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PackClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PackServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PullAgent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PullClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PullServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_TcpClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_TcpServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_UdpNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{29a29c8d-3042-4b61-b1ec-a62aa3cecade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{ea364c91-00b4-4dfa-8a49-d5f71dfa1bd9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_HttpClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PackAgent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PackClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PackServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PullAgent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PullClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PullServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_PushClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_TcpClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_UdpNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\ghpsocket\HP_TcpServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

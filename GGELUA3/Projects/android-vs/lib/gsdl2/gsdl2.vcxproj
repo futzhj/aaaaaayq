@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{fd3448c7-9259-49a2-ab91-77455616b619}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>gsdl2</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_ttf;$(SolutionDir)..\..\Dependencies\SDL_FontCache;$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Projects\android-vs\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dll\SDL2\SDL2.vcxproj">
+      <Project>{b7be417c-b6c5-4a69-a056-e0cb0c6a344c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dll\SDL_Mixer_X\SDL_mixer.vcxproj">
+      <Project>{7c56dfca-4a87-47f4-9415-b096af20337a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libsndfile\libsndfile.vcxproj">
+      <Project>{6de76554-5b98-42ea-bd0b-e41e18f5b7c1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dll\SDL_ttf\SDL_ttf.vcxproj">
+      <Project>{71a505e3-5fd6-4d4a-9360-dd0bac9b2a79}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dll\lua\lua.vcxproj">
+      <Project>{8481f772-bc91-4032-8682-09809ef70942}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_FontCache\SDL_FontCache.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\audio.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\blendmode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\clipboard.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\cpuinfo.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\error.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\events.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\filesystem.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\gamecontroller.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\gesture.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\gge.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\haptic.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\hints.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\joystick.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\keyboard.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\locale.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\log.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\messagebox.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\metal.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\misc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\mouse.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\mutex.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\opengl.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\pixels.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\platform.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\power.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\rect.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\render.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\rwops.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\sdl.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\sdl_image.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x86'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\sdl_mixer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\sdl_net.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x86'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\sdl_ttf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\sensor.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\shape.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\stdinc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\surface.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\system.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\syswm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\thread.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\timer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\touch.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\version.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\lib\gsdl2\video.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Sources\lib\gsdl2\gge.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

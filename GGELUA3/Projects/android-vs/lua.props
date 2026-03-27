@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+
+  <!-- ============================================================
+       全局编译选项 — 适用于所有 38 个 Android vcxproj
+       ============================================================ -->
+
+  <!-- 所有配置（Debug + Release）共享的安全基线 -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>LUA_LIB;LUA_COMPAT_APIINTCASTS;_FILE_OFFSET_BITS=64;_GNU_SOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <!-- 安全加固: 隐藏内部符号 + 栈保护 + 位置无关代码 -->
+      <!-- NDK r27c 修复: -nostdinc++ 禁用默认 C++ stdlib 搜索，然后通过 -I 重新添加 libc++ 以修复头文件搜索顺序冲突 -->
+      <AdditionalOptions>-nostdinc++ -I "$(VS_NdkRoot)\toolchains\llvm\prebuilt\windows-x86_64\sysroot\usr\include\c++\v1" -fvisibility=hidden -fvisibility-inlines-hidden -fstack-protector-strong -fPIC %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+  <!-- Release 专属优化: -O2 + 关闭断言 + 禁止调试信息 -->
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- x86 专属: 启用 AES-NI + SSE4.1 指令集 (SQLite3MultipleCiphers aes_hardware.c 需要) -->
+  <ItemDefinitionGroup Condition="'$(Platform)'=='x86' Or '$(Platform)'=='x64'">
+    <ClCompile>
+      <AdditionalOptions>-maes -msse4.1 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+  <ItemGroup />
+</Project>

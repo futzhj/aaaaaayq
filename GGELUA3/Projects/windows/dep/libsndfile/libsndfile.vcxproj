@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>
+    </PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EA56E5FC-03ED-327A-8286-D3364218C5F2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>libsndfile</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\build\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(SolutionDir)..\..\Dependencies\libsndfile\build\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\build\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(SolutionDir)..\..\Dependencies\libsndfile\build\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\build\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(SolutionDir)..\..\Dependencies\libsndfile\build\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\build\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(SolutionDir)..\..\Dependencies\libsndfile\build\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\sfconfig.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\sfendian.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\sf_unistd.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\common.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\common.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\file_io.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\command.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\pcm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ulaw.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\alaw.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\float32.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\double64.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ima_adpcm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ms_adpcm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\gsm610.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\dwvw.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\vox_adpcm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\interleave.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\strings.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\dither.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\cart.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\broadcast.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\audio_detect.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ima_oki_adpcm.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ima_oki_adpcm.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\alac.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\chunk.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\chanmap.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\chanmap.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\id3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\windows.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\sndfile.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\aiff.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\au.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\avr.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\caf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\dwd.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\flac.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\g72x_sndfile.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\htk.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ircam.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\macos.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\mat4.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\mat5.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\nist.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\paf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\pvf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\raw.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\rx2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\sd2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\sds.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\svx.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\txw.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\voc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\wve.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\w64.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\wavlike.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\wavlike.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\wav.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\xi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\mpc2k.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\rf64.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg_vorbis.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg_speex.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg_pcm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg_opus.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ogg_vcomment.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\nms_adpcm.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\config.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm610_priv.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\add.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\code.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\decode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm_create.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm_decode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm_destroy.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm_encode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\gsm_option.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\long_term.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\lpc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\preprocess.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\rpe.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\short_term.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\GSM610\table.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g72x.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g72x_priv.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g721.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g723_16.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g723_24.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g723_40.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\G72x\g72x.c">
+      <ObjectFileName>$(IntDir)/src/G72x/g72x.c.obj</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\ALACAudioTypes.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\ALACBitUtilities.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\EndianPortable.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\aglib.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\dplib.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\matrixlib.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\alac_codec.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\shift.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\ALACBitUtilities.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\ag_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\ag_enc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\dp_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\dp_enc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\matrix_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\matrix_enc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\alac_decoder.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\libsndfile\src\ALAC\alac_encoder.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\libsndfile\include\sndfile.hh" />
+    <ClInclude Include="sndfile.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="源文件\ujpeg">
+      <UniqueIdentifier>{8252c67d-980f-4a2d-815e-01ff0459d824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\zstd">
+      <UniqueIdentifier>{D1E2F3A4-B5C6-4D7E-8F9A-0B1C2D3E4F5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\lz4">
+      <UniqueIdentifier>{E2F3A4B5-C6D7-4E8F-9A0B-1C2D3E4F5A6B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\zlib">
+      <UniqueIdentifier>{F3A4B5C6-D7E8-4F9A-0B1C-2D3E4F5A6B7C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\core.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\fsb.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\hash.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\lua_proxy.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\sdl_proxy.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\map.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\SDL_list.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\tcp.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\wdf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\wpk.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\ujpeg\ujpeg.c">
+      <Filter>源文件\ujpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\debug.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\entropy_common.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\error_private.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\fse_decompress.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\xxhash.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\zstd_common.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\huf_decompress.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_ddict.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_decompress.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_decompress_block.c">
+      <Filter>源文件\zstd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4.c">
+      <Filter>源文件\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4hc.c">
+      <Filter>源文件\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4frame.c">
+      <Filter>源文件\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\xxhash.c">
+      <Filter>源文件\lz4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\adler32.c">
+      <Filter>源文件\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\crc32.c">
+      <Filter>源文件\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inffast.c">
+      <Filter>源文件\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inflate.c">
+      <Filter>源文件\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inftrees.c">
+      <Filter>源文件\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\zutil.c">
+      <Filter>源文件\zlib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\fsb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\lua_proxy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\sdl_proxy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\SDL_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\tcp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\wdf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\wpk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\ujpeg\ujpeg.h">
+      <Filter>源文件\ujpeg</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

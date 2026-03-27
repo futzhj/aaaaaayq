@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\compat\compat.c">
+      <Filter>源文件\compat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\compat\compat_str.c">
+      <Filter>源文件\compat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\dct64.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-1.25.13\src\libmpg123\dither.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\equalizer.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\feature.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\format.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\frame.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\icy.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\icy2utf8.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\id3.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\index.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\layer1.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\layer2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\layer3.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\libmpg123.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\ports\MSVC++\msvc.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\ntom.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\optimize.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\parse.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\readers.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\stringbuf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\synth.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\synth_8bit.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\synth_real.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\synth_s32.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\mpg123-$(libmpg_ver)\src\libmpg123\tabinit.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{377ca018-6c58-438b-960c-696e357bf252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\compat">
+      <UniqueIdentifier>{85a2c87d-9164-446e-bfb4-1b7c64cf5101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{16d1c023-89e5-4703-89d1-7b5d7f187dc1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{c1cdb45b-7c34-4b60-83c3-a6f06ec55fbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\TCP">
+      <UniqueIdentifier>{6d0c4b0d-da4b-497a-ba23-3edb20a1e550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UDP">
+      <UniqueIdentifier>{f7525289-33d6-4fdd-8ede-2533004cd77e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\SSL">
+      <UniqueIdentifier>{5c4c0003-b954-4e93-9058-82d8ababd074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\HTTP">
+      <UniqueIdentifier>{8fcdcdc5-e05d-4779-b584-8f796f1b8710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Global">
+      <UniqueIdentifier>{10f77a43-2dc5-4f08-8e91-92e8896ca6a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Pool">
+      <UniqueIdentifier>{6bdb505d-c35e-49dc-9ec9-cbdf46aa489b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{039b40b4-14cf-45b3-bca5-65a981c86518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common\http">
+      <UniqueIdentifier>{ef5a58df-3748-488c-9f4e-63de35d97d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common\kcp">
+      <UniqueIdentifier>{48bf0066-cc23-49f8-b5a5-e0c0c02a276e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\BufferPool.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\BufferPtr.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\CriticalSection.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Event.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\GeneralHelper.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\PrivateHeap.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\RWLock.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Semaphore.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Singleton.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\STLHelper.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\SysHelper.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\WaitFor.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Win32Helper.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\RingBuffer.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLServer.h">
+      <Filter>源文件\SSL</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLHelper.h">
+      <Filter>源文件\SSL</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLClient.h">
+      <Filter>源文件\SSL</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLAgent.h">
+      <Filter>源文件\SSL</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpServer.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpAgent.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpClient.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPackAgent.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPackClient.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPackServer.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPullAgent.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPullClient.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPullServer.h">
+      <Filter>源文件\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpServer.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpCast.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpClient.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpAgent.h">
+      <Filter>源文件\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpClient.h">
+      <Filter>源文件\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpHelper.h">
+      <Filter>源文件\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpServer.h">
+      <Filter>源文件\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpCookie.h">
+      <Filter>源文件\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\MiscHelper.h">
+      <Filter>源文件\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SocketHelper.h">
+      <Filter>源文件\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\FuncHelper.h">
+      <Filter>源文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPThreadPool.h">
+      <Filter>源文件\Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\kcp\ikcp.h">
+      <Filter>源文件\Common\kcp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\ArqHelper.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqClient.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqServer.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpNode.h">
+      <Filter>源文件\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp.h">
+      <Filter>源文件\Common\http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_url.h">
+      <Filter>源文件\Common\http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\SocketInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\HPSocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\HPSocket-SSL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\HPTypeDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\BufferPool.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\RWLock.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\SysHelper.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\WaitFor.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLAgent.cpp">
+      <Filter>源文件\SSL</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLServer.cpp">
+      <Filter>源文件\SSL</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLHelper.cpp">
+      <Filter>源文件\SSL</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLClient.cpp">
+      <Filter>源文件\SSL</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpAgent.cpp">
+      <Filter>源文件\TCP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpClient.cpp">
+      <Filter>源文件\TCP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpServer.cpp">
+      <Filter>源文件\TCP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpCast.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpClient.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpServer.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpAgent.cpp">
+      <Filter>源文件\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpClient.cpp">
+      <Filter>源文件\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpHelper.cpp">
+      <Filter>源文件\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpServer.cpp">
+      <Filter>源文件\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpCookie.cpp">
+      <Filter>源文件\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPSocket.cpp">
+      <Filter>源文件\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\MiscHelper.cpp">
+      <Filter>源文件\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SocketHelper.cpp">
+      <Filter>源文件\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPSocket-SSL.cpp">
+      <Filter>源文件\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\FuncHelper.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPThreadPool.cpp">
+      <Filter>源文件\Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\kcp\ikcp.c">
+      <Filter>源文件\Common\kcp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\ArqHelper.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqClient.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqServer.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpNode.cpp">
+      <Filter>源文件\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_api.c">
+      <Filter>源文件\Common\http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_internal.c">
+      <Filter>源文件\Common\http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_support.c">
+      <Filter>源文件\Common\http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_url.c">
+      <Filter>源文件\Common\http</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

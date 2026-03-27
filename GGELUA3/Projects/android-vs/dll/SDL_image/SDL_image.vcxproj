@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3049f98e-d787-40b6-935e-4139e2b58f6f}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>SDL_image</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <PreprocessorDefinitions>LOAD_BMP;LOAD_GIF;LOAD_JPG;LOAD_LBM;LOAD_PCX;LOAD_PNG;LOAD_PNM;LOAD_SVG;LOAD_TGA;LOAD_XPM;LOAD_XV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image\external\jpeg-9d;$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-1.6.37;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-1.3.2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <LibraryDependencies>m;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_bmp.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_gif.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_jpg.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_lbm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_pcx.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_png.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_pnm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_svg.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_tga.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_tif.c" />
+    <!-- IMG_webp.c disabled: no webpdemux -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_WIC.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xcf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xpm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xv.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_xxx.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\SDL_image\IMG_qoi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\IMG_stubs_android.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\libjpeg\libjpeg.vcxproj">
+      <Project>{3eaba086-a3f4-4f82-886e-b1c73db7ea93}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libpng\libpng.vcxproj">
+      <Project>{79a35eb5-aec2-49fc-823f-455b2ee8cdc4}</Project>
+    </ProjectReference>
+    <!-- libwebp disabled on Android -->
+    <ProjectReference Include="..\SDL2\SDL2.vcxproj">
+      <Project>{b7be417c-b6c5-4a69-a056-e0cb0c6a344c}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

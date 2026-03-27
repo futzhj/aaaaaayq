@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4cefbc84-c215-11db-8314-0800200c9a66}</ProjectGuid>
+    <RootNamespace>libFLAC_static</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/D "_USE_MATH_DEFINES" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include;$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include;$(SolutionDir)..\..\Dependencies\audio_codecs\libogg-$(libogg_ver)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;FLAC__NO_NASM;_DEBUG;_LIB;FLAC__HAS_OGG;ENABLE_64_BIT_WORDS;FLAC__CPU_X86_64;FLAC__HAS_X86INTRIN;FLAC__ALIGN_MALLOC_DATA;PACKAGE_VERSION="$(libflac_ver)";FLAC__NO_DLL;DEBUG;FLAC__OVERFLOW_DETECT;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/D "_USE_MATH_DEFINES" %(AdditionalOptions)</AdditionalOptions>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include;$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include;$(SolutionDir)..\..\Dependencies\audio_codecs\libogg-$(libogg_ver)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;FLAC__NO_NASM;NDEBUG;_LIB;FLAC__HAS_OGG;ENABLE_64_BIT_WORDS;FLAC__CPU_X86_64;FLAC__HAS_X86INTRIN;FLAC__ALIGN_MALLOC_DATA;PACKAGE_VERSION="$(libflac_ver)";FLAC__NO_DLL;FLaC__INLINE=_inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\all.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\assert.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\callback.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\export.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\format.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\metadata.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\ordinals.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\stream_decoder.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\FLAC\stream_encoder.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\alloc.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\compat.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\endswap.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\macros.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\private.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\safe_str.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\include\share\windows_unicode_filenames.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\ia32\nasm.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\all.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\bitmath.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\bitreader.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\bitwriter.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\cpu.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\crc.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\fixed.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\float.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\format.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\lpc.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\md5.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\memory.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\metadata.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\ogg_decoder_aspect.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\ogg_encoder_aspect.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\ogg_helper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\ogg_mapping.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\stream_encoder.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\stream_encoder_framing.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\private\window.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\protected\all.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\protected\stream_decoder.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\include\protected\stream_encoder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\bitmath.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\bitreader.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\bitwriter.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\cpu.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\crc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\fixed.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\fixed_intrin_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\fixed_intrin_ssse3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\float.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\format.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\lpc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\lpc_intrin_avx2.c">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\lpc_intrin_sse.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\lpc_intrin_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\lpc_intrin_sse41.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\md5.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\memory.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\metadata_iterators.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\metadata_object.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\ogg_decoder_aspect.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\ogg_encoder_aspect.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\ogg_helper.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\ogg_mapping.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\stream_decoder.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\stream_encoder.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\stream_encoder_framing.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\stream_encoder_intrin_avx2.c">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/arch:AVX %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\stream_encoder_intrin_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\stream_encoder_intrin_ssse3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\window.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\flac-$(libflac_ver)\src\libFLAC\windows_unicode_filenames.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

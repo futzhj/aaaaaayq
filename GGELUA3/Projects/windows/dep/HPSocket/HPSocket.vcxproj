@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations"><ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration><ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D73A44FF-8818-41EC-8A8E-C36280F0832C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>HPSocket</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>HPSocket</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" /><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup><ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup><ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" /><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi;$(TargetPath)</ExtensionsToDeleteOnClean>
+    <IncludePath>$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\brotli\14x\$(PlatformTarget)\include;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\zlib\14x\$(PlatformTarget)\include;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\openssl\14x\$(PlatformTarget)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\brotli\14x\$(PlatformTarget)\lib;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\zlib\14x\$(PlatformTarget)\lib;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\openssl\14x\$(PlatformTarget)\lib;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\mimalloc\14x\$(PlatformTarget)\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi;$(TargetPath)</ExtensionsToDeleteOnClean>
+    <IncludePath>$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\brotli\14x\$(PlatformTarget)\include;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\zlib\14x\$(PlatformTarget)\include;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\openssl\14x\$(PlatformTarget)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\brotli\14x\$(PlatformTarget)\lib;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\zlib\14x\$(PlatformTarget)\lib;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\openssl\14x\$(PlatformTarget)\lib;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Dependent\mimalloc\14x\$(PlatformTarget)\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup><ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>HPSOCKET_STATIC_LIB;WIN32;_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;4510;4610;4503</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)dep\HPSocketLIB;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Project\HPSocketLIB-2019;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalDependencies>brotli.lib;zlib.lib;crypt32.lib;libssl.lib;libcrypto.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference />
+  </ItemDefinitionGroup><ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_NOT_USE_PRIVATE_HEAP;HPSOCKET_STATIC_LIB;WIN32;NDEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;4510;4610;4503</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)dep\HPSocketLIB;$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Project\HPSocketLIB-2019;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalDependencies>mimalloc.lib;brotli.lib;zlib.lib;crypt32.lib;libssl.lib;libcrypto.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\BufferPool.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\BufferPtr.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\CriticalSection.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Event.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\FuncHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\GeneralHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_url.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\kcp\ikcp.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\PrivateHeap.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\RingBuffer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\RWLock.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Semaphore.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Singleton.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\STLHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\SysHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\WaitFor.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\Win32Helper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\ArqHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\HPSocket.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPThreadPool.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\HPTypeDef.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpAgent.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpCookie.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpServer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\MiscHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SocketHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\SocketInterface.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLAgent.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLHelper.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Include\HPSocket\HPSocket-SSL.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLServer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpAgent.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPackAgent.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPackClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPackServer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPullAgent.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPullClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpPullServer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpServer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqServer.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpCast.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpClient.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpNode.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpServer.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\BufferPool.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\FuncHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_api.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_internal.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_support.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\http\llhttp_url.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\kcp\ikcp.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\RWLock.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\SysHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\Common\WaitFor.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\ArqHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPSocket.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPThreadPool.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpAgent.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpClient.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpCookie.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HttpServer.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\MiscHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SocketHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLAgent.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLClient.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\HPSocket-SSL.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\SSLServer.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpAgent.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpClient.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\TcpServer.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqClient.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpArqServer.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpCast.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpClient.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpNode.cpp" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\HP-Socket\Windows\Src\UdpServer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

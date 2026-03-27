@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}</ProjectGuid>
+    <RootNamespace>FreeType</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="PlatformToolset">
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)freetype.user.props" Condition="exists('$(SolutionDir)freetype.user.props')" Label="UserProperties" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(UserOptionDirectory);$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4001</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalLibraryDirectories>$(UserLibraryDirectories);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>$(UserOptionDirectory);$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <WarningLevel>Level4</WarningLevel>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4001</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\autofit\autofit.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftbase.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftbbox.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftbdf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftbitmap.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftcid.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftfstype.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftgasp.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftglyph.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftgxval.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftinit.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftmm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftotval.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftpatent.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftpfr.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftstroke.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftsynth.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftsystem.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\fttype1.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\base\ftwinfnt.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\bdf\bdf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\cache\ftcache.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\cff\cff.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\cid\type1cid.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\gzip\ftgzip.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\lzw\ftlzw.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\pcf\pcf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\pfr\pfr.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\psaux\psaux.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\pshinter\pshinter.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\psnames\psmodule.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\raster\raster.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\sfnt\sfnt.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\smooth\smooth.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\truetype\truetype.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\type1\type1.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\type42\type42.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\winfonts\winfnt.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\builds\windows\ftdebug.c">
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\dlg\dlgwrap.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\sdf\sdf.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\SDL_ttf\external\freetype-2.11.1\src\bzip2\ftbzip2.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

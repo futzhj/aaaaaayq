@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\arm\arm_init.c">
+      <Filter>源文件\arm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\arm\filter_neon_intrinsics.c">
+      <Filter>源文件\arm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\arm\palette_neon_intrinsics.c">
+      <Filter>源文件\arm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\png.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngerror.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngget.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngmem.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngpread.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngread.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngrio.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngrtran.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngrutil.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngset.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngtrans.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwio.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwrite.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwtran.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libpng-$(libpng_ver)\pngwutil.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{7830b037-77c5-4202-ab6f-ebe9f118dbcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{73203062-1bb0-4b35-a24a-87a5318479d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\arm">
+      <UniqueIdentifier>{d1a2fd78-c3f0-4da3-81a5-2f211a12dd66}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

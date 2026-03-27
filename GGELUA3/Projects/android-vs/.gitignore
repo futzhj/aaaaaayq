@@ -1,0 +1,30 @@
+# ── MSBuild 平台编译缓存 ──
+.ARM/
+.ARM64/
+.x86/
+.x64/
+
+# ── 编译产物 ──
+build_output/
+output/
+*.so
+*.a
+*.recipe
+
+# ── Gradle 缓存 ──
+app/GGELUA/.gradle/
+app/GGELUA/build/
+app/GGELUA/app/build/
+
+# ── jniLibs (编译时自动生成) ──
+app/GGELUA/app/src/main/jniLibs/
+
+# ── 子项目 MSBuild 中间产物 ──
+app/GGELUA/.ARM*/
+app/GGELUA/.x*/
+
+# ── IDE / OS ──
+.vs/
+*.user
+Thumbs.db
+.DS_Store

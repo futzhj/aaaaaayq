@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{67CAA87B-7CF1-4F93-BB67-21C513F40803}</ProjectGuid>
+    <RootNamespace>libmpg123</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.21006.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\ports\MSVC++;$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123;$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\compat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPT_GENERIC;OPT_GENERIC_DITHER;_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib />
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <Lib>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\ports\MSVC++;$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src;$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123;$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\compat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPT_GENERIC;OPT_GENERIC_DITHER;OPT_GENERIC;OPT_GENERIC_DITHER;_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib />
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <Lib>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\compat\compat.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\compat\compat_str.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\dct64.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\equalizer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\feature.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\format.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\frame.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\icy.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\icy2utf8.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\id3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\index.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\layer1.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\layer2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\layer3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\libmpg123.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\ports\MSVC++\msvc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\ntom.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\optimize.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\parse.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\readers.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\stringbuf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\synth.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\synth_8bit.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\synth_real.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\synth_s32.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-$(libmpg_ver)\src\libmpg123\tabinit.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\audio_codecs\mpg123-1.25.13\src\libmpg123\dither.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

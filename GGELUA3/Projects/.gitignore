@@ -1,0 +1,8 @@
+.x64
+.x86
+.Win32
+.vs
+.workspace
+.ARM
+.ARM64
+.gradle

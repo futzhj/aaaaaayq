@@ -1,0 +1,792 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{f33f8a55-78f6-4a62-90cf-23f5ba6212fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\audio">
+      <UniqueIdentifier>{2cc650f1-302f-4d72-a3ea-40df153797fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\atomic">
+      <UniqueIdentifier>{073cbd03-957b-4624-94f4-0d8b970bb2e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core">
+      <UniqueIdentifier>{4d6bcc8a-0d57-49e6-a22c-6fbc74917d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\cpuinfo">
+      <UniqueIdentifier>{ea03866e-95e0-42ce-88c1-0e2a23d9f222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dynapi">
+      <UniqueIdentifier>{e6b383a3-9be0-4019-a891-6048499e51c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\events">
+      <UniqueIdentifier>{6ece0ac7-341b-47c4-89c1-c7369c22b112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\file">
+      <UniqueIdentifier>{84ba13e3-9f32-444f-a930-157f91db732d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\haptic">
+      <UniqueIdentifier>{335f747b-2923-4d84-a77a-16b9f2d7928f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\joystick">
+      <UniqueIdentifier>{06552d48-58a8-48dc-b1a7-93ad351a2b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\joystick\hidapi">
+      <UniqueIdentifier>{d04d81d2-8149-43a8-99e1-b775623cb919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\joystick\virtual">
+      <UniqueIdentifier>{df07c657-a7da-45c2-952e-a62e44583f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\power">
+      <UniqueIdentifier>{bf7e1f6a-49ff-48b0-943e-f2364a3e5271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\filesystem">
+      <UniqueIdentifier>{8bf5b817-5f7f-44b4-bfdb-e3446f6f254a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\render">
+      <UniqueIdentifier>{898d317c-fedf-40d9-8737-3111a48b1a60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\stdlib">
+      <UniqueIdentifier>{75a7e361-6bea-4f44-b4bd-85855742fb6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\thread">
+      <UniqueIdentifier>{938f11c5-bb29-46e5-bae8-66e24050587d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\timer">
+      <UniqueIdentifier>{ffc5faa3-6a24-48a4-b4c6-0383f9f2eff7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\video">
+      <UniqueIdentifier>{e3fd3a85-7e7b-4d70-be90-31dd9adbe816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\test">
+      <UniqueIdentifier>{756fbf40-f114-4eda-bbab-25ea024d271d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\sensor">
+      <UniqueIdentifier>{3a27ba1a-2417-4993-a492-5fe04737d9d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\hidapi">
+      <UniqueIdentifier>{97a7804d-c11d-4093-a7a6-6a21cda91a8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\cpufeatures">
+      <UniqueIdentifier>{6ad619de-c93d-4255-948f-8eb83be743b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\locale">
+      <UniqueIdentifier>{cebd642e-8580-4a11-82a2-bdd42bf95e7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\misc">
+      <UniqueIdentifier>{4a78d561-4890-4642-9657-69d1780bc345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\loadso">
+      <UniqueIdentifier>{a391415e-d708-40dc-a3f3-72f54d71a050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{f0a1bd93-02dd-466b-b9f3-888cbf01c12c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\SDL.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\SDL_assert.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\SDL_error.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\SDL_hints.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\SDL_log.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\SDL_audio.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\SDL_audiocvt.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\SDL_audiodev.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\SDL_audiotypecvt.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\SDL_mixer.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\SDL_wave.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\android\SDL_androidaudio.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\dummy\SDL_dummyaudio.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\atomic\SDL_atomic.c">
+      <Filter>源文件\atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\atomic\SDL_spinlock.c">
+      <Filter>源文件\atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\core\android\SDL_android.c">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\cpuinfo\SDL_cpuinfo.c">
+      <Filter>源文件\cpuinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\dynapi\SDL_dynapi.c">
+      <Filter>源文件\dynapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_clipboardevents.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_dropevents.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_events.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_gesture.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_keyboard.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_mouse.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_quit.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_touch.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_windowevents.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\file\SDL_rwops.c">
+      <Filter>源文件\file</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\haptic\SDL_haptic.c">
+      <Filter>源文件\haptic</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\SDL_gamecontroller.c">
+      <Filter>源文件\joystick</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\SDL_joystick.c">
+      <Filter>源文件\joystick</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\android\SDL_sysjoystick.c">
+      <Filter>源文件\joystick</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\loadso\dlopen\SDL_sysloadso.c">
+      <Filter>源文件\loadso</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\power\SDL_power.c">
+      <Filter>源文件\power</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\power\android\SDL_syspower.c">
+      <Filter>源文件\power</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\filesystem\android\SDL_sysfilesystem.c">
+      <Filter>源文件\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\SDL_d3dmath.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\SDL_render.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\SDL_yuv_sw.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\direct3d\SDL_render_d3d.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\direct3d11\SDL_render_d3d11.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\opengl\SDL_render_gl.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\opengl\SDL_shaders_gl.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\opengles\SDL_render_gles.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\opengles2\SDL_render_gles2.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\opengles2\SDL_shaders_gles2.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\psp\SDL_render_psp.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_blendfillrect.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_blendline.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_blendpoint.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_drawline.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_drawpoint.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_render_sw.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_rotate.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_getenv.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_iconv.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_malloc.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_qsort.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_stdlib.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_string.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\thread\SDL_thread.c">
+      <Filter>源文件\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\thread\pthread\SDL_syscond.c">
+      <Filter>源文件\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\thread\pthread\SDL_sysmutex.c">
+      <Filter>源文件\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\thread\pthread\SDL_syssem.c">
+      <Filter>源文件\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\thread\pthread\SDL_systhread.c">
+      <Filter>源文件\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\thread\pthread\SDL_systls.c">
+      <Filter>源文件\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\timer\SDL_timer.c">
+      <Filter>源文件\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\timer\unix\SDL_systimer.c">
+      <Filter>源文件\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_0.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_1.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_A.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_auto.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_copy.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_N.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_blit_slow.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_bmp.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_clipboard.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_egl.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_fillrect.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_pixels.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_rect.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_RLEaccel.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_shape.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_stretch.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_surface.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_video.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidclipboard.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidevents.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidgl.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidkeyboard.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidmessagebox.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidmouse.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidtouch.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidvideo.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidwindow.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_assert.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_common.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_compare.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_crc32.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_font.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_fuzzer.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_harness.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_imageBlit.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_imageBlitBlend.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_imageFace.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_imagePrimitives.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_imagePrimitivesBlend.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_log.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_md5.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_random.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\SDL_dataqueue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\events\SDL_displayevents.c">
+      <Filter>源文件\events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\sensor\SDL_sensor.c">
+      <Filter>源文件\sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\sensor\android\SDL_androidsensor.c">
+      <Filter>源文件\sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\test\SDL_test_memory.c">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\android\SDL_androidvulkan.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_vulkan_utils.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\SDL_yuv.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\video\yuv2rgb\yuv_rgb.c">
+      <Filter>源文件\video</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\haptic\android\SDL_syshaptic.c">
+      <Filter>源文件\haptic</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\hidapi\android\hid.cpp">
+      <Filter>源文件\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\openslES\SDL_openslES.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\locale\SDL_locale.c">
+      <Filter>源文件\locale</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\locale\android\SDL_syslocale.c">
+      <Filter>源文件\locale</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\misc\SDL_url.c">
+      <Filter>源文件\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_crc32.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_gamecube.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_ps4.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_ps5.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_rumble.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_steam.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_switch.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_xbox360.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_xboxone.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapijoystick.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\virtual\SDL_virtualjoystick.c">
+      <Filter>源文件\joystick\virtual</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\misc\android\SDL_sysurl.c">
+      <Filter>源文件\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="cpufeatures\cpu-features.c">
+      <Filter>源文件\cpufeatures</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_xbox360w.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\stdlib\SDL_strtokr.c">
+      <Filter>源文件\stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\audio\aaudio\SDL_aaudio.c">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\render\software\SDL_triangle.c">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_stadia.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\hidapi\SDL_hidapi.c">
+      <Filter>源文件\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL\src\joystick\hidapi\SDL_hidapi_luna.c">
+      <Filter>源文件\joystick\hidapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\SDL\src\SDL_list.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\begin_code.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\close_code.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_assert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_atomic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_audio.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_bits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_blendmode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_clipboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_android.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_iphoneos.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_macosx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_minimal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_os2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_pandora.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_psp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_windows.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_winrt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_config_wiz.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_copying.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_cpuinfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_egl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_endian.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_events.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_filesystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_gamecontroller.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_gesture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_haptic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_hints.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_joystick.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_keycode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_loadso.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_main.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_messagebox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_mouse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_mutex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_name.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengl_glext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengles.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengles2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengles2_gl2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengles2_gl2ext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengles2_gl2platform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_opengles2_khrplatform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_pixels.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_platform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_power.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_quit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_rect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_render.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_revision.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_rwops.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_scancode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_sensor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_shape.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_stdinc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_surface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_system.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_syswm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_assert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_compare.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_crc32.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_font.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_fuzzer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_harness.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_images.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_memory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_test_random.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_thread.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_touch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_video.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_vulkan.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_locale.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL\include\SDL_misc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Dependencies\SDL\src\SDL_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{212ec4d7-1999-4df8-9687-7e5fed16443f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{c95c5288-ef2f-4188-96f2-eb95f70c2aa5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\bitmath.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\bitreader.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\bitwriter.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\cpu.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\crc.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\fixed.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\fixed_intrin_sse2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\fixed_intrin_ssse3.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\float.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\format.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\lpc.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\lpc_intrin_avx2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\lpc_intrin_sse.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\lpc_intrin_sse2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\lpc_intrin_sse41.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\lpc_intrin_vsx.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\md5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\memory.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\metadata_iterators.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\metadata_object.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\ogg_decoder_aspect.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\ogg_encoder_aspect.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\ogg_helper.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\ogg_mapping.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\stream_decoder.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\stream_encoder.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\stream_encoder_framing.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\stream_encoder_intrin_avx2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\stream_encoder_intrin_sse2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\stream_encoder_intrin_ssse3.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\flac-1.3.3\src\libFLAC\window.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

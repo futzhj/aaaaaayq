@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{ccffa6d8-2701-4e4e-9ce4-11860f739d64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{8f94bf71-6a3a-446d-a1d1-32a6716be198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\codecs">
+      <UniqueIdentifier>{93b7ba6a-4c16-46c7-9246-fbf46158eda8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\codecs\timidity">
+      <UniqueIdentifier>{478e6584-f782-45b9-99bd-7de37350643d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\common.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\instrum.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\mix.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\output.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\playmidi.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\readmidi.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\resample.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\tables.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\timidity\timidity.c">
+      <Filter>源文件\codecs\timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\load_aiff.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\load_voc.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\mp3utils.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_cmd.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_flac.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_fluidsynth.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_mad.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_mikmod.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_modplug.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_mpg123.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_nativemidi.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_ogg.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_opus.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_timidity.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_wav.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\codecs\music_xmp.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\effect_position.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\effect_stereoreverse.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\effects_internal.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\mixer.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\music.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\src\utils.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\SDL_mixer\src\codecs\music_sndfile.c">
+      <Filter>源文件\codecs</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

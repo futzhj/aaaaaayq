@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{93E531F7-A0B3-4DAE-9191-8B37A038731C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>luasql</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\lib.props" />
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\lib.props" />
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>SQLITE_HAS_CODEC;_CRT_SECURE_NO_WARNINGS;LUA_LIB;WIN32;_DEBUG;_WINDOWS;_USRDLL;LUASQL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)..\..\Dependencies\mariadb-connector-c\include;$(SolutionDir)..\..\Dependencies\SQLite3MultipleCiphers\src;$(SolutionDir)..\..\Dependencies\PostgreSQL\src\interfaces\libpq;$(SolutionDir)..\..\Dependencies\PostgreSQL\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>odbc32.lib;ws2_32.lib;advapi32.lib;kernel32.lib;shlwapi.lib;crypt32.lib;secur32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;wldap32.lib</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>SQLITE_HAS_CODEC;_CRT_SECURE_NO_WARNINGS;LUA_LIB;WIN32;NDEBUG;_WINDOWS;_USRDLL;LUASQL_EXPORTS;SQLITE_HAS_CODEC;_CRT_SECURE_NO_WARNINGS;LUA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)..\..\Dependencies\mariadb-connector-c\include;$(SolutionDir)..\..\Dependencies\SQLite3MultipleCiphers\src;$(SolutionDir)..\..\Dependencies\PostgreSQL\src\interfaces\libpq;$(SolutionDir)..\..\Dependencies\PostgreSQL\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>odbc32.lib;ws2_32.lib;advapi32.lib;kernel32.lib;shlwapi.lib;crypt32.lib;secur32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;wldap32.lib</AdditionalDependencies>
+      <LinkTimeCodeGeneration />
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\lib\luasql\ls_mysql.c" />
+    <ClCompile Include="..\..\..\..\Sources\lib\luasql\ls_odbc.c" />
+    <ClCompile Include="..\..\..\..\Sources\lib\luasql\ls_postgres.c" />
+    <ClCompile Include="..\..\..\..\Sources\lib\luasql\ls_sqlite3.c" />
+    <ClCompile Include="..\..\..\..\Sources\lib\luasql\luasql.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\lib\luasql\luasql.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\libpq\libpq.vcxproj">
+      <Project>{c34a78df-68c8-4357-8e4e-7de8154e3abb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\mariadb\mariadbclient.vcxproj">
+      <Project>{9fd3f0aa-0526-3bcd-bda1-4017a83485d2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\sqlite3\sqlite3.vcxproj">
+      <Project>{50d338f5-bc93-b42b-85ce-fda8f14df907}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dll\lua\lua.vcxproj">
+      <Project>{0ffa55d6-c072-4ba9-a5ea-f08cffe7d641}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dll\SDL2\SDL2.vcxproj">
+      <Project>{81ce8daf-ebb2-4761-8e45-b71abcca8c68}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

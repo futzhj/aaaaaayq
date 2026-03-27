@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftbbox.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftbdf.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftbitmap.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftcid.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftfstype.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftgasp.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftglyph.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftgxval.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftmm.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftotval.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftpatent.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftpfr.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftstroke.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftsynth.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/fttype1.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftwinfnt.c">
+      <Filter>源文件\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\autofit\autofit.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/bdf/bdf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/cff/cff.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\dlg\dlgwrap.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftbase.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/bzip2/ftbzip2.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/cache/ftcache.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftdebug.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/gzip/ftgzip.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftinit.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/lzw/ftlzw.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/base/ftsystem.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/pcf/pcf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/pfr/pfr.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/psaux/psaux.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/pshinter/pshinter.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/psnames/psmodule.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/raster/raster.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src\sdf\sdf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/sfnt/sfnt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/smooth/smooth.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/truetype/truetype.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/type1/type1.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/cid/type1cid.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/type42/type42.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_ttf\external\freetype-$(freetype_ver)\src/winfonts/winfnt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{613c0e80-2e5f-4cfd-b1d0-946233fe3c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{6c649bbb-d7fc-455d-bcae-4465705fcfd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\FT_MODULES">
+      <UniqueIdentifier>{bb7d416a-7f66-4537-a0a6-72062e42d82b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

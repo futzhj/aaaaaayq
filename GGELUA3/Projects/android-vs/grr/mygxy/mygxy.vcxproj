@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <!-- mygxy sources -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\fsb.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\hash.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\lua_proxy.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\sdl_proxy.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\map.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\SDL_list.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\tcp.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\wdf.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\wpk.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\ujpeg\ujpeg.c" />
+    <!-- zstd common -->
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\debug.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\entropy_common.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\error_private.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\fse_decompress.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\xxhash.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\zstd_common.c" />
+    <!-- zstd decompress -->
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\huf_decompress.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_ddict.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_decompress.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_decompress_block.c" />
+    <!-- lz4 -->
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4hc.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4frame.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\xxhash.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)lz4_xxhash.o</ObjectFileName>
+    </ClCompile>
+    <!-- zlib -->
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\adler32.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\crc32.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inffast.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inflate.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inftrees.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\zutil.c" />
+  </ItemGroup>
+  <!-- headers -->
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\fsb.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\lua_proxy.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\sdl_proxy.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\map.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\SDL_list.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\tcp.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\wdf.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\wpk.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\ujpeg\ujpeg.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A1B2C3D4-E5F6-4A5B-9C8D-7E6F5A4B3C2E}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>mygxy</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <Import Project="..\..\lua.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <!-- Common include directories and preprocessor for all configurations -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\external\vgmstream\src;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZSTD_DISABLE_ASM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>m;log;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

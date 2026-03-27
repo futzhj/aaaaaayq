@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\fastmix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_669.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_abc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_amf.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_ams.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_dbm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_dmf.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_dsm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_far.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_gdm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_it.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_mdl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_med.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_mid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_mod.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_mt2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_mtm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_okt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_pat.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_psm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_ptm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_s3m.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_stm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_ult.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_umx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_wav.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_xm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\mmcmp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\modplug.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\snd_dsp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\snd_flt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\snd_fx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\sndfile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\sndmix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\libmodplug\it_defs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\libmodplug\sndfile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\libmodplug\stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\load_pat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\modplug.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libmodplug-$(libmodplug_ver)\src\tables.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{340622FC-BA95-319F-972D-1F558FBC766C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{C72AB35C-220E-3F8C-8C23-12A56DAB88C3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

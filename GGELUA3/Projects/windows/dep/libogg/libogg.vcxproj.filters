@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\block.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\codebook.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\floor0.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\floor1.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\info.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\iseeking_example.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\ivorbisfile_example.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\mapping0.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\mdct.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\registry.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\res012.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\sharedbook.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\synthesis.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\vorbisfile.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libvorbisidec-1.2.1\window.c">
+      <Filter>源文件\libvorbisidec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libogg-$(libogg_ver)\src\bitwise.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libogg-$(libogg_ver)\src\framing.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libogg-$(libogg_ver)\include\ogg\os_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_mixer\external\libogg-$(libogg_ver)\include\ogg\ogg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{8f265f82-1c80-40cb-9812-449250266593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{636a4c1a-f1d0-4668-8605-8f4782f1db76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libvorbisidec">
+      <UniqueIdentifier>{ae8635be-0c9f-4ccb-9988-74e75d3a48b1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

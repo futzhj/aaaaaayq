@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>
+    </PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EA1D1B51-F067-3C93-8F54-669095725F4B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>libwebp</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="ver.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;HAVE_CONFIG_H;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\cmake-build;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\cmake-build;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\cmake-build;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\cmake-build;$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\alpha_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing_sse2.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing_sse41.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\cpu.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_clip_tables.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_sse41.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_sse41.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_sse2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_sse41.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\bit_reader_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\color_cache_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\filters_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\huffman_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\quant_levels_dec_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\random_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\rescaler_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\thread_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\utils.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\alphai_dec.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\buffer_dec.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\common_dec.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8_dec.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\frame_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\idec_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\io_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\quant_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\tree_dec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8_dec.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8i_dec.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8l_dec.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8li_dec.h" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\webp_dec.c" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\webpi_dec.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\webp\decode.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\webp\demux.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\webp\encode.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\webp\mux_types.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_image\VisualC\external\include\webp\types.h" />
+    <!-- demux sources for WebPDemux* API -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\demux\demux.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\demux\anim_decode.c" />
+    <!-- missing SSE4.1 DSP file -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless_sse41.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

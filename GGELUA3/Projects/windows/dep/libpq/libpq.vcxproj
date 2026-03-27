@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C34A78DF-68C8-4357-8E4E-7DE8154E3ABB}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\PostgreSQL\src/include;$(SolutionDir)..\..\Dependencies\PostgreSQL\src/include/port/win32;$(SolutionDir)..\..\Dependencies\PostgreSQL\src/include/port/win32_msvc;$(SolutionDir)..\..\Dependencies\PostgreSQL\src/port;$(SolutionDir)lib\luasql;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__WINDOWS__;__WIN32__;WIN32_STACK_RLIMIT=4194304;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FRONTEND;UNSAFE_STAT_OK;_DEBUG;DEBUG=1%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4018;4244;4273;4102;4090;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerOutput>
+      </AssemblerOutput>
+      <BrowseInformation>false</BrowseInformation>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <OutputFile>.\Debug\libpq\libpq.dll</OutputFile>
+      <AdditionalDependencies>secur32.lib;ws2_32.lib;wldap32.lib;Debug/libpgcommon/libpgcommon.lib;Debug/libpgport/libpgport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <StackReserveSize>4194304</StackReserveSize>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug\libpq\libpq.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>.\Debug\libpq\libpq.map</MapFileName>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <!-- Permit links to MinGW-built, 32-bit DLLs (default before VS2012). -->
+      <ImageHasSafeExceptionHandlers />
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalOptions>/ignore:4197 %(AdditionalOptions)</AdditionalOptions>
+      <ModuleDefinitionFile>$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/libpqdll.def</ModuleDefinitionFile>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\PostgreSQL\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\PostgreSQL\src/include;$(SolutionDir)..\..\Dependencies\PostgreSQL\src/include/port/win32;$(SolutionDir)..\..\Dependencies\PostgreSQL\src/include/port/win32_msvc;$(SolutionDir)..\..\Dependencies\PostgreSQL\src/port;$(SolutionDir)lib\luasql;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__WINDOWS__;__WIN32__;WIN32_STACK_RLIMIT=4194304;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FRONTEND;UNSAFE_STAT_OK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4018;4244;4273;4102;4090;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AssemblerOutput>
+      </AssemblerOutput>
+      <BrowseInformation>false</BrowseInformation>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <OutputFile>.\Release\libpq\libpq.dll</OutputFile>
+      <AdditionalDependencies>secur32.lib;ws2_32.lib;wldap32.lib;Release/libpgcommon/libpgcommon.lib;Release/libpgport/libpgport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <StackReserveSize>4194304</StackReserveSize>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Release\libpq\libpq.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>.\Release\libpq\libpq.map</MapFileName>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <!-- Permit links to MinGW-built, 32-bit DLLs (default before VS2012). -->
+      <ImageHasSafeExceptionHandlers />
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalOptions>/ignore:4197 %(AdditionalOptions)</AdditionalOptions>
+      <ModuleDefinitionFile>$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/libpqdll.def</ModuleDefinitionFile>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\PostgreSQL\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-auth-scram.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-auth.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-connect.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-exec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-lobj.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-misc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-print.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-protocol2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-protocol3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/fe-secure.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/legacy-pqsignal.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/libpq-events.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/pqexpbuffer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/pthread-win32.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src/interfaces/libpq/win32.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\archive.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\base64.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\checksum_helper.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\config_info.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\controldata_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\d2s.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\encnames.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\exec.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\f2s.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\fe_memutils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\file_perm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\file_utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\hashfn.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\ip.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\jsonapi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\keywords.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\kwlookup.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\link-canary.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\logging.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\md5.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\pgfnames.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\pg_lzcompress.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\psprintf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\relpath.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\restricted_token.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\rmtree.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\saslprep.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\scram-common.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\sha2.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\string.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\stringinfo.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\unicode_norm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\username.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\wait_error.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\common\wchar.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\chklocale.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\dirent.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\dirmod.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\dlopen.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\erand48.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\explicit_bzero.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\fls.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\getaddrinfo.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\getopt.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\getopt_long.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\getpeereid.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\getrusage.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\gettimeofday.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\inet_aton.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\inet_net_ntop.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\kill.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\link.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\mkdtemp.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\noblock.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\open.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\path.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pgcheckdir.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pgmkdirp.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pgsleep.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pgstrcasecmp.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pg_bitutils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pg_crc32c_sb8.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pg_crc32c_sse42.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pg_crc32c_sse42_choose.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pg_strong_random.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pqsignal.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pread.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\pwrite.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\qsort.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\qsort_arg.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\quotes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\random.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\snprintf.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\sprompt.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\srandom.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\strerror.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\strlcat.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\strlcpy.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\system.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\tar.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\thread.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\win32env.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\win32error.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\win32security.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\PostgreSQL\src\port\win32setlocale.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

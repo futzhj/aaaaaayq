@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{d4003ce4-26f8-4743-8262-fcf64a24a05f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{17515f27-6e6f-475c-b345-910ab6d49fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{d59b3413-910c-42d6-81d7-67a49b4313a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dsp">
+      <UniqueIdentifier>{5c99261b-8566-4baf-a58b-6d2121ff02c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dec">
+      <UniqueIdentifier>{f29f3f2e-65ee-41cf-bd4c-2ffd1cbedda4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\webp_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\alpha_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\buffer_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\frame_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\idec_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\io_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\quant_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\tree_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dec\vp8l_dec.c">
+      <Filter>源文件\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing_sse41.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\alpha_processing_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\cpu.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_clip_tables.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_mips32.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_msa.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\dec_sse41.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters_msa.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\filters_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless_msa.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\lossless.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler_mips32.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler_msa.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\rescaler_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_msa.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\upsampling_sse41.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_mips_dsp_r2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_mips32.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_neon.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_sse2.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\dsp\yuv_sse41.c">
+      <Filter>源文件\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\bit_reader_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\color_cache_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\filters_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\huffman_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\quant_levels_dec_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\thread_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\random_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_image\external\libwebp-$(libwebp_ver)\src\utils\rescaler_utils.c">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

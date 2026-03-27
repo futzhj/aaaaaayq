@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0FFA55D6-C072-4BA9-A5EA-F08CFFE7D641}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>lua54</RootNamespace>
+    <ProjectName>lua54</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v143</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="..\..\dll.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="..\..\dll.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+    <ClCompile>
+      <PreprocessorDefinitions>LUA_UCID;LUA_BUILD_AS_DLL;LUA_COMPAT_MATHLIB;LUA_USER_H="luauser.h";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalOptions>/D "LUA_PATH_DEFAULT=\"!\\?.lua;!\\ggelua\\?.lua;.\\?.lua;.\\lua\\?.lua\"" /D "LUA_CPATH_DEFAULT=\"!\\?.dll;!\\lib\\?.dll;.\\?.dll;.\\lib\\?.dll\"" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Sources\dll\lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>LUA_UCID;LUA_BUILD_AS_DLL;LUA_COMPAT_MATHLIB;LUA_USER_H="luauser.h";_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <AdditionalOptions>/D "LUA_PATH_DEFAULT=\"!\\?.lua;!\\ggelua\\?.lua;.\\?.lua;.\\lua\\?.lua\"" /D "LUA_CPATH_DEFAULT=\"!\\?.dll;!\\lib\\?.dll;.\\?.dll;.\\lib\\?.dll\"" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Sources\dll\lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lauxlib.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lua.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lua.hpp" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lualib.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Sources\dll\lua\luauser.h" />
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\lua\lundump.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lapi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lauxlib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lbaselib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lcode.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lcorolib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lctype.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ldblib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ldebug.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ldo.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ldump.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lfunc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lgc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\linit.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\liolib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\llex.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lmathlib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lmem.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\loadlib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lobject.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lopcodes.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\loslib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lparser.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lstate.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lstring.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lstrlib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ltable.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ltablib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\ltm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Sources\dll\lua\luauser.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lundump.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lutf8lib.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lvm.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\lua\lzio.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

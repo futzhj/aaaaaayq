@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\aiff.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\alac.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\ag_dec.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\ag_enc.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\ALACBitUtilities.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\alac_decoder.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\alac_encoder.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\dp_dec.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\dp_enc.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\matrix_dec.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ALAC\matrix_enc.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\alaw.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\au.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\audio_detect.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\avr.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\broadcast.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\caf.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\cart.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\chanmap.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\chunk.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\command.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\common.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\dither.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\double64.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\dwd.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\dwvw.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\file_io.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\flac.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\float32.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\g72x_sndfile.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\G72x\g721.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\G72x\g723_16.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\G72x\g723_24.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\G72x\g723_40.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\G72x\g72x.c">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x86'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)G72X\%(filename).o</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\gsm610.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\add.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\code.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\decode.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\gsm_create.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\gsm_decode.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\gsm_destroy.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\gsm_encode.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\gsm_option.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\long_term.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\lpc.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\preprocess.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\rpe.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\short_term.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\GSM610\table.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\htk.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\id3.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ima_adpcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ima_oki_adpcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\interleave.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ircam.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\macos.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\mat4.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\mat5.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\mpc2k.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ms_adpcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\new.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\nist.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\nms_adpcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ogg.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ogg_opus.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ogg_pcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ogg_speex.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ogg_vcomment.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ogg_vorbis.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\paf.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\pcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\pvf.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\raw.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\rf64.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\rx2.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\sd2.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\sds.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\sndfile.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\strings.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\svx.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\txw.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\ulaw.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\voc.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\vox_adpcm.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\w64.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\wav.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\wavlike.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\windows.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\wve.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libsndfile\src\xi.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h" />
+    <ClInclude Include="sndfile.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6de76554-5b98-42ea-bd0b-e41e18f5b7c1}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>libsndfile</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\libsndfile\include;$(SolutionDir)..\..\Dependencies\libsndfile\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

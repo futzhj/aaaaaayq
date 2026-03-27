@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>SDL_mixer</ProjectName>
+    <ProjectGuid>{F7E944B3-0815-40CD-B3E4-90B2A15B0E33}</ProjectGuid>
+    <RootNamespace>SDL_mixer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\..\dll.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\..\dll.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>./$(Configuration)/$(Platform)/SDL_mixer.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\native_midi;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\dr_libs;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\audio_codecs\include;$(SolutionDir)..\..\Dependencies\audio_codecs\libvorbisidec-1.2.1;$(SolutionDir)..\..\Projects\windows\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MUSIC_MOD_MODPLUG;MUSIC_WAV;MUSIC_OGG;MUSIC_FLAC;MUSIC_FLAC_DRFLAC;MUSIC_MP3_MPG123;MUSIC_MP3_DRMP3;MUSIC_MID_TIMIDITY;MUSIC_MID_NATIVE;FLAC__NO_DLL;MODPLUG_STATIC;DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_DEBUG;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <AdditionalOptions>-DOGG_USE_TREMOR -DOGG_HEADER=&lt;ivorbisfile.h&gt; %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>..\..\..\..\Projects\windows\dll\SDL2\ggelua_sdl.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Bscmake />
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>./$(Configuration)/$(Platform)/SDL_mixer.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\native_midi;$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\dr_libs;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\audio_codecs\include;$(SolutionDir)..\..\Dependencies\audio_codecs\libvorbisidec-1.2.1;$(SolutionDir)..\..\Projects\windows\dep\libsndfile;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MUSIC_MOD_MODPLUG;MUSIC_WAV;MUSIC_OGG;MUSIC_FLAC;MUSIC_FLAC_DRFLAC;MUSIC_MP3_MPG123;MUSIC_MP3_DRMP3;MUSIC_MID_TIMIDITY;MUSIC_MID_NATIVE;FLAC__NO_DLL;MODPLUG_STATIC;DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;NDEBUG;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>-DOGG_USE_TREMOR -DOGG_HEADER=&lt;ivorbisfile.h&gt; %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>..\..\..\..\Projects\windows\dll\SDL2\ggelua_sdl.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Bscmake />
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\include\SDL_mixer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Core sources -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\effects_internal.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\effect_position.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\effect_stereoreverse.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\mixer.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\music.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\mixer_x_deprecated.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\stream_custom.c" />
+    <!-- Codecs -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\load_aiff.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\load_voc.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\mp3utils.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_cmd.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_flac.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_drflac.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_fluidsynth.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_modplug.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_mpg123.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_drmp3.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_nativemidi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_ogg.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_opus.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_timidity.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\music_wav.c" />
+    <!-- Native MIDI -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\native_midi\native_midi_common.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\native_midi\native_midi_win32.c" />
+    <!-- Timidity -->
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\common.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\instrum.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\mix.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\output.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\playmidi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\readmidi.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\resample.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\tables.c" />
+    <ClCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\src\codecs\timidity\timidity.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)..\..\Dependencies\SDL_Mixer_X\version.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\libflac\libFLAC.vcxproj">
+      <Project>{4cefbc84-c215-11db-8314-0800200c9a66}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libmodplug\libmodplug.vcxproj">
+      <Project>{fd9bf821-ebcf-3349-a750-b25779a2af02}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libmpg123\libmpg123.vcxproj">
+      <Project>{67caa87b-7cf1-4f93-bb67-21c513f40803}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libogg\libogg.vcxproj">
+      <Project>{15cbfeff-7965-41f5-b4e2-21e8795c9159}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

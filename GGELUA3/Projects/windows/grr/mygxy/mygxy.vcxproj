@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <!-- mygxy sources -->
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\core.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\fsb.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\hash.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\lua_proxy.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\sdl_proxy.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\map.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\SDL_list.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\tcp.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\wdf.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\wpk.c" />
+    <ClCompile Include="..\..\..\..\Sources\grr\mygxy\ujpeg\ujpeg.c" />
+    <!-- zstd common -->
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\debug.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\entropy_common.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\error_private.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\fse_decompress.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\xxhash.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\common\zstd_common.c" />
+    <!-- zstd decompress -->
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\huf_decompress.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_ddict.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_decompress.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zstd\decompress\zstd_decompress_block.c" />
+    <!-- lz4 -->
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4hc.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\lz4frame.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Dependencies\lz4\xxhash.c">
+      <PreprocessorDefinitions>XXH_NAMESPACE=LZ4_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)lz4_xxhash.obj</ObjectFileName>
+    </ClCompile>
+    <!-- zlib -->
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\adler32.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\crc32.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inffast.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inflate.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\inftrees.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\zlib\zutil.c" />
+  </ItemGroup>
+  <!-- headers -->
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\fsb.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\lua_proxy.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\sdl_proxy.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\map.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\SDL_list.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\tcp.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\wdf.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\wpk.h" />
+    <ClInclude Include="..\..\..\..\Sources\grr\mygxy\ujpeg\ujpeg.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{A1B2C3D4-E5F6-4A5B-9C8D-7E6F5A4B3C2D}</ProjectGuid>
+    <RootNamespace>mygxy</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <!-- Output / Intermediate directories -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>.$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <!-- Debug|Win32 -->
+  <!-- Release|Win32 -->
+  <!-- Debug|x64 -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;ZSTD_DISABLE_ASM=1;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>delayimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>ggelua.dll</DelayLoadDLLs>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Release|x64 -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;ZSTD_DISABLE_ASM=1;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Dependencies\lua;$(SolutionDir)..\..\Dependencies\SDL\include;$(SolutionDir)..\..\Dependencies\SDL_image;$(SolutionDir)..\..\Sources\grr\mygxy;$(SolutionDir)..\..\Dependencies\zstd;$(SolutionDir)..\..\Dependencies\zstd\common;$(SolutionDir)..\..\Dependencies\lz4;$(SolutionDir)..\..\Dependencies\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableUAC>false</EnableUAC>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>delayimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>ggelua.dll</DelayLoadDLLs>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <!-- Generate ggelua.lib import library via .def file (same approach as CI build) -->
+  <Target Name="GenerateGgeluaLib" BeforeTargets="Link">
+    <PropertyGroup>
+      <GgeluaDefPath>$(IntDir)ggelua.def</GgeluaDefPath>
+      <GgeluaLibPath>$(IntDir)ggelua.lib</GgeluaLibPath>
+      <LibMachine Condition="'$(Platform)'=='Win32'">X86</LibMachine>
+      <LibMachine Condition="'$(Platform)'=='x64'">X64</LibMachine>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(GgeluaDefPath)" Overwrite="true" Lines="EXPORTS;lua_call;lua_callk;lua_createtable;lua_getfield;lua_getmetatable;lua_gettop;lua_isfunction;lua_isnil;lua_isnoneornil;lua_istable;lua_newtable;lua_newuserdata;lua_newuserdatauv;lua_pop;lua_pushboolean;lua_pushcclosure;lua_pushcfunction;lua_pushinteger;lua_pushlstring;lua_pushnil;lua_pushstring;lua_pushvalue;lua_rawequal;lua_rawgeti;lua_rawseti;lua_setfield;lua_seti;lua_setmetatable;lua_settable;lua_settop;lua_toboolean;lua_tointeger;lua_tointegerx;lua_tolstring;lua_tostring;lua_touserdata;lua_type;luaL_addlstring;luaL_addsize;luaL_buffinit;luaL_buffinitsize;luaL_checkinteger;luaL_checklstring;luaL_checkstring;luaL_checkudata;luaL_error;luaL_getmetatable;luaL_newmetatable;luaL_optinteger;luaL_prepbuffsize;luaL_pushresult;luaL_pushresultsize;luaL_ref;luaL_setfuncs;luaL_setmetatable;luaL_unref;IMG_Load_RW;SDL_AddTimer;SDL_BlitSurface;SDL_calloc;SDL_ceil;SDL_ConvertSurfaceFormat;SDL_CreateMutex;SDL_CreateRGBSurfaceWithFormat;SDL_Delay;SDL_DestroyMutex;SDL_DuplicateSurface;SDL_Error;SDL_FillRect;SDL_free;SDL_FreeSurface;SDL_GetError;SDL_LockMutex;SDL_LockSurface;SDL_malloc;SDL_memcmp;SDL_memcpy;SDL_memset;SDL_PremultiplyAlpha;SDL_realloc;SDL_RWclose;SDL_RWFromFile;SDL_RWFromMem;SDL_RWread;SDL_RWseek;SDL_RWtell;SDL_RWwrite;SDL_SetSurfaceBlendMode;SDL_snprintf;SDL_strcasecmp;SDL_strlcpy;SDL_strlen;SDL_UnlockMutex;SDL_UnlockSurface;SDL_UpperBlit" />
+    <Exec Command="lib.exe /nologo /def:&quot;$(GgeluaDefPath)&quot; /out:&quot;$(GgeluaLibPath)&quot; /MACHINE:$(LibMachine)" />
+    <ItemGroup>
+      <Link>
+        <AdditionalDependencies>$(GgeluaLibPath);%(AdditionalDependencies)</AdditionalDependencies>
+      </Link>
+    </ItemGroup>
+  </Target>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

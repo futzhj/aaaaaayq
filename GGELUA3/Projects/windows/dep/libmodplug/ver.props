@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <libmodplug_ver>0.8.9.0</libmodplug_ver>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="libmodplug_ver">
+      <Value>$(libmodplug_ver)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
