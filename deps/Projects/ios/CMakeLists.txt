@@ -1086,6 +1086,7 @@ target_compile_options(SDL_Mixer_X_fw PRIVATE "-fvisibility=default")
 target_link_libraries(SDL_Mixer_X_fw PRIVATE
     SDL2_fw
     "-framework AudioToolbox" "-framework CoreAudio"
+    "-lc++"  # modplug 是 C++ 代码，需要链接 C++ 运行时
     ${IOS_SYSTEM_FRAMEWORKS}
 )
 
