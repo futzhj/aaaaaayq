@@ -921,6 +921,7 @@ target_compile_options(gastar_fw PRIVATE "-fvisibility=default")
 add_dependencies(gastar_fw ggelua_fw)
 target_link_libraries(gastar_fw PRIVATE
     "-Wl,-undefined,dynamic_lookup"
+    "-lc++"  # Astart.cpp, DLinkList.cpp 是 C++ 代码
     ${IOS_SYSTEM_FRAMEWORKS}
 )
 
@@ -1047,6 +1048,7 @@ add_ios_framework(SDL2_ttf_fw "SDL2_ttf")
 target_link_libraries(SDL2_ttf_fw PRIVATE
     "-Wl,-undefined,dynamic_lookup"
     "-framework CoreText" "-framework CoreFoundation"
+    "-lc++"  # harfbuzz 是 C++ 代码 (TARGET_OBJECTS)
     ${IOS_SYSTEM_FRAMEWORKS}
 )
 
