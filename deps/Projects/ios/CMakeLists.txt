@@ -1055,13 +1055,15 @@ target_link_libraries(SDL2_ttf_fw PRIVATE
 # ============================================================================
 add_library(SDL_Mixer_X_fw SHARED
     ${SDL_MIXER_X_SOURCES}
+    # 使用 TARGET_OBJECTS 导入编解码器对象文件，每个编解码器用自己 target 的编译配置
+    # 避免 sndfile.h 头文件冲突、NEON64 .S 汇编文件 Xcode 处理问题
     $<TARGET_OBJECTS:sndfile>
-    ${MODPLUG_SOURCES}
-    ${VORBISIDEC_SOURCES}
-    ${LIBOGG_SOURCES}
-    ${MPG123_SOURCES}
+    $<TARGET_OBJECTS:modplug>
+    $<TARGET_OBJECTS:vorbisidec>
+    $<TARGET_OBJECTS:ogg>
+    $<TARGET_OBJECTS:mpg123>
 )
-add_dependencies(SDL_Mixer_X_fw sndfile SDL2_fw)
+add_dependencies(SDL_Mixer_X_fw sndfile modplug vorbisidec ogg mpg123 SDL2_fw)
 add_ios_framework(SDL_Mixer_X_fw "SDL-Mixer-X")
 target_include_directories(SDL_Mixer_X_fw PRIVATE
     "${MIXERX_DIR}/include" "${MIXERX_SRC}" "${MIXERX_CODECS}"
@@ -1069,16 +1071,9 @@ target_include_directories(SDL_Mixer_X_fw PRIVATE
     "${SDL_INCLUDE_DIR}"
     "${AUDIO_CODECS_DIR}/include"
     "${AUDIO_CODECS_DIR}/libvorbisidec-1.2.1"
-    # modplug 头文件必须在 libsndfile 之前 (两者都有 sndfile.h，modplug 源码需要自己的版本)
-    "${MODPLUG_DIR}/src/libmodplug"     # stdafx.h, sndfile.h (modplug 版本)
-    "${MODPLUG_DIR}/src"               # modplug.h
-    "${DEPS_DIR}/libsndfile/include"    # sndfile.h (libsndfile 版本，SDL_Mixer_X 自身用)
-    "${LIBOGG_DIR}/include"             # ogg/ogg.h
-    "${LIBOGG_DIR}/android"             # config_types.h
-    "${MPG123_DIR}/android"             # config.h + mpg123.h
-    "${MPG123_DIR}/src"                 # compat/
-    "${MPG123_DIR}/src/compat"          # compat.h
-    "${MPG123_DIR}/src/libmpg123"       # mpg123lib_intern.h
+    "${MODPLUG_DIR}/src"               # modplug.h (SDL_Mixer_X codecs 需要)
+    "${DEPS_DIR}/libsndfile/include"
+    "${MPG123_DIR}/android"             # mpg123.h (SDL_Mixer_X codecs 需要)
 )
 target_compile_definitions(SDL_Mixer_X_fw PRIVATE
     MUSIC_MOD_MODPLUG MUSIC_WAV MUSIC_OGG MUSIC_FLAC
@@ -1086,12 +1081,6 @@ target_compile_definitions(SDL_Mixer_X_fw PRIVATE
     MUSIC_MID_TIMIDITY MODPLUG_STATIC
     HAVE_INTTYPES_H HAVE_SETENV HAVE_SINF PIC _REENTRANT
     _USE_MATH_DEFINES OGG_USE_TREMOR OGG_HEADER=<ivorbisfile.h>
-    # modplug 编译定义
-    MODPLUG_BUILD MMCMP_SUPPORT HAVE_STDINT_H NO_CXX_EXPORTS
-    # vorbisidec 编译定义
-    HAVE_ALLOCA FLOAT_LOOKUP INT_LOOKUP
-    # mpg123 编译定义
-    OPT_MULTI OPT_GENERIC OPT_GENERIC_DITHER OPT_NEON64 REAL_IS_FLOAT
 )
 target_compile_options(SDL_Mixer_X_fw PRIVATE "-fvisibility=default")
 target_link_libraries(SDL_Mixer_X_fw PRIVATE
