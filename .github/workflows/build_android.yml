@@ -118,7 +118,7 @@ jobs:
           /p:PostBuildEventUseInBuild=false `
           /m /v:minimal
 
-    - name: Collect .so artifacts
+    - name: Collect .so artifacts (jniLibs 结构)
       shell: pwsh
       run: |
         # VS Android 输出: $(SolutionDir).$(Platform)\$(Configuration)\
@@ -132,7 +132,8 @@ jobs:
           'x86'   = 'x86'
         }
         $abi = $abiMap['${{ matrix.platform }}']
-        $outDir = "artifacts/$abi"
+        # 输出结构: jniLibs/{abi}/*.so — 与预编译模版目录一致
+        $outDir = "jniLibs/$abi"
         New-Item -ItemType Directory -Path $outDir -Force | Out-Null
 
         if (Test-Path $buildDir) {
@@ -147,10 +148,48 @@ jobs:
           }
         }
 
-    - name: Upload Artifacts
+        Write-Host "`n=== $abi SO 文件清单 ==="
+        Get-ChildItem $outDir -Filter "*.so" | ForEach-Object {
+          Write-Host "  $($_.Name)  $([math]::Round($_.Length/1KB, 1)) KB"
+        }
+
+    - name: Upload per-ABI artifact
       uses: actions/upload-artifact@v4
       with:
-        name: android-so-${{ matrix.platform }}-${{ matrix.configuration }}
-        path: artifacts/
+        name: jniLibs-${{ matrix.platform }}-${{ matrix.configuration }}
+        path: jniLibs/
         if-no-files-found: warn
+        retention-days: 30
+
+  # ===== 合并全 ABI 为一键替换包 =====
+  merge-jniLibs:
+    runs-on: ubuntu-latest
+    needs: build-android
+    if: success()
+    steps:
+    - name: Download all ABI artifacts
+      uses: actions/download-artifact@v4
+      with:
+        pattern: jniLibs-*
+        path: merged/
+        merge-multiple: true
+
+    - name: Verify merged jniLibs structure
+      shell: bash
+      run: |
+        echo "=== 合并后的 jniLibs 目录结构 ==="
+        find merged/ -name "*.so" | sort
+        echo ""
+        echo "=== 各 ABI SO 文件数量 ==="
+        for abi in arm64-v8a armeabi-v7a x86 x86_64; do
+          count=$(find merged/ -path "*/$abi/*.so" 2>/dev/null | wc -l)
+          echo "  $abi: $count 个 .so 文件"
+        done
+
+    - name: Upload merged jniLibs (一键替换包)
+      uses: actions/upload-artifact@v4
+      with:
+        name: jniLibs-all-abis
+        path: merged/
+        if-no-files-found: error
         retention-days: 30
