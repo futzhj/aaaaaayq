@@ -17,7 +17,7 @@ static int LUA_GetBasePath(lua_State *L)
 static int LUA_GetPrefPath(lua_State *L)
 {
     const char *organization = luaL_checkstring(L, 1);
-    const char *application = luaL_checkstring(L, 2);
+    const char *application = luaL_optstring(L, 2, organization);
     char *str = SDL_GetPrefPath(organization, application);
 
     if (str)

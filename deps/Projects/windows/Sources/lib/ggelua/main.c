@@ -312,16 +312,15 @@ static int LUA_GetBasePath(lua_State *L)
 //ANDROID /data/data/com.GGELUA.game/files
 static int LUA_GetPrefPath(lua_State *L)
 {
-#ifdef __WIN32__
-    const char *application = luaL_checkstring(L, 1);
-#else
-    const char *application = NULL;
-#endif
+    const char *application = luaL_optstring(L, 1, "GGELUA");
     char *str = SDL_GetPrefPath("GGELUA", application);
 
-    lua_pushstring(L, str);
-    SDL_free(str);
-    return 1;
+    if (str) {
+        lua_pushstring(L, str);
+        SDL_free(str);
+        return 1;
+    }
+    return 0;
 }
 
 static int LUA_MessageBox(lua_State *L)
