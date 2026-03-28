@@ -1,5 +1,5 @@
 #include "lua_proxy.h"
-#if defined(__ANDROID__) || defined(__APPLE__)
+#if defined(__ANDROID__)
 #include <dlfcn.h>
 #include <stdio.h>
 #if defined(__ANDROID__)
@@ -750,4 +750,4 @@ void init_lua_proxy(void) {
     if (!proxy_luaL_buffinitsize) LOGE("Failed to resolve Lua symbol: luaL_buffinitsize\n");
 }
 
-#endif // iOS/Android Proxy Guards
+#endif // Android Proxy Guards

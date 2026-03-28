@@ -1,7 +1,7 @@
 #ifndef LUA_PROXY_H
 #define LUA_PROXY_H
 
-#if defined(__ANDROID__) || defined(__APPLE__)
+#if defined(__ANDROID__)
 
 #include "lua.h"
 #include "lauxlib.h"
@@ -724,6 +724,6 @@ void init_lua_proxy(void);
 #include "lauxlib.h"
 #define init_lua_proxy() 
 
-#endif // iOS/Android Proxy Guards
+#endif // Android Proxy Guards
 
 #endif // LUA_PROXY_H

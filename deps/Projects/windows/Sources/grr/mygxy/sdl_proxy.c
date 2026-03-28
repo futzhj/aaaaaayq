@@ -1,5 +1,5 @@
 #include "sdl_proxy.h"
-#if defined(__ANDROID__) || defined(__APPLE__)
+#if defined(__ANDROID__)
 #include <dlfcn.h>
 #include <stdio.h>
 #if defined(__ANDROID__)
@@ -161,4 +161,4 @@ void init_sdl_proxy(void) {
     if (!proxy_IMG_Load_RW) LOGE("Failed to resolve SDL symbol: IMG_Load_RW\n");
 }
 
-#endif // iOS/Android Proxy Guards
+#endif // Android Proxy Guards

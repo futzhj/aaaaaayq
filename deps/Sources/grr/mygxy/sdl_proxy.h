@@ -1,7 +1,7 @@
 #ifndef SDL_PROXY_H
 #define SDL_PROXY_H
 
-#if defined(__ANDROID__) || defined(__APPLE__)
+#if defined(__ANDROID__)
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -147,6 +147,6 @@ void init_sdl_proxy(void);
 #include "SDL_image.h"
 #define init_sdl_proxy() 
 
-#endif // iOS/Android Proxy Guards
+#endif // Android Proxy Guards
 
 #endif // SDL_PROXY_H

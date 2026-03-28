@@ -907,9 +907,11 @@ set_source_files_properties(
     TARGET_DIRECTORY mygxy_fw
     PROPERTIES COMPILE_DEFINITIONS "XXH_NAMESPACE=LZ4_"
 )
-add_dependencies(mygxy_fw ggelua_fw)
+add_dependencies(mygxy_fw ggelua_fw SDL2_fw SDL2_image_fw)
 target_link_libraries(mygxy_fw PRIVATE
-    "-Wl,-undefined,dynamic_lookup"
+    ggelua_fw
+    SDL2_fw
+    SDL2_image_fw
     ${IOS_SYSTEM_FRAMEWORKS}
 )
 
