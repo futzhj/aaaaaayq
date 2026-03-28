@@ -64,9 +64,12 @@ jobs:
     - name: Build ${{ matrix.platform }} (${{ matrix.configuration }})
       shell: pwsh
       run: |
+        # 强制使用 v143 工具集 (VS 2022)
+        # 项目文件中的 v145 在 CI Runner 上不可用
         msbuild ${{ env.SOLUTION_FILE }} `
           /p:Configuration=${{ matrix.configuration }} `
           /p:Platform=${{ matrix.platform }} `
+          /p:PlatformToolset=v143 `
           /m /v:minimal
 
     - name: Collect DLL artifacts
