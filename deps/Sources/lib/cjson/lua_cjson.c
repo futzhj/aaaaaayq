@@ -36,6 +36,12 @@
  *       difficult to know object/array sizes ahead of time.
  */
 
+/* MSVC: 第三方 cjson 代码的类型转换警告 — 逻辑正确，仅精度截断 */
+#ifdef _MSC_VER
+#pragma warning(disable: 4244) /* conversion: possible loss of data */
+#pragma warning(disable: 4267) /* conversion from 'size_t' to 'int' */
+#endif
+
 #include <assert.h>
 #include <string.h>
 #include <math.h>
