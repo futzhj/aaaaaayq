@@ -151,8 +151,6 @@
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\HttpService.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\HttpMiddleware.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\HttpResponseWriter.cpp" />
-    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\FileCache.cpp" />
-    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\http_page.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\http_content.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\httpdef.c" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\http_parser.c" />
