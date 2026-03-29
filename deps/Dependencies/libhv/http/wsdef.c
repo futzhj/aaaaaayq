@@ -2,8 +2,8 @@
 
 #include <string.h>
 
-#include "sha1.h"
-#include "base64.h"
+#include "../util/sha1.h"
+#include "../util/base64.h"
 
 #include "websocket_parser.h"
 

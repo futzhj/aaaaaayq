@@ -120,6 +120,7 @@
     <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hsocket.c" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\base\htime.c" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hversion.c" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\base\hmain.c" />
   </ItemGroup>
 
   <!-- libhv event sources (IOCP for Windows) -->
@@ -151,6 +152,8 @@
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\HttpService.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\HttpMiddleware.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\HttpResponseWriter.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\FileCache.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\http\server\http_page.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\http_content.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\httpdef.c" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\http\http_parser.c" />
@@ -163,6 +166,7 @@
     <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hstring.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hurl.cpp" />
     <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hasync.cpp" />
+    <ClCompile Include="..\..\..\..\Dependencies\libhv\cpputil\hdir.cpp" />
   </ItemGroup>
 
   <!-- libhv util sources -->

@@ -163,7 +163,7 @@ jobs:
         find jniLibs-all-abis/ -type f | sort
 
         echo ""
-        REQUIRED_SO=(liblua54.so libggelua.so libgsdl2.so libmygxy.so libgastar.so liblsqlite3.so)
+        REQUIRED_SO=(liblua54.so libggelua.so libgsdl2.so libmygxy.so libgastar.so liblsqlite3.so libmain.so)
         ABIS=(arm64-v8a armeabi-v7a x86_64 x86)
         MISSING=()
 

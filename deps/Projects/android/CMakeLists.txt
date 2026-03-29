@@ -357,13 +357,30 @@ target_link_libraries(gsdl2 PUBLIC lua54)
 target_link_options(gsdl2 PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 
 # ============================================================================
+# 11. libmain.so — SHARED (SDL_main 入口 + GGE_LoadScript 脚本包加载)
+#     包含 app/ggelua/main.c: SDL_main → GGE_LoadScript → ggelua.lua 引导
+#     将 ggelua.com 中的 ggecore/ggepack 读入 Lua registry，
+#     供 libggelua.so 中的 luaopen_ggelua 使用
+# ============================================================================
+set(APP_MAIN_SRC_DIR "${SOURCES_DIR}/app/ggelua")
+add_library(main SHARED
+    "${APP_MAIN_SRC_DIR}/main.c"
+)
+target_include_directories(main PRIVATE
+    "${GGELUA_SRC_DIR}" "${SDL_INCLUDE_DIR}"
+)
+target_link_libraries(main PUBLIC lua54 PRIVATE ggelua)
+# SDL 符号由预编译 .so 在运行时提供
+target_link_options(main PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+
+# ============================================================================
 # 安装: 收集 .so 到 {ABI}/ 目录
 # ============================================================================
-set(SHARED_TARGETS lua54 ggelua mygxy lsqlite3 gastar gsdl2)
+set(SHARED_TARGETS lua54 ggelua mygxy lsqlite3 gastar gsdl2 main)
 foreach(T IN LISTS SHARED_TARGETS)
     install(TARGETS ${T} LIBRARY DESTINATION ${ANDROID_ABI})
 endforeach()
 
 message(STATUS "=== GGELUA3 Android ${ANDROID_ABI} (${CMAKE_BUILD_TYPE}) ===")
 message(STATUS "  Shared: ${SHARED_TARGETS}")
-message(STATUS "  Static: zlib libhv ghv hiredis sqlite3")
+message(STATUS "  Static: zlib libhv ghv hiredis sqlite3 physfs")

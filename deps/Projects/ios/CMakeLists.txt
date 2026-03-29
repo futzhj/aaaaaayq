@@ -925,6 +925,10 @@ add_library(ggelua_fw SHARED
     ${PHYSFS_SOURCES}
 )
 add_ios_framework(ggelua_fw "libggelua")
+# wsdef.c 使用 #include "../util/sha1.h" 相对路径，Xcode headermap 会将头文件
+# 映射到扁平结构导致解析失败。libhv 静态库已设此属性，但 ggelua_fw 重新编译
+# LIBHV_SOURCES 时不继承，须显式设置。
+set_target_properties(ggelua_fw PROPERTIES XCODE_ATTRIBUTE_USE_HEADERMAP "NO")
 target_include_directories(ggelua_fw PRIVATE
     "${GGELUA_SRC_DIR}"
     "${GGELUA_SRC_DIR}/uuid"
