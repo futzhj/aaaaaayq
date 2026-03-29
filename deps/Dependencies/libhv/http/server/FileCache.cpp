@@ -1,6 +1,7 @@
 #include "FileCache.h"
 
 #include "herr.h"
+#include "hplatform.h" // O_RDONLY, O_BINARY, open/close/read, stat/S_ISREG/S_ISDIR
 #include "hscope.h"
 #include "htime.h"
 #include "hlog.h"
