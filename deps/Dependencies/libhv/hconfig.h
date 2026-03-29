@@ -39,7 +39,7 @@
   #endif
 
   #ifndef HAVE_FCNTL_H
-  #define HAVE_FCNTL_H    0  /* Windows 没有 <fcntl.h> 的 POSIX 子集 */
+  #define HAVE_FCNTL_H    1  /* MSVC 有 <fcntl.h> (O_RDONLY/O_BINARY 等) */
   #endif
 
   #ifndef HAVE_PTHREAD_H
