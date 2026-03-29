@@ -241,7 +241,7 @@ target_include_directories(ggelua PRIVATE
     "${SOURCES_DIR}/lib/cjson" "${DEPS_DIR}/SQLite3MultipleCiphers/src"
     "${SDL_INCLUDE_DIR}" "${PHYSFS_SRC_DIR}"
 )
-target_link_libraries(ggelua PRIVATE ghv hiredis zlib physfs)
+target_link_libraries(ggelua PRIVATE ghv hiredis zlib physfs log)
 target_link_libraries(ggelua PUBLIC lua54)
 target_compile_definitions(ggelua PRIVATE LUA_USE_POSIX HAS_AES_HARDWARE=0)
 target_compile_options(ggelua PRIVATE -Wno-format-security)
@@ -294,7 +294,7 @@ target_include_directories(mygxy PRIVATE
     "${DEPS_DIR}/lz4" "${DEPS_DIR}/zlib"
     "${ENGINE_ROOT}/external/vgmstream/src"
 )
-target_link_libraries(mygxy PUBLIC lua54)
+target_link_libraries(mygxy PUBLIC lua54 PRIVATE log)
 # SDL 符号由预编译 .so 在运行时提供, CI 中无需链接
 target_link_options(mygxy PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 target_compile_definitions(mygxy PRIVATE ZSTD_DISABLE_ASM=1)
@@ -369,7 +369,7 @@ add_library(main SHARED
 target_include_directories(main PRIVATE
     "${GGELUA_SRC_DIR}" "${SDL_INCLUDE_DIR}"
 )
-target_link_libraries(main PUBLIC lua54 PRIVATE ggelua)
+target_link_libraries(main PUBLIC lua54 PRIVATE ggelua log)
 # SDL 符号由预编译 .so 在运行时提供
 target_link_options(main PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 
