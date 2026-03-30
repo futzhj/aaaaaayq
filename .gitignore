@@ -44,3 +44,6 @@ Thumbs.db
 
 # 例外: Android 预编译 SDL .so (CI 链接需要 DT_NEEDED)
 !deps/Projects/android-vs/app/GGELUA/app/src/main/jniLibs/**/*.so
+
+# 例外: Android APK 模板的 assets (ggelua.com 脚本包)
+!deps/Projects/android-vs/app/GGELUA/app/src/main/assets/ggelua.com
