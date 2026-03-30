@@ -337,7 +337,7 @@ target_include_directories(mygxy PRIVATE
     "${PHYSFS_SRC_DIR}"                       # physfs.h (wpk.c 条件编译 WPK_USE_PHYSFS)
     "${ENGINE_ROOT}/external/vgmstream/src"
 )
-target_link_libraries(mygxy PUBLIC lua54 PRIVATE log)
+target_link_libraries(mygxy PUBLIC lua54 PRIVATE log physfs)
 target_link_libraries(mygxy PRIVATE SDL2_prebuilt SDL_image_prebuilt)
 target_compile_definitions(mygxy PRIVATE ZSTD_DISABLE_ASM=1)
 set_source_files_properties(
@@ -425,7 +425,7 @@ add_library(main SHARED
 target_include_directories(main PRIVATE
     "${GGELUA_SRC_DIR}" "${SDL_INCLUDE_DIR}"
 )
-target_link_libraries(main PUBLIC lua54 PRIVATE ggelua)
+target_link_libraries(main PUBLIC lua54 PRIVATE ggelua log)
 target_link_libraries(main PRIVATE SDL2_prebuilt)
 
 # ============================================================================
