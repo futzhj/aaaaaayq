@@ -1,2 +1,9 @@
-/jniLibs
+# jniLibs: 忽略所有内容, 但允许 SDL 预编译 .so (CI 链接需要)
+/jniLibs/*
+!/jniLibs/*/
+/jniLibs/*/*
+!/jniLibs/*/libSDL2.so
+!/jniLibs/*/libSDL_image.so
+!/jniLibs/*/libSDL_mixer.so
+!/jniLibs/*/libSDL_ttf.so
 /assets
