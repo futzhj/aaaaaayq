@@ -2453,11 +2453,31 @@ static int WPK_ParseIdx(const Uint8* data, size_t size, size_t* outHeaderSize, s
 
 static int WPK_NEW(lua_State* L)
 {
-    const char* idxPath = luaL_checkstring(L, 1);
     Uint8* data = NULL;
     size_t size = 0;
-    if (!WPK_ReadFileAll(idxPath, &data, &size))
-        return 0;
+    const char* idxPath = NULL;
+
+    if (lua_gettop(L) >= 2 && lua_type(L, 1) == LUA_TSTRING && lua_type(L, 2) == LUA_TSTRING)
+    {
+        /* Mode B: Lua layer already read idx via PhysFS — WPK_NEW(dataStr, absPath) */
+        size_t dataLen = 0;
+        const char* luaData = lua_tolstring(L, 1, &dataLen);
+        idxPath = lua_tostring(L, 2);
+        if (!luaData || dataLen == 0 || !idxPath || !idxPath[0])
+            return 0;
+        data = (Uint8*)SDL_malloc(dataLen);
+        if (!data)
+            return 0;
+        SDL_memcpy(data, luaData, dataLen);
+        size = dataLen;
+    }
+    else
+    {
+        /* Mode A: C layer reads file directly — WPK_NEW(filePath) */
+        idxPath = luaL_checkstring(L, 1);
+        if (!WPK_ReadFileAll(idxPath, &data, &size))
+            return 0;
+    }
 
     int idxIsSkpe = 0;
 
