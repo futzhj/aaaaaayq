@@ -46,13 +46,15 @@ void init_sdl_proxy(void) {
     void* sdl_handle = NULL;
 #if defined(__ANDROID__)
     gsdl_handle = dlopen("libgsdl2.so", RTLD_LAZY | RTLD_GLOBAL);
-    sdl_handle = dlopen("libsdl2.so", RTLD_LAZY | RTLD_GLOBAL);
+    sdl_handle = dlopen("libSDL2.so", RTLD_LAZY | RTLD_GLOBAL);
 #elif defined(__APPLE__)
-    // iOS uses .framework bundles
+    // iOS uses .framework bundles — names must match CMake OUTPUT_NAME exactly
+    // gsdl2_fw → "libgsdl2" → libgsdl2.framework/libgsdl2
+    // SDL2_fw  → "SDL2"     → SDL2.framework/SDL2
     gsdl_handle = dlopen("libgsdl2.framework/libgsdl2", RTLD_LAZY | RTLD_GLOBAL);
     if (!gsdl_handle) gsdl_handle = dlopen("libgsdl2", RTLD_LAZY | RTLD_GLOBAL);
-    sdl_handle = dlopen("libsdl2.framework/libsdl2", RTLD_LAZY | RTLD_GLOBAL);
-    if (!sdl_handle) sdl_handle = dlopen("libsdl2", RTLD_LAZY | RTLD_GLOBAL);
+    sdl_handle = dlopen("SDL2.framework/SDL2", RTLD_LAZY | RTLD_GLOBAL);
+    if (!sdl_handle) sdl_handle = dlopen("SDL2", RTLD_LAZY | RTLD_GLOBAL);
 #endif
     
     proxy_SDL_GetError = (PFN_SDL_GetError)dlsym(handle, "SDL_GetError");

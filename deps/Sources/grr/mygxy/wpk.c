@@ -75,8 +75,18 @@ static SDL_RWops* WPK_SDL_RWFromFile(const char* path, const char* mode) {
 #define WPK_DICT_LIB_A "ggelua.dll"
 #define WPK_DICT_LIB_B "mygxy.dll"
 #elif defined(__APPLE__)
-#define WPK_DICT_LIB_A "libggelua.dylib"
-#define WPK_DICT_LIB_B "libmygxy.dylib"
+/* iOS builds produce .framework bundles, not bare .dylib files.
+ * dladdr() returns a path like ".../libmygxy.framework/libmygxy",
+ * so WPK_GetSelfDir gives ".../libmygxy.framework".
+ * We need TWO search strategies:
+ *   a) Direct file name inside the framework dir (WPK_DICT_LIB_A/B)
+ *   b) Full framework-relative path from the Frameworks/ container
+ */
+#define WPK_DICT_LIB_A "libggelua"
+#define WPK_DICT_LIB_B "libmygxy"
+/* Extra: framework bundle paths for scanning from Frameworks/ parent dir */
+#define WPK_DICT_FW_A  "libggelua.framework/libggelua"
+#define WPK_DICT_FW_B  "libmygxy.framework/libmygxy"
 #else
 #define WPK_DICT_LIB_A "libggelua.so"
 #define WPK_DICT_LIB_B "libmygxy.so"
@@ -1570,6 +1580,25 @@ static void WPK_TryLoadZstdDictFromDir(WPK_UserData* ud, Uint32 wantDictId, cons
             okExt = 1;
         if (n >= 4 && SDL_strcasecmp(name + (n - 4), ".wpk") == 0)
             okExt = 1;
+#if defined(__APPLE__)
+        /* iOS: .framework bundles are directories containing a bare Mach-O.
+         * Scan entries ending with ".framework" and try the inner binary. */
+        if (n >= 10 && SDL_strcasecmp(name + (n - 10), ".framework") == 0)
+        {
+            /* e.g. dir=".../Frameworks", name="libggelua.framework"
+             * → try ".../Frameworks/libggelua.framework/libggelua" */
+            char fwBinary[128];
+            size_t baseLen = n - 10; /* strip ".framework" */
+            if (baseLen > 0 && baseLen < sizeof(fwBinary))
+            {
+                SDL_memcpy(fwBinary, name, baseLen);
+                fwBinary[baseLen] = 0;
+                SDL_snprintf(path, sizeof(path), "%s/%s/%s", dir, name, fwBinary);
+                WPK_TryLoadZstdDictFromFile(ud, wantDictId, path);
+            }
+            continue;
+        }
+#endif
         if (!okExt)
             continue;
 
@@ -1588,17 +1617,63 @@ static void WPK_TryLoadZstdDictNearSelf(WPK_UserData* ud, Uint32 wantDictId)
 
     char selfDir[512];
     if (!WPK_GetSelfDir(selfDir))
-        return;
+    {
+#if defined(__ANDROID__)
+        /* Android: dladdr may fail if .so is memory-mapped from APK
+         * (extractNativeLibs=false). Fall back to the app's native lib dir.
+         * SDL_AndroidGetInternalStoragePath() → "/data/data/pkg/files",
+         * native libs are at "/data/data/pkg/lib/" or nativeLibraryDir. */
+        const char* intPath = SDL_AndroidGetInternalStoragePath();
+        if (intPath && intPath[0])
+        {
+            char nativeLibDir[512];
+            /* Go from .../files → .../lib/<abi> */
+            char appDir[512];
+            if (WPK_PathDirname(appDir, intPath))
+            {
+                SDL_snprintf(nativeLibDir, sizeof(nativeLibDir), "%s/lib", appDir);
+                WPK_TryLoadZstdDictFromDir(ud, wantDictId, nativeLibDir);
+            }
+        }
+#endif
+        if (ud->zstd_ddict)
+            return;
+        goto try_base_dir;
+    }
 
     WPK_TryLoadZstdDictFromDir(ud, wantDictId, selfDir);
     if (ud->zstd_ddict)
         return;
 
-
+#if defined(__APPLE__)
+    /* iOS: selfDir is something like ".../GGELUA.app/Frameworks/libmygxy.framework".
+     * The other frameworks (libggelua.framework) are siblings under Frameworks/.
+     * Try loading dictionary directly from the framework binaries. */
+    {
+        char fwParent[512];
+        if (WPK_PathDirname(fwParent, selfDir))
+        {
+            /* fwParent = ".../Frameworks" — try known framework paths */
+            char fwPath[512];
+            SDL_snprintf(fwPath, sizeof(fwPath), "%s" WPK_SEP_STR WPK_DICT_FW_A, fwParent);
+            WPK_TryLoadZstdDictFromFile(ud, wantDictId, fwPath);
+            if (ud->zstd_ddict)
+                return;
+            SDL_snprintf(fwPath, sizeof(fwPath), "%s" WPK_SEP_STR WPK_DICT_FW_B, fwParent);
+            WPK_TryLoadZstdDictFromFile(ud, wantDictId, fwPath);
+            if (ud->zstd_ddict)
+                return;
+            /* Also scan the Frameworks/ directory for any .framework bundles */
+            WPK_TryLoadZstdDictFromDir(ud, wantDictId, fwParent);
+            if (ud->zstd_ddict)
+                return;
+        }
+    }
+#endif
 
     char parent[512];
     if (!WPK_PathDirname(parent, selfDir))
-        return;
+        goto try_base_dir;
 
     WPK_TryLoadZstdDictFromDir(ud, wantDictId, parent);
     if (ud->zstd_ddict)
@@ -1610,6 +1685,7 @@ static void WPK_TryLoadZstdDictNearSelf(WPK_UserData* ud, Uint32 wantDictId)
     if (ud->zstd_ddict)
         return;
 
+try_base_dir:
     if (ud->base_dir[0])
     {
         WPK_TryLoadZstdDictFromDir(ud, wantDictId, ud->base_dir);
