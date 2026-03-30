@@ -32,6 +32,11 @@ android {
         }
     }
 
+    // Lua 资源包和游戏资源不压缩 (支持 mmap 直读)
+    aaptOptions {
+        noCompress 'wpk', 'com'
+    }
+
     // 预编译 .so 放置目录
     sourceSets {
         main {
