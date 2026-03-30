@@ -9,10 +9,66 @@
 #include <dirent.h>
 #endif
 
-#if defined(_WIN32)
-#define WPK_SEP_STR "\\"
-#else
+#if __has_include("physfs.h")
+#define WPK_USE_PHYSFS 1
+#include "physfs.h"
+#endif
+
 #define WPK_SEP_STR "/"
+
+#ifdef WPK_USE_PHYSFS
+static Sint64 SDLCALL WPK_physfs_size(SDL_RWops *context) {
+    return (Sint64)PHYSFS_fileLength((PHYSFS_File *)context->hidden.unknown.data1);
+}
+static Sint64 SDLCALL WPK_physfs_seek(SDL_RWops *context, Sint64 offset, int whence) {
+    PHYSFS_File *handle = (PHYSFS_File *)context->hidden.unknown.data1;
+    Sint64 pos = 0;
+    if (whence == RW_SEEK_SET) pos = offset;
+    else if (whence == RW_SEEK_CUR) pos = PHYSFS_tell(handle) + offset;
+    else if (whence == RW_SEEK_END) pos = PHYSFS_fileLength(handle) + offset;
+    if (pos < 0 || !PHYSFS_seek(handle, (PHYSFS_uint64)pos)) return -1;
+    return PHYSFS_tell(handle);
+}
+static size_t SDLCALL WPK_physfs_read(SDL_RWops *context, void *ptr, size_t size, size_t maxnum) {
+    PHYSFS_File *handle = (PHYSFS_File *)context->hidden.unknown.data1;
+    if (size == 0 || maxnum == 0) return 0;
+    PHYSFS_sint64 rc = PHYSFS_readBytes(handle, ptr, (PHYSFS_uint64)(size * maxnum));
+    return rc < 0 ? 0 : (size_t)(rc / size);
+}
+static size_t SDLCALL WPK_physfs_write(SDL_RWops *context, const void *ptr, size_t size, size_t num) {
+    PHYSFS_File *handle = (PHYSFS_File *)context->hidden.unknown.data1;
+    if (size == 0 || num == 0) return 0;
+    PHYSFS_sint64 rc = PHYSFS_writeBytes(handle, ptr, (PHYSFS_uint64)(size * num));
+    return rc < 0 ? 0 : (size_t)(rc / size);
+}
+static int SDLCALL WPK_physfs_close(SDL_RWops *context) {
+    if (context) {
+        if (context->hidden.unknown.data1) PHYSFS_close((PHYSFS_File *)context->hidden.unknown.data1);
+        SDL_FreeRW(context);
+    }
+    return 0;
+}
+static SDL_RWops* WPK_SDL_RWFromFile(const char* path, const char* mode) {
+    if (PHYSFS_isInit() && !SDL_strchr(path, ':') && path[0] != '/') {
+        PHYSFS_File *handle = NULL;
+        if (SDL_strchr(mode, 'w')) handle = PHYSFS_openWrite(path);
+        else if (SDL_strchr(mode, 'a')) handle = PHYSFS_openAppend(path);
+        else handle = PHYSFS_openRead(path);
+        if (handle) {
+            SDL_RWops *rwops = SDL_AllocRW();
+            if (rwops) {
+                rwops->size = WPK_physfs_size; rwops->seek = WPK_physfs_seek;
+                rwops->read = WPK_physfs_read; rwops->write = WPK_physfs_write;
+                rwops->close = WPK_physfs_close; rwops->type = SDL_RWOPS_UNKNOWN;
+                rwops->hidden.unknown.data1 = handle;
+                return rwops;
+            }
+            PHYSFS_close(handle);
+        }
+    }
+    return (SDL_RWFromFile)(path, mode);
+}
+#define SDL_RWFromFile WPK_SDL_RWFromFile
 #endif
 
 #if defined(_WIN32)
@@ -655,13 +711,25 @@ static void WPK_LoadThxHashes(WPK_UserData* ud)
         return;
     parent[n - 1] = 0;
 
+    char lower_base_name[128];
+    SDL_strlcpy(lower_base_name, ud->base_name, sizeof(lower_base_name));
+    for (size_t i = 0; lower_base_name[i]; i++)
+    {
+        lower_base_name[i] = (char)SDL_tolower((unsigned char)lower_base_name[i]);
+    }
+
     char thxPath[512];
-    SDL_snprintf(thxPath, sizeof(thxPath), "%s" WPK_SEP_STR "%s.thx", parent, ud->base_name);
+    SDL_snprintf(thxPath, sizeof(thxPath), "%s" WPK_SEP_STR "thx" WPK_SEP_STR "%s.thx", parent, lower_base_name);
 
     SDL_RWops* fp = SDL_RWFromFile(thxPath, "rb");
     if (!fp)
     {
-        SDL_snprintf(thxPath, sizeof(thxPath), "%s" WPK_SEP_STR "thd" WPK_SEP_STR "%s.thx", parent, ud->base_name);
+        SDL_snprintf(thxPath, sizeof(thxPath), "%s" WPK_SEP_STR "%s.thx", parent, lower_base_name);
+        fp = SDL_RWFromFile(thxPath, "rb");
+    }
+    if (!fp)
+    {
+        SDL_snprintf(thxPath, sizeof(thxPath), "%s" WPK_SEP_STR "thd" WPK_SEP_STR "%s.thx", parent, lower_base_name);
         fp = SDL_RWFromFile(thxPath, "rb");
         if (!fp)
             return;
@@ -838,22 +906,29 @@ static SDL_RWops* WPK_OpenWpkFile(WPK_UserData* ud, Uint32 wpkid)
     if (ud->wpk_files[wpkid])
         return ud->wpk_files[wpkid];
 
+    char lower_base_name[128];
+    SDL_strlcpy(lower_base_name, ud->base_name, sizeof(lower_base_name));
+    for (size_t i = 0; lower_base_name[i]; i++)
+    {
+        lower_base_name[i] = (char)SDL_tolower((unsigned char)lower_base_name[i]);
+    }
+
     char path[512];
     SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%u.wpk", ud->base_dir, (unsigned)wpkid);
     SDL_RWops* fp = SDL_RWFromFile(path, "rb");
     if (!fp)
     {
-        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s%u.wpk", ud->base_dir, ud->base_name, (unsigned)wpkid);
+        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s%u.wpk", ud->base_dir, lower_base_name, (unsigned)wpkid);
         fp = SDL_RWFromFile(path, "rb");
     }
     if (!fp)
     {
-        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s_%u.wpk", ud->base_dir, ud->base_name, (unsigned)wpkid);
+        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s_%u.wpk", ud->base_dir, lower_base_name, (unsigned)wpkid);
         fp = SDL_RWFromFile(path, "rb");
     }
     if (!fp && wpkid == 0)
     {
-        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s.wpk", ud->base_dir, ud->base_name);
+        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s.wpk", ud->base_dir, lower_base_name);
         fp = SDL_RWFromFile(path, "rb");
     }
     if (!fp)
@@ -1519,20 +1594,7 @@ static void WPK_TryLoadZstdDictNearSelf(WPK_UserData* ud, Uint32 wantDictId)
     if (ud->zstd_ddict)
         return;
 
-#if !defined(_WIN32)
-    /* iOS/macOS: 静态链接场景，字典嵌在主可执行文件中，
-     * 直接扫描可执行文件自身 */
-    {
-        Dl_info info;
-        SDL_memset(&info, 0, sizeof(info));
-        if (dladdr((void*)&WPK_GetSelfDir, &info) && info.dli_fname && info.dli_fname[0])
-        {
-            WPK_TryLoadZstdDictFromFile(ud, wantDictId, info.dli_fname);
-            if (ud->zstd_ddict)
-                return;
-        }
-    }
-#endif
+
 
     char parent[512];
     if (!WPK_PathDirname(parent, selfDir))
