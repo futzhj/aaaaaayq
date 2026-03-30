@@ -65,40 +65,74 @@ static int GGE_LoadScript(lua_State* L)
     }
 
 #ifdef __ANDROID__
-    /* Android 回退: APK assets 中的 ggelua.com 不存在或无效时,
-     * 尝试从内部存储加载 adb push 推送的版本 */
-    if (info.signal != 0x20454747)
+    /* Android 开发覆盖: 始终尝试从外部存储读取 adb push 推送的 ggelua.com
+     * 外部存储路径 = /storage/emulated/0/Android/data/GGELUA/ggelua.com
+     * 如果外部存储有有效的脚本包，优先使用它（覆盖 APK 内嵌版本）
+     * 这样 run.lua 推送的脚本修改就能立即生效 */
     {
-        if (rw) { SDL_FreeRW(rw); rw = NULL; }
-        char* prefPath = SDL_GetPrefPath("GGELUA", "game");
-        if (prefPath)
+        const char* extPath = "/storage/emulated/0/Android/data/GGELUA/ggelua.com";
+        SDL_Log("[GGELUA] Android override: trying '%s'", extPath);
+        SDL_RWops* rw2 = SDL_RWFromFile(extPath, "rb");
+        if (rw2)
         {
-            char fallback[512];
-            SDL_snprintf(fallback, sizeof(fallback), "%sggelua.com", prefPath);
-            SDL_free(prefPath);
-            SDL_Log("[GGELUA] Android fallback: trying '%s'", fallback);
-
-            rw = SDL_RWFromFile(fallback, "rb");
-            if (rw)
+            PACKINFO info2 = { 0, 0, 0 };
+            if (SDL_RWseek(rw2, -(int)sizeof(PACKINFO), RW_SEEK_END) != -1 &&
+                SDL_RWread(rw2, &info2, sizeof(PACKINFO), 1) != 0 &&
+                info2.signal == 0x20454747)
             {
-                PACKINFO info2 = { 0, 0, 0 };
-                if (SDL_RWseek(rw, -(int)sizeof(PACKINFO), RW_SEEK_END) != -1 &&
-                    SDL_RWread(rw, &info2, sizeof(PACKINFO), 1) != 0)
-                {
-                    SDL_Log("[GGELUA] Fallback PACKINFO: signal=0x%08X core=%u pack=%u",
-                            info2.signal, info2.coresize, info2.packsize);
-                    info = info2;
-                }
-                else
-                {
-                    GLOG("Fallback: read PACKINFO FAILED");
-                    SDL_FreeRW(rw);
-                    rw = NULL;
-                }
+                SDL_Log("[GGELUA] Override PACKINFO: signal=0x%08X core=%u pack=%u",
+                        info2.signal, info2.coresize, info2.packsize);
+                /* 用外部版本替换 APK 内嵌版本 */
+                if (rw) { SDL_FreeRW(rw); }
+                rw = rw2;
+                info = info2;
+                GLOG("Using external storage override");
             }
             else
             {
-                SDL_Log("[GGELUA] Fallback also FAILED: %s", SDL_GetError());
+                GLOG("External override: invalid or unreadable, keeping APK version");
+                SDL_FreeRW(rw2);
+            }
+        }
+        else
+        {
+            SDL_Log("[GGELUA] External override not found (normal for first run): %s", SDL_GetError());
+        }
+
+        /* 回退: 如果 APK 也无效，尝试 prefPath */
+        if (info.signal != 0x20454747)
+        {
+            char* prefPath = SDL_GetPrefPath("GGELUA", "game");
+            if (prefPath)
+            {
+                char fallback[512];
+                SDL_snprintf(fallback, sizeof(fallback), "%sggelua.com", prefPath);
+                SDL_free(prefPath);
+                SDL_Log("[GGELUA] Android fallback: trying '%s'", fallback);
+
+                rw2 = SDL_RWFromFile(fallback, "rb");
+                if (rw2)
+                {
+                    PACKINFO info3 = { 0, 0, 0 };
+                    if (SDL_RWseek(rw2, -(int)sizeof(PACKINFO), RW_SEEK_END) != -1 &&
+                        SDL_RWread(rw2, &info3, sizeof(PACKINFO), 1) != 0)
+                    {
+                        SDL_Log("[GGELUA] Fallback PACKINFO: signal=0x%08X core=%u pack=%u",
+                                info3.signal, info3.coresize, info3.packsize);
+                        if (rw) { SDL_FreeRW(rw); }
+                        rw = rw2;
+                        info = info3;
+                    }
+                    else
+                    {
+                        GLOG("Fallback: read PACKINFO FAILED");
+                        SDL_FreeRW(rw2);
+                    }
+                }
+                else
+                {
+                    SDL_Log("[GGELUA] Fallback also FAILED: %s", SDL_GetError());
+                }
             }
         }
     }
