@@ -470,6 +470,49 @@ static int l_ws_server_new(lua_State* L) {
 }
 
 // ============================================================
+// __index / __newindex for Lua-side custom fields
+// ============================================================
+
+// Methods table stored as upvalue(1) in both __index and __newindex closures.
+// __index: check methods table first, then fallback to uservalue table.
+// __newindex: write to uservalue table (allows WSS:customMethod = func).
+
+static int l_ws_server_index(lua_State* L) {
+    // upvalue(1) = methods table
+    lua_pushvalue(L, 2);                 // push key
+    lua_gettable(L, lua_upvalueindex(1)); // methods[key]
+    if (!lua_isnil(L, -1)) {
+        return 1;  // found in methods table
+    }
+    lua_pop(L, 1);
+
+    // Fallback: check uservalue table
+    lua_getiuservalue(L, 1, 1);
+    if (lua_istable(L, -1)) {
+        lua_pushvalue(L, 2);             // push key
+        lua_gettable(L, -2);             // uservalue[key]
+        return 1;
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
+static int l_ws_server_newindex(lua_State* L) {
+    // Store in uservalue table: uservalue[key] = value
+    lua_getiuservalue(L, 1, 1);
+    if (!lua_istable(L, -1)) {
+        lua_pop(L, 1);
+        lua_newtable(L);
+        lua_pushvalue(L, -1);
+        lua_setiuservalue(L, 1, 1);
+    }
+    lua_pushvalue(L, 2);  // key
+    lua_pushvalue(L, 3);  // value
+    lua_settable(L, -3);
+    return 0;
+}
+
+// ============================================================
 // Module registration
 // ============================================================
 
@@ -493,12 +536,27 @@ GHV_EXPORT int luaopen_ghv_WebSocketServer(lua_State* L)
     };
 
     luaL_newmetatable(L, GHV_WS_SERVER_META);
-    luaL_newlib(L, methods);
-    lua_setfield(L, -2, "__index");
+
+    // Create methods table (shared as upvalue for __index and __newindex)
+    luaL_newlib(L, methods);             // stack: meta, methods
+
+    // __index = closure(methods) -> check methods first, then uservalue
+    lua_pushvalue(L, -1);                // push methods as upvalue
+    lua_pushcclosure(L, l_ws_server_index, 1);
+    lua_setfield(L, -3, "__index");
+
+    // __newindex = closure(methods) -> write to uservalue table
+    lua_pushvalue(L, -1);                // push methods as upvalue (unused but symmetric)
+    lua_pushcclosure(L, l_ws_server_newindex, 1);
+    lua_setfield(L, -3, "__newindex");
+
+    lua_pop(L, 1);  // pop methods table
+
     lua_pushcfunction(L, l_ws_server_gc);
     lua_setfield(L, -2, "__gc");
-    lua_pop(L, 1);
+    lua_pop(L, 1);  // pop metatable
 
     lua_pushcfunction(L, l_ws_server_new);
     return 1;
 }
+
