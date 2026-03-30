@@ -289,11 +289,10 @@ target_link_libraries(ggelua PRIVATE ghv hiredis zlib physfs log)
 target_link_libraries(ggelua PUBLIC lua54)
 target_compile_definitions(ggelua PRIVATE LUA_USE_POSIX HAS_AES_HARDWARE=0)
 target_compile_options(ggelua PRIVATE -Wno-format-security)
-# main.c/script.c 引用 SDL 符号
+# main.c/script.c 引用 SDL 符号 + 其他未解析符号(libsndfile等)需容忍
+target_link_options(ggelua PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 if(HAS_PREBUILT_SDL)
     target_link_libraries(ggelua PRIVATE SDL2_prebuilt)
-else()
-    target_link_options(ggelua PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 endif()
 
 # ============================================================================
@@ -343,11 +342,10 @@ target_include_directories(mygxy PRIVATE
     "${ENGINE_ROOT}/external/vgmstream/src"
 )
 target_link_libraries(mygxy PUBLIC lua54 PRIVATE log)
-# SDL 符号链接
+# SDL 符号链接 + 其他未解析符号需容忍
+target_link_options(mygxy PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 if(HAS_PREBUILT_SDL)
     target_link_libraries(mygxy PRIVATE SDL2_prebuilt SDL_image_prebuilt)
-else()
-    target_link_options(mygxy PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 endif()
 target_compile_definitions(mygxy PRIVATE ZSTD_DISABLE_ASM=1)
 set_source_files_properties(
@@ -405,11 +403,10 @@ target_include_directories(gsdl2 PRIVATE
     "${DEPS_DIR}/libsndfile/include"
 )
 target_link_libraries(gsdl2 PUBLIC lua54)
-# SDL 全家桶链接
+# SDL 全家桶链接 + 其他未解析符号(libsndfile等)需容忍
+target_link_options(gsdl2 PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 if(HAS_PREBUILT_SDL)
     target_link_libraries(gsdl2 PRIVATE SDL2_prebuilt SDL_image_prebuilt SDL_mixer_prebuilt SDL_ttf_prebuilt)
-else()
-    target_link_options(gsdl2 PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 endif()
 
 # ============================================================================
@@ -426,11 +423,10 @@ target_include_directories(main PRIVATE
     "${GGELUA_SRC_DIR}" "${SDL_INCLUDE_DIR}"
 )
 target_link_libraries(main PUBLIC lua54 PRIVATE ggelua log)
-# SDL 符号链接
+# SDL 符号链接 + 未解析符号容忍
+target_link_options(main PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 if(HAS_PREBUILT_SDL)
     target_link_libraries(main PRIVATE SDL2_prebuilt)
-else()
-    target_link_options(main PRIVATE "-Wl,--unresolved-symbols=ignore-all")
 endif()
 
 # ============================================================================
