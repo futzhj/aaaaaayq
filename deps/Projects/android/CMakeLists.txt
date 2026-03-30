@@ -24,6 +24,50 @@ set(SDL_INCLUDE_DIR "${DEPS_DIR}/SDL/include")
 set(LIBHV_DIR   "${DEPS_DIR}/libhv")
 
 # ============================================================================
+# 预编译 SDL 系列 .so — IMPORTED (Android 7+ 要求 DT_NEEDED 显式依赖)
+# PREBUILT_SDL_DIR 由 CI 传入, 本地构建时指向 jniLibs-all-abis/${ANDROID_ABI}
+# ============================================================================
+set(PREBUILT_SDL_DIR "" CACHE PATH "Directory containing prebuilt SDL .so files for current ABI")
+if(NOT PREBUILT_SDL_DIR OR NOT EXISTS "${PREBUILT_SDL_DIR}/libSDL2.so")
+    # 回退: 尝试旧 VS 项目输出目录
+    set(_FALLBACK_DIR "${ENGINE_ROOT}/Projects/android-vs/app/GGELUA/app/src/main/jniLibs/${ANDROID_ABI}")
+    if(EXISTS "${_FALLBACK_DIR}/libSDL2.so")
+        set(PREBUILT_SDL_DIR "${_FALLBACK_DIR}")
+    endif()
+endif()
+
+if(PREBUILT_SDL_DIR AND EXISTS "${PREBUILT_SDL_DIR}/libSDL2.so")
+    message(STATUS "[SDL] 使用预编译 .so: ${PREBUILT_SDL_DIR}")
+
+    add_library(SDL2_prebuilt SHARED IMPORTED)
+    set_target_properties(SDL2_prebuilt PROPERTIES
+        IMPORTED_LOCATION "${PREBUILT_SDL_DIR}/libSDL2.so"
+        INTERFACE_INCLUDE_DIRECTORIES "${SDL_INCLUDE_DIR}"
+    )
+
+    add_library(SDL_image_prebuilt SHARED IMPORTED)
+    set_target_properties(SDL_image_prebuilt PROPERTIES
+        IMPORTED_LOCATION "${PREBUILT_SDL_DIR}/libSDL_image.so"
+    )
+
+    add_library(SDL_mixer_prebuilt SHARED IMPORTED)
+    set_target_properties(SDL_mixer_prebuilt PROPERTIES
+        IMPORTED_LOCATION "${PREBUILT_SDL_DIR}/libSDL_mixer.so"
+    )
+
+    add_library(SDL_ttf_prebuilt SHARED IMPORTED)
+    set_target_properties(SDL_ttf_prebuilt PROPERTIES
+        IMPORTED_LOCATION "${PREBUILT_SDL_DIR}/libSDL_ttf.so"
+    )
+
+    set(HAS_PREBUILT_SDL TRUE)
+else()
+    message(WARNING "[SDL] 预编译 .so 未找到 (PREBUILT_SDL_DIR='${PREBUILT_SDL_DIR}'), "
+                    "将回退到 --unresolved-symbols=ignore-all")
+    set(HAS_PREBUILT_SDL FALSE)
+endif()
+
+# ============================================================================
 # 1. lua54 — SHARED (所有模块的基础依赖)
 # ============================================================================
 set(LUA_SRC_DIR "${DEPS_DIR}/lua")
@@ -245,8 +289,12 @@ target_link_libraries(ggelua PRIVATE ghv hiredis zlib physfs log)
 target_link_libraries(ggelua PUBLIC lua54)
 target_compile_definitions(ggelua PRIVATE LUA_USE_POSIX HAS_AES_HARDWARE=0)
 target_compile_options(ggelua PRIVATE -Wno-format-security)
-# main.c/script.c 引用 SDL 符号, 运行时由预编译 .so 提供
-target_link_options(ggelua PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+# main.c/script.c 引用 SDL 符号
+if(HAS_PREBUILT_SDL)
+    target_link_libraries(ggelua PRIVATE SDL2_prebuilt)
+else()
+    target_link_options(ggelua PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+endif()
 
 # ============================================================================
 # 7. libmygxy.so — SHARED (基于旧 android-vs/grr/mygxy 精确文件列表)
@@ -295,8 +343,12 @@ target_include_directories(mygxy PRIVATE
     "${ENGINE_ROOT}/external/vgmstream/src"
 )
 target_link_libraries(mygxy PUBLIC lua54 PRIVATE log)
-# SDL 符号由预编译 .so 在运行时提供, CI 中无需链接
-target_link_options(mygxy PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+# SDL 符号链接
+if(HAS_PREBUILT_SDL)
+    target_link_libraries(mygxy PRIVATE SDL2_prebuilt SDL_image_prebuilt)
+else()
+    target_link_options(mygxy PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+endif()
 target_compile_definitions(mygxy PRIVATE ZSTD_DISABLE_ASM=1)
 set_source_files_properties(
     "${DEPS_DIR}/lz4/xxhash.c" "${DEPS_DIR}/lz4/lz4hc.c" "${DEPS_DIR}/lz4/lz4frame.c"
@@ -353,8 +405,12 @@ target_include_directories(gsdl2 PRIVATE
     "${DEPS_DIR}/libsndfile/include"
 )
 target_link_libraries(gsdl2 PUBLIC lua54)
-# SDL/SDL_image/SDL_mixer/SDL_ttf 符号由预编译 .so 在运行时提供
-target_link_options(gsdl2 PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+# SDL 全家桶链接
+if(HAS_PREBUILT_SDL)
+    target_link_libraries(gsdl2 PRIVATE SDL2_prebuilt SDL_image_prebuilt SDL_mixer_prebuilt SDL_ttf_prebuilt)
+else()
+    target_link_options(gsdl2 PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+endif()
 
 # ============================================================================
 # 11. libmain.so — SHARED (SDL_main 入口 + GGE_LoadScript 脚本包加载)
@@ -370,8 +426,12 @@ target_include_directories(main PRIVATE
     "${GGELUA_SRC_DIR}" "${SDL_INCLUDE_DIR}"
 )
 target_link_libraries(main PUBLIC lua54 PRIVATE ggelua log)
-# SDL 符号由预编译 .so 在运行时提供
-target_link_options(main PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+# SDL 符号链接
+if(HAS_PREBUILT_SDL)
+    target_link_libraries(main PRIVATE SDL2_prebuilt)
+else()
+    target_link_options(main PRIVATE "-Wl,--unresolved-symbols=ignore-all")
+endif()
 
 # ============================================================================
 # 安装: 收集 .so 到 {ABI}/ 目录

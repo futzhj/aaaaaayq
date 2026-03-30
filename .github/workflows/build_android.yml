@@ -109,6 +109,9 @@ jobs:
         fi
         echo "Using libcrypto.a: ${CRYPTO_LIB}"
 
+        # 预编译 SDL .so 路径 (用于正确生成 DT_NEEDED 依赖)
+        SDL_PREBUILT="${{ github.workspace }}/${{ env.ANDROID_PROJECT_DIR }}/../../Projects/android-vs/app/GGELUA/app/src/main/jniLibs/${{ matrix.abi }}"
+
         cmake -B build-android \
           -S ${{ env.ANDROID_PROJECT_DIR }} \
           -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-ndk.outputs.ndk-path }}/build/cmake/android.toolchain.cmake \
@@ -116,6 +119,7 @@ jobs:
           -DANDROID_PLATFORM=android-24 \
           -DCMAKE_BUILD_TYPE=${{ env.BUILD_CONFIG }} \
           -DOPENSSL_CRYPTO_LIB="${CRYPTO_LIB}" \
+          -DPREBUILT_SDL_DIR="${SDL_PREBUILT}" \
           -DCMAKE_INSTALL_PREFIX=install-android \
           -G Ninja
 
