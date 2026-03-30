@@ -18,6 +18,9 @@
 #if defined(_WIN32)
 #define WPK_DICT_LIB_A "ggelua.dll"
 #define WPK_DICT_LIB_B "mygxy.dll"
+#elif defined(__APPLE__)
+#define WPK_DICT_LIB_A "libggelua.dylib"
+#define WPK_DICT_LIB_B "libmygxy.dylib"
 #else
 #define WPK_DICT_LIB_A "libggelua.so"
 #define WPK_DICT_LIB_B "libmygxy.so"
@@ -1490,6 +1493,8 @@ static void WPK_TryLoadZstdDictFromDir(WPK_UserData* ud, Uint32 wantDictId, cons
             okExt = 1;
         if (n >= 6 && SDL_strcasecmp(name + (n - 6), ".dylib") == 0)
             okExt = 1;
+        if (n >= 4 && SDL_strcasecmp(name + (n - 4), ".wpk") == 0)
+            okExt = 1;
         if (!okExt)
             continue;
 
@@ -1513,6 +1518,21 @@ static void WPK_TryLoadZstdDictNearSelf(WPK_UserData* ud, Uint32 wantDictId)
     WPK_TryLoadZstdDictFromDir(ud, wantDictId, selfDir);
     if (ud->zstd_ddict)
         return;
+
+#if !defined(_WIN32)
+    /* iOS/macOS: 静态链接场景，字典嵌在主可执行文件中，
+     * 直接扫描可执行文件自身 */
+    {
+        Dl_info info;
+        SDL_memset(&info, 0, sizeof(info));
+        if (dladdr((void*)&WPK_GetSelfDir, &info) && info.dli_fname && info.dli_fname[0])
+        {
+            WPK_TryLoadZstdDictFromFile(ud, wantDictId, info.dli_fname);
+            if (ud->zstd_ddict)
+                return;
+        }
+    }
+#endif
 
     char parent[512];
     if (!WPK_PathDirname(parent, selfDir))

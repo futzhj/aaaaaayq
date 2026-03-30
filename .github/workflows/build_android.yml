@@ -234,9 +234,8 @@ jobs:
     - name: Build APK with Gradle
       working-directory: ${{ env.GRADLE_PROJECT_DIR }}
       run: |
-        # 生成 gradlew (仓库中只有 gradlew.bat)
-        # 直接用 java -jar 调用 gradle-wrapper.jar
-        java -jar gradle/wrapper/gradle-wrapper.jar assembleRelease --no-daemon --info
+        # gradle-wrapper.jar 没有 Main-Class manifest, 需用 -cp 指定主类
+        java -cp gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain assembleRelease --no-daemon --info
       env:
         ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
