@@ -67,8 +67,8 @@ jobs:
     - name: Build ${{ matrix.platform }} (${{ matrix.configuration }})
       shell: pwsh
       run: |
-        # 强制使用 v143 工具集 (VS 2022)
-        # 项目文件中的 v145 在 CI Runner 上不可用
+        # 所有 vcxproj 已统一为 v143 (VS 2022)
+        # 此处仍保留全局覆盖作为防御性措施，防止意外引入其他工具集版本
         # PostBuildEvent 禁用: 仅用于本地开发的 copy 操作，CI 上目标不存在
         msbuild ${{ env.SOLUTION_FILE }} `
           /p:Configuration=${{ matrix.configuration }} `
