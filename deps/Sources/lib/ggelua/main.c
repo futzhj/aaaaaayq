@@ -13,6 +13,8 @@
 
 #ifdef __WIN32__
 #include <Windows.h>
+#else
+#include "gbk_conv.h"
 #endif
 
 static int LUA_GBK2UTF8(lua_State *L)
@@ -33,28 +35,17 @@ static int LUA_GBK2UTF8(lua_State *L)
     luaL_pushresultsize(&b, len - 1);
     return 1;
 #else
+    /* 使用内嵌 GBK 码表转换（不依赖系统 iconv） */
     luaL_Buffer b;
-    luaL_buffinit(L, &b);
-    SDL_iconv_t ic = SDL_iconv_open("UTF-8", "GBK");
-    if (ic != (SDL_iconv_t)-1 && ic != NULL)
-    {
-        for (;;)
-        {
-            char *outbuf = luaL_prepbuffer(&b);
-            size_t outlen = LUAL_BUFFERSIZE;
-            size_t ret = SDL_iconv(ic, (const char **)&str, &inlen, &outbuf, &outlen);
-            luaL_addsize(&b, LUAL_BUFFERSIZE - outlen);
-            if (ret == SDL_ICONV_EILSEQ || ret == SDL_ICONV_EINVAL || inlen == 0)
-                break;
-        }
-        luaL_pushresult(&b);
-        SDL_iconv_close(ic);
+    size_t out_size = inlen * 3 + 1;
+    char *buf = luaL_buffinitsize(L, &b, out_size);
+    size_t written = gbk_to_utf8(str, inlen, buf, out_size);
+    if (written > 0) {
+        luaL_pushresultsize(&b, written);
         return 1;
     }
 #endif
-    /* iconv 不可用（如 iOS 无 GBK 支持）：原样返回输入 */
-    lua_pushlstring(L, str, inlen);
-    return 1;
+    return 0;
 }
 
 static int LUA_UTF82GBK(lua_State *L)
@@ -75,28 +66,17 @@ static int LUA_UTF82GBK(lua_State *L)
     luaL_pushresultsize(&b, len - 1);
     return 1;
 #else
+    /* 使用内嵌 GBK 码表转换（不依赖系统 iconv） */
     luaL_Buffer b;
-    luaL_buffinit(L, &b);
-    SDL_iconv_t ic = SDL_iconv_open("GBK", "UTF-8");
-    if (ic != (SDL_iconv_t)-1 && ic != NULL)
-    {
-        for (;;)
-        {
-            char *outbuf = luaL_prepbuffer(&b);
-            size_t outlen = LUAL_BUFFERSIZE;
-            size_t ret = SDL_iconv(ic, (const char **)&str, &inlen, &outbuf, &outlen);
-            luaL_addsize(&b, LUAL_BUFFERSIZE - outlen);
-            if (ret == SDL_ICONV_EILSEQ || ret == SDL_ICONV_EINVAL || inlen == 0)
-                break;
-        }
-        luaL_pushresult(&b);
-        SDL_iconv_close(ic);
+    size_t out_size = inlen * 2 + 1;
+    char *buf = luaL_buffinitsize(L, &b, out_size);
+    size_t written = utf8_to_gbk(str, inlen, buf, out_size);
+    if (written > 0) {
+        luaL_pushresultsize(&b, written);
         return 1;
     }
 #endif
-    /* iconv 不可用（如 iOS 无 GBK 支持）：原样返回输入 */
-    lua_pushlstring(L, str, inlen);
-    return 1;
+    return 0;
 }
 #ifdef __WIN32__
 static int LUA_GetRunPath(lua_State *L)
@@ -216,7 +196,6 @@ static int LUA_StateThread(void *data)
     }
     SDL_DestroyMutex(mutex);
     lua_close(L);
-    SDL_free((void *)info->entry);
     SDL_free(info);
     return 0;
 }
@@ -232,7 +211,7 @@ static int LUA_NewState(lua_State *L)
         lua_getfield(L, LUA_REGISTRYINDEX, "_argv");
         info->argv = (char **)lua_topointer(L, -1);
         lua_pop(L, 1);
-        info->entry = SDL_strdup(luaL_checkstring(L, 1));
+        info->entry = luaL_checkstring(L, 1);
         info->ggecore = lua_tolstring(L, -1, &info->coresize);
         if (lua_getfield(L, LUA_REGISTRYINDEX, "ggepack") == LUA_TSTRING)
         {
@@ -249,10 +228,7 @@ static int LUA_NewState(lua_State *L)
         SDL_Thread *t = SDL_CreateThread(LUA_StateThread, NULL, (void *)info);
         lua_pushboolean(L, t != NULL);
         if (!t)
-        {
-            SDL_free((void *)info->entry);
             SDL_free(info);
-        }
         return 1;
     }
     return 0;
@@ -316,18 +292,16 @@ static int LUA_GetBasePath(lua_State *L)
 //ANDROID /data/data/com.GGELUA.game/files
 static int LUA_GetPrefPath(lua_State *L)
 {
-    const char *organization = luaL_optstring(L, 1, "GGELUA");
-    const char *application = luaL_optstring(L, 2, organization);
-    char *str = SDL_GetPrefPath(organization, application);
+#ifdef __WIN32__
+    const char *application = luaL_checkstring(L, 1);
+#else
+    const char *application = NULL;
+#endif
+    char *str = SDL_GetPrefPath("GGELUA", application);
 
-    if (str)
-    {
-        lua_pushstring(L, str);
-        SDL_free(str);
-        return 1;
-    }
-
-    return 0;
+    lua_pushstring(L, str);
+    SDL_free(str);
+    return 1;
 }
 
 static int LUA_MessageBox(lua_State *L)
@@ -400,7 +374,6 @@ static const luaL_Reg fun_list[] = {
     {"hash", luaopen_tohash},
     {"log", LUA_Log},
     {"warn", LUA_Warn},
-    {"ggepack", luaopen_ggescript}, /* Lua层可通过 gge.ggepack(data) 解析GGEP脚本包 */
 
     {NULL, NULL}};
 
@@ -414,21 +387,11 @@ static const luaL_Reg lib_list[] = {
     {"cprint", luaopen_cprint},
     {"uuid", luaopen_uuid},
     {"nanoid", luaopen_nanoid},
-    {"aes", luaopen_aes},
-    {"cjson", luaopen_cjson},
-    {"cjson.safe", luaopen_cjson_safe},
-    {"ghv.TcpClient", luaopen_ghv_TcpClient},
-    {"ghv.TcpServer", luaopen_ghv_TcpServer},
-    {"ghv.HttpRequests", luaopen_ghv_HttpRequests},
-    {"ghv.download", luaopen_ghv_download},
-    {"ghv.WebSocketServer", luaopen_ghv_WebSocketServer},
-    {"gge.core", luaopen_ggecore},  /* 脚本加解密, preload 保证引导阶段可用 */
-    {"physfs", luaopen_physfs},      /* 虚拟文件系统, 统一资源访问 */
     
     {NULL, NULL},
 };
 
-GGE_EXPORT int luaopen_ggelua(lua_State *L)
+int luaopen_ggelua(lua_State *L)
 {
     //内置模块
     lua_getfield(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE); //package.preload

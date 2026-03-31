@@ -262,6 +262,7 @@ add_library(ggelua SHARED
     "${GGELUA_SRC_DIR}/md5.c"
     "${GGELUA_SRC_DIR}/script.c"
     "${GGELUA_SRC_DIR}/lua_aes.c"
+    "${GGELUA_SRC_DIR}/gbk_conv.c"
     "${GGELUA_SRC_DIR}/print/cprint.c"
     "${GGELUA_SRC_DIR}/nanoid/crypto_random.cpp"
     "${GGELUA_SRC_DIR}/nanoid/nanoid.cpp"

@@ -233,6 +233,7 @@ set(GGELUA_SOURCES
     "${GGELUA_SRC_DIR}/md5.c"
     "${GGELUA_SRC_DIR}/script.c"
     "${GGELUA_SRC_DIR}/lua_aes.c"
+    "${GGELUA_SRC_DIR}/gbk_conv.c"
     "${GGELUA_SRC_DIR}/core.c"
     "${GGELUA_SRC_DIR}/ios_network.m"
     "${GGELUA_SRC_DIR}/print/cprint.c"

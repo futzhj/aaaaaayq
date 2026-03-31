@@ -81,17 +81,22 @@ jobs:
       shell: pwsh
       run: |
         $buildRoot = "deps/Projects/windows"
-        # 必须存在的关键 DLL/EXE (从各子项目 .x64 输出目录搜索)
+        # ── 实际输出的 DLL/EXE 产物清单 ──
+        # lua54/SDL2/SDL_image/SDL_mixer/SDL_ttf/zlib/ghv/libhv/physfs 均为 StaticLibrary
+        # 已全部静态链入 ggelua.dll，不会产生独立 DLL
         $required = @(
-          "ggelua.dll",      # 引擎核心
-          "lua54.dll",       # Lua 运行时
-          "SDL2.dll",        # 渲染/事件
-          "SDL_image.dll",   # 图片加载
-          "SDL_mixer.dll",   # 混音器
-          "SDL_ttf.dll",     # 字体渲染
-          "GGELUA.exe"       # 主程序
+          "ggelua.dll",      # 引擎核心 (静态含 lua54/SDL2/SDL_image/SDL_mixer/SDL_ttf/zlib/ghv/libhv/physfs)
+          "gsdl2.dll",       # SDL Lua 绑定
+          "mygxy.dll",       # 资源格式 (WPK/WDF/FSB + zstd/lz4)
+          "hiredis.dll",     # Redis 客户端
+          "lsqlite3.dll",    # SQLite Lua 绑定
+          "gastar.dll",      # A* 寻路
+          "GGELUA.exe",      # 主程序 (窗口)
+          "GGELUAc.exe",     # 主程序 (控制台)
+          "lua.exe"          # Lua 解释器
         )
 
+        # 搜索 .x64 编译输出目录
         $found = @{}
         Get-ChildItem -Path $buildRoot -Directory -Filter ".x64" -Recurse -ErrorAction SilentlyContinue |
           ForEach-Object {
@@ -111,6 +116,14 @@ jobs:
           }
         }
 
+        # 列出其他意外产物 (不阻塞，仅供参考)
+        $extra = $found.Keys | Where-Object { $_ -notin $required }
+        if ($extra.Count -gt 0) {
+          Write-Host ""
+          Write-Host "⚠️ 意外产物 (未在必须清单中):"
+          $extra | ForEach-Object { Write-Host "  ⚠️ $_" }
+        }
+
         Write-Host ""
         Write-Host "总计: $($found.Count) 个产物, $($missing.Count) 个缺失"
         if ($missing.Count -gt 0) {
@@ -118,22 +131,45 @@ jobs:
           exit 1
         }
 
-    - name: Collect DLL artifacts
+    - name: Collect artifacts
       shell: pwsh
       run: |
         $outDir = "artifacts"
         New-Item -ItemType Directory -Path $outDir -Force | Out-Null
 
-        # 直接搜索 .x64 编译输出目录，避免递归进入 Dependencies junction
+        # 精确收集指定的 DLL/EXE，不收集静态库和中间产物
+        $targets = @(
+          "ggelua.dll",
+          "gsdl2.dll",
+          "mygxy.dll",
+          "hiredis.dll",
+          "lsqlite3.dll",
+          "gastar.dll",
+          "GGELUA.exe",
+          "GGELUAc.exe",
+          "lua.exe"
+        )
+
         $buildRoot = "deps/Projects/windows"
+        $allFiles = @{}
         Get-ChildItem -Path $buildRoot -Directory -Filter ".x64" -Recurse -ErrorAction SilentlyContinue |
           ForEach-Object {
             Get-ChildItem -Path $_.FullName -Include "*.dll","*.exe" -Recurse -ErrorAction SilentlyContinue
           } |
-          ForEach-Object {
-            Write-Host "  $($_.Name) ($([math]::Round($_.Length/1KB, 1)) KB)"
-            Copy-Item $_.FullName -Destination $outDir -Force
+          ForEach-Object { $allFiles[$_.Name] = $_ }
+
+        $collected = 0
+        foreach ($name in $targets) {
+          if ($allFiles.ContainsKey($name)) {
+            $f = $allFiles[$name]
+            $sizeKB = [math]::Round($f.Length / 1KB, 1)
+            Write-Host "  📦 $name ($sizeKB KB)"
+            Copy-Item $f.FullName -Destination $outDir -Force
+            $collected++
           }
+        }
+        Write-Host ""
+        Write-Host "已收集 $collected / $($targets.Count) 个产物"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -142,3 +178,4 @@ jobs:
         path: artifacts/
         if-no-files-found: error
         retention-days: 30
+
