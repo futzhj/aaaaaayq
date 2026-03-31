@@ -12,6 +12,9 @@
 #ifdef _WIN32
 #include "windows.h"
 #endif
+#ifdef __ANDROID__
+#include <jni.h>
+#endif
 
 int luaopen_ggelua(lua_State* L);
 typedef struct _PACKINFO
@@ -35,10 +38,12 @@ static int GGE_LoadScript(lua_State* L)
     const char* internalPath = SDL_AndroidGetInternalStoragePath();
     if (internalPath)
     {
-        char overridePath[512];
-        SDL_snprintf(overridePath, sizeof(overridePath), "%s/%s", internalPath, path);
+        size_t needLen = SDL_strlen(internalPath) + 1 + len + 1;
+        char* overridePath = (char*)SDL_malloc(needLen);
+        SDL_snprintf(overridePath, needLen, "%s/%s", internalPath, path);
         SDL_Log("[GGELUA] Android override: trying '%s'", overridePath);
         rw = SDL_RWFromFile(overridePath, "rb");
+        SDL_free(overridePath);
         if (rw)
         {
             SDL_Log("[GGELUA] Loaded override script from internal storage");
@@ -60,12 +65,12 @@ static int GGE_LoadScript(lua_State* L)
     {
         if (SDL_RWseek(rw, -(int)sizeof(PACKINFO), RW_SEEK_END) == -1)
         { //移动到文件尾
-            SDL_FreeRW(rw);
+            SDL_RWclose(rw);
             return 0;
         }
         if (SDL_RWread(rw, &info, sizeof(PACKINFO), 1) == 0)
         { //包信息
-            SDL_FreeRW(rw);
+            SDL_RWclose(rw);
             return 0;
         }
     }
@@ -74,7 +79,7 @@ static int GGE_LoadScript(lua_State* L)
     { //GGE\x20
         if (SDL_RWseek(rw, -(int)(sizeof(PACKINFO) + info.coresize + info.packsize), RW_SEEK_END) == -1)
         {
-            SDL_FreeRW(rw);
+            SDL_RWclose(rw);
             return 0;
         }
         void* ggecore = SDL_malloc(info.coresize);
@@ -114,7 +119,7 @@ static int GGE_LoadScript(lua_State* L)
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "error", "no ggescript", NULL);
 #endif
     }
-    SDL_FreeRW(rw);
+    SDL_RWclose(rw);
     lua_pushboolean(L, info.signal != 0x20454747);
     return 1;
 }
@@ -151,6 +156,52 @@ int SDL_main(int argc, char** argv)
         lua_pushstring(L, argv[i]);
         lua_seti(L, -2, i);
     }
+
+#ifdef __ANDROID__
+    // 确保 arg[1] 包含 nativeLibraryDir，供 ggelua.lua 拼接 package.cpath
+    if (argc < 2)
+    {
+        JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+        jobject activity = (jobject)SDL_AndroidGetActivity();
+        if (env && activity)
+        {
+            jclass actClass = (*env)->GetObjectClass(env, activity);
+            jmethodID getAppInfo = (*env)->GetMethodID(env, actClass,
+                "getApplicationInfo", "()Landroid/content/pm/ApplicationInfo;");
+            if (getAppInfo)
+            {
+                jobject appInfo = (*env)->CallObjectMethod(env, activity, getAppInfo);
+                if (appInfo)
+                {
+                    jclass appInfoClass = (*env)->GetObjectClass(env, appInfo);
+                    jfieldID nativeLibDirField = (*env)->GetFieldID(env, appInfoClass,
+                        "nativeLibraryDir", "Ljava/lang/String;");
+                    if (nativeLibDirField)
+                    {
+                        jstring nativeLibDir = (jstring)(*env)->GetObjectField(env, appInfo, nativeLibDirField);
+                        if (nativeLibDir)
+                        {
+                            const char* dir = (*env)->GetStringUTFChars(env, nativeLibDir, NULL);
+                            if (dir)
+                            {
+                                lua_pushstring(L, dir);
+                                lua_seti(L, -2, 1);
+                                SDL_Log("[GGELUA] arg[1] fallback = nativeLibraryDir: %s", dir);
+                                (*env)->ReleaseStringUTFChars(env, nativeLibDir, dir);
+                            }
+                            (*env)->DeleteLocalRef(env, nativeLibDir);
+                        }
+                    }
+                    (*env)->DeleteLocalRef(env, appInfoClass);
+                    (*env)->DeleteLocalRef(env, appInfo);
+                }
+            }
+            (*env)->DeleteLocalRef(env, actClass);
+            (*env)->DeleteLocalRef(env, activity);
+        }
+    }
+#endif
+
     lua_setfield(L, -2, "arg"); //gge.arg
 
 #ifdef _WIN32

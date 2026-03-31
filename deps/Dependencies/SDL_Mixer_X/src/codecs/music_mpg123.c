@@ -72,6 +72,7 @@ typedef struct {
     off_t (*mpg123_tell)( mpg123_handle *mh);
     off_t (*mpg123_length)(mpg123_handle *mh);
     const char* (*mpg123_strerror)(mpg123_handle *mh);
+    int (*mpg123_param)( mpg123_handle *mh, enum mpg123_parms type, long value, double fvalue );
 } mpg123_loader;
 
 static mpg123_loader mpg123;
@@ -120,6 +121,7 @@ static int MPG123_Load(void)
         FUNCTION_LOADER(mpg123_tell, off_t (*)( mpg123_handle *mh))
         FUNCTION_LOADER(mpg123_length, off_t (*)(mpg123_handle *mh))
         FUNCTION_LOADER(mpg123_strerror, const char* (*)(mpg123_handle *mh))
+        FUNCTION_LOADER(mpg123_param, int (*)( mpg123_handle *mh, enum mpg123_parms type, long value, double fvalue ))
     }
     ++mpg123.loaded;
 
@@ -302,6 +304,12 @@ static void *MPG123_CreateFromRW(SDL_RWops *src, int freesrc)
 
         mpg123.mpg123_format(music->handle, rates[i], channels, formats);
     }
+
+    /* Set resync limit to unlimited (-1) to handle MP3 files with large ID3v2
+     * tags (e.g. embedded album art that can exceed the default 64KB limit).
+     * Also suppress stderr warnings from mpg123 internal parser. */
+    mpg123.mpg123_param(music->handle, MPG123_RESYNC_LIMIT, -1, 0.0);
+    mpg123.mpg123_param(music->handle, MPG123_ADD_FLAGS, MPG123_QUIET, 0.0);
 
     result = mpg123.mpg123_open_handle(music->handle, &music->mp3file);
     if (result != MPG123_OK) {
