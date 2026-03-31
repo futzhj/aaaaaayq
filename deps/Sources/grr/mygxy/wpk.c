@@ -17,6 +17,13 @@
 #define WPK_SEP_STR "/"
 
 #ifdef WPK_USE_PHYSFS
+static void WPK_LogOpenFailure(const char* stage, const char* path, const char* detail) {
+    fprintf(stderr, "[wpk] %s failed: path='%s' detail='%s'\n",
+        stage ? stage : "open",
+        path ? path : "",
+        detail ? detail : "");
+}
+
 static Sint64 SDLCALL WPK_physfs_size(SDL_RWops *context) {
     return (Sint64)PHYSFS_fileLength((PHYSFS_File *)context->hidden.unknown.data1);
 }
@@ -65,8 +72,17 @@ static SDL_RWops* WPK_SDL_RWFromFile(const char* path, const char* mode) {
             }
             PHYSFS_close(handle);
         }
+        else
+        {
+            WPK_LogOpenFailure("physfs", path, PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+        }
     }
-    return (SDL_RWFromFile)(path, mode);
+    SDL_RWops *rwops = (SDL_RWFromFile)(path, mode);
+    if (!rwops)
+    {
+        WPK_LogOpenFailure("sdl", path, SDL_GetError());
+    }
+    return rwops;
 }
 #define SDL_RWFromFile WPK_SDL_RWFromFile
 #endif
@@ -942,7 +958,13 @@ static SDL_RWops* WPK_OpenWpkFile(WPK_UserData* ud, Uint32 wpkid)
         fp = SDL_RWFromFile(path, "rb");
     }
     if (!fp)
+    {
+        fprintf(stderr, "[wpk] open data pack failed: base_dir='%s' base_name='%s' wpkid=%u\n",
+            ud->base_dir,
+            ud->base_name,
+            (unsigned)wpkid);
         return NULL;
+    }
 
     ud->wpk_files[wpkid] = fp;
     return fp;
@@ -1324,7 +1346,10 @@ static int WPK_ReadFileAll(const char* path, Uint8** outData, size_t* outSize)
 
     SDL_RWops* fp = SDL_RWFromFile(path, "rb");
     if (!fp)
+    {
+        fprintf(stderr, "[wpk] read file failed: path='%s'\n", path ? path : "");
         return 0;
+    }
     if (SDL_RWseek(fp, 0, RW_SEEK_END) < 0)
     {
         SDL_RWclose(fp);

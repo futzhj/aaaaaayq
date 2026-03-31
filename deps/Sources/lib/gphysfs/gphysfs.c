@@ -30,6 +30,12 @@
 #include <lualib.h>
 #include <string.h>
 #include <stdlib.h>
+#include "SDL_log.h"
+#include "SDL_system.h"
+
+#if defined(__ANDROID__)
+#include <jni.h>
+#endif
 
 #if __has_include("physfs.h")
 #include "physfs.h"
@@ -39,6 +45,39 @@
 #endif
 
 #define PHYSFS_FILE_MT "PhysFS.File"
+
+static int ensure_physfs_initialized(void)
+{
+    if (PHYSFS_isInit())
+    {
+        return 1;
+    }
+
+#if defined(__ANDROID__)
+    JNIEnv *env = (JNIEnv *)SDL_AndroidGetJNIEnv();
+    jobject activity = SDL_AndroidGetActivity();
+    if (env && activity)
+    {
+        PHYSFS_AndroidInit init_info;
+        init_info.jnienv = env;
+        init_info.context = activity;
+        const int ok = PHYSFS_init((const char *)&init_info);
+        if (!ok)
+        {
+            SDL_Log("[physfs] Android init failed: %s", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+        }
+        return ok;
+    }
+    SDL_Log("[physfs] Android init missing JNI context: env=%p activity=%p", (void *)env, (void *)activity);
+#endif
+
+    const int ok = PHYSFS_init(NULL);
+    if (!ok)
+    {
+        SDL_Log("[physfs] init failed: %s", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+    }
+    return ok;
+}
 
 /* =====================================================================
  *  Helper: push PhysFS error string
@@ -57,15 +96,34 @@ static int push_physfs_error(lua_State *L)
  * ===================================================================== */
 static int l_init(lua_State *L)
 {
-    const char *argv0 = luaL_optstring(L, 1, NULL);
     if (PHYSFS_isInit())
     {
         lua_pushboolean(L, 1);
         return 1;
     }
-    if (!PHYSFS_init(argv0))
+    if (lua_isnoneornil(L, 1))
     {
-        return push_physfs_error(L);
+        if (!ensure_physfs_initialized())
+        {
+            return push_physfs_error(L);
+        }
+    }
+    else
+    {
+        const char *arg0 = luaL_checkstring(L, 1);
+#if defined(__ANDROID__)
+        SDL_Log("[physfs] init called with argv0='%s' on Android, using JNI-backed init instead", arg0);
+        if (!ensure_physfs_initialized())
+        {
+            return push_physfs_error(L);
+        }
+#else
+        if (!PHYSFS_init(arg0))
+        {
+            SDL_Log("[physfs] init('%s') failed: %s", arg0, PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+            return push_physfs_error(L);
+        }
+#endif
     }
     lua_pushboolean(L, 1);
     return 1;
@@ -95,10 +153,23 @@ static int l_mount(lua_State *L)
     const char *path = luaL_checkstring(L, 1);
     const char *mount_point = luaL_optstring(L, 2, NULL);
     int append = (int)luaL_optinteger(L, 3, 1); /* default: append */
-    if (!PHYSFS_mount(path, mount_point, append))
+    if (!ensure_physfs_initialized())
     {
         return push_physfs_error(L);
     }
+    if (!PHYSFS_mount(path, mount_point, append))
+    {
+        SDL_Log("[physfs] mount failed: path='%s' mountPoint='%s' append=%d err=%s",
+            path,
+            mount_point ? mount_point : "",
+            append,
+            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+        return push_physfs_error(L);
+    }
+    SDL_Log("[physfs] mount ok: path='%s' mountPoint='%s' append=%d",
+        path,
+        mount_point ? mount_point : "",
+        append);
     lua_pushboolean(L, 1);
     return 1;
 }
@@ -109,6 +180,10 @@ static int l_mount(lua_State *L)
 static int l_unmount(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     if (!PHYSFS_unmount(path))
     {
         return push_physfs_error(L);
@@ -123,6 +198,10 @@ static int l_unmount(lua_State *L)
 static int l_exists(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     lua_pushboolean(L, PHYSFS_exists(path));
     return 1;
 }
@@ -133,6 +212,10 @@ static int l_exists(lua_State *L)
 static int l_realDir(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     const char *dir = PHYSFS_getRealDir(path);
     if (dir)
     {
@@ -151,6 +234,10 @@ static int l_realDir(lua_State *L)
 static int l_files(lua_State *L)
 {
     const char *path = luaL_optstring(L, 1, "");
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     char **list = PHYSFS_enumerateFiles(path);
     if (!list)
     {
@@ -174,6 +261,10 @@ static int l_files(lua_State *L)
 static int l_setWriteDir(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     if (!PHYSFS_setWriteDir(path))
     {
         return push_physfs_error(L);
@@ -187,6 +278,10 @@ static int l_setWriteDir(lua_State *L)
  * ===================================================================== */
 static int l_getWriteDir(lua_State *L)
 {
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     const char *dir = PHYSFS_getWriteDir();
     if (dir)
     {
@@ -205,6 +300,10 @@ static int l_getWriteDir(lua_State *L)
 static int l_mkdir(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     if (!PHYSFS_mkdir(path))
     {
         return push_physfs_error(L);
@@ -218,6 +317,10 @@ static int l_mkdir(lua_State *L)
  * ===================================================================== */
 static int l_getBaseDir(lua_State *L)
 {
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     const char *dir = PHYSFS_getBaseDir();
     lua_pushstring(L, dir ? dir : "");
     return 1;
@@ -230,6 +333,10 @@ static int l_getPrefDir(lua_State *L)
 {
     const char *org = luaL_checkstring(L, 1);
     const char *app = luaL_checkstring(L, 2);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     const char *dir = PHYSFS_getPrefDir(org, app);
     if (dir)
     {
@@ -249,6 +356,10 @@ static int l_stat(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
     PHYSFS_Stat st;
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     if (!PHYSFS_stat(path, &st))
     {
         lua_pushnil(L);
@@ -439,6 +550,10 @@ static const luaL_Reg fh_meta[] = {
 static int l_openRead(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     PHYSFS_File *f = PHYSFS_openRead(path);
     if (!f)
     {
@@ -458,6 +573,10 @@ static int l_openRead(lua_State *L)
 static int l_openWrite(lua_State *L)
 {
     const char *path = luaL_checkstring(L, 1);
+    if (!ensure_physfs_initialized())
+    {
+        return push_physfs_error(L);
+    }
     PHYSFS_File *f = PHYSFS_openWrite(path);
     if (!f)
     {
