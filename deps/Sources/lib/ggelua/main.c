@@ -390,6 +390,7 @@ static const luaL_Reg lib_list[] = {
     {"uuid", luaopen_uuid},
     {"nanoid", luaopen_nanoid},
     {"aes", luaopen_aes},
+    {"physfs", luaopen_physfs},
     {NULL, NULL},
 };
 

@@ -1062,8 +1062,37 @@ EXPORTS
     luaopen_md5
     luaopen_os
     luaopen_package
+    luaopen_physfs
     luaopen_string
     luaopen_table
     luaopen_utf8
     luaopen_zlib
+    PHYSFS_isInit
+    PHYSFS_openRead
+    PHYSFS_openWrite
+    PHYSFS_openAppend
+    PHYSFS_close
+    PHYSFS_readBytes
+    PHYSFS_writeBytes
+    PHYSFS_fileLength
+    PHYSFS_tell
+    PHYSFS_seek
+    PHYSFS_init
+    PHYSFS_deinit
+    PHYSFS_mount
+    PHYSFS_unmount
+    PHYSFS_exists
+    PHYSFS_getRealDir
+    PHYSFS_enumerateFiles
+    PHYSFS_freeList
+    PHYSFS_setWriteDir
+    PHYSFS_getWriteDir
+    PHYSFS_mkdir
+    PHYSFS_getBaseDir
+    PHYSFS_getPrefDir
+    PHYSFS_stat
+    PHYSFS_eof
+    PHYSFS_getLastErrorCode
+    PHYSFS_getErrorByCode
+    PHYSFS_getLinkedVersion
 
