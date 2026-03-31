@@ -381,13 +381,15 @@ static const luaL_Reg lib_list[] = {
     {"zlib", luaopen_zlib},
     {"md5", luaopen_md5},
     {"base64", luaopen_base64},
+    {"cjson", luaopen_cjson},
+    {"cjson.safe", luaopen_cjson_safe},
     {"cmsgpack", luaopen_cmsgpack},
     {"cmsgpack.safe", luaopen_cmsgpack_safe},
     {"lfs", luaopen_lfs},
     {"cprint", luaopen_cprint},
     {"uuid", luaopen_uuid},
     {"nanoid", luaopen_nanoid},
-    
+    {"aes", luaopen_aes},
     {NULL, NULL},
 };
 
