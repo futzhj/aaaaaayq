@@ -940,20 +940,18 @@ static SDL_RWops* WPK_OpenWpkFile(WPK_UserData* ud, Uint32 wpkid)
     }
 
     char path[512];
-    SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%u.wpk", ud->base_dir, (unsigned)wpkid);
+    SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s%u.wpk", ud->base_dir, lower_base_name, (unsigned)wpkid);
     SDL_RWops* fp = SDL_RWFromFile(path, "rb");
     if (!fp)
     {
-        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s%u.wpk", ud->base_dir, lower_base_name, (unsigned)wpkid);
-        fp = SDL_RWFromFile(path, "rb");
-    }
-    if (!fp)
-    {
-        SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s_%u.wpk", ud->base_dir, lower_base_name, (unsigned)wpkid);
-        fp = SDL_RWFromFile(path, "rb");
-    }
-    if (!fp && wpkid == 0)
-    {
+        if (wpkid != 0)
+        {
+            fprintf(stderr, "[wpk] open data pack failed: base_dir='%s' base_name='%s' wpkid=%u\n",
+                ud->base_dir,
+                ud->base_name,
+                (unsigned)wpkid);
+            return NULL;
+        }
         SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s.wpk", ud->base_dir, lower_base_name);
         fp = SDL_RWFromFile(path, "rb");
     }
@@ -968,6 +966,18 @@ static SDL_RWops* WPK_OpenWpkFile(WPK_UserData* ud, Uint32 wpkid)
 
     ud->wpk_files[wpkid] = fp;
     return fp;
+}
+
+static SDL_RWops* WPK_ReopenWpkFile(WPK_UserData* ud, Uint32 wpkid)
+{
+    if (wpkid >= ud->wpk_files_count)
+        return NULL;
+    if (ud->wpk_files[wpkid])
+    {
+        SDL_RWclose(ud->wpk_files[wpkid]);
+        ud->wpk_files[wpkid] = NULL;
+    }
+    return WPK_OpenWpkFile(ud, wpkid);
 }
 
 static void WPK_XorRepeat4(Uint8* dst, const Uint8* src, size_t n, const Uint8 key[4])
@@ -2174,19 +2184,58 @@ static int WPK_GetData(lua_State* L)
             if (!fp)
                 return 0;
 
-            if (SDL_RWseek(fp, (Sint64)fi->offset, RW_SEEK_SET) < 0)
-                return 0;
-
             inSize = (size_t)fi->size;
-            raw = (Uint8*)SDL_malloc(inSize);
+            for (int attempt = 0; attempt < 2; attempt++)
+            {
+                if (attempt > 0)
+                {
+                    fp = WPK_ReopenWpkFile(ud, wpkid);
+                    if (!fp)
+                        break;
+                }
+
+                if (SDL_RWseek(fp, (Sint64)fi->offset, RW_SEEK_SET) < 0)
+                {
+                    fprintf(stderr, "[wpk] seek data pack failed: idx='%s' base_name='%s' wpkid=%u id=%u offset=%u size=%u attempt=%d\n",
+                        ud->idx_path,
+                        ud->base_name,
+                        (unsigned)wpkid,
+                        (unsigned)(i + 1),
+                        (unsigned)fi->offset,
+                        (unsigned)fi->size,
+                        attempt + 1);
+                    continue;
+                }
+
+                raw = (Uint8*)SDL_malloc(inSize);
+                if (!raw)
+                    return 0;
+
+                size_t readCount = SDL_RWread(fp, raw, 1, inSize);
+                if (readCount == inSize)
+                    break;
+
+                fprintf(stderr, "[wpk] read data pack failed: idx='%s' base_name='%s' wpkid=%u id=%u offset=%u size=%u read=%u attempt=%d\n",
+                    ud->idx_path,
+                    ud->base_name,
+                    (unsigned)wpkid,
+                    (unsigned)(i + 1),
+                    (unsigned)fi->offset,
+                    (unsigned)fi->size,
+                    (unsigned)readCount,
+                    attempt + 1);
+                SDL_free(raw);
+                raw = NULL;
+            }
             if (!raw)
                 return 0;
-
-            size_t readCount = SDL_RWread(fp, raw, 1, inSize);
-            if (readCount != inSize)
+            if (SDL_RWtell(fp) < 0)
             {
-                SDL_free(raw);
-                return 0;
+                fprintf(stderr, "[wpk] tell data pack failed: idx='%s' base_name='%s' wpkid=%u id=%u\n",
+                    ud->idx_path,
+                    ud->base_name,
+                    (unsigned)wpkid,
+                    (unsigned)(i + 1));
             }
         }
 
