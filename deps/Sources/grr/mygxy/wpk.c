@@ -7,6 +7,10 @@
 #else
 #include <dlfcn.h>
 #include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #endif
 
 #if __has_include("physfs.h")
@@ -85,6 +89,127 @@ static SDL_RWops* WPK_SDL_RWFromFile(const char* path, const char* mode) {
     return rwops;
 }
 #define SDL_RWFromFile WPK_SDL_RWFromFile
+#endif
+
+#if defined(__ANDROID__)
+static int WPK_EnsureParentDir(const char* path)
+{
+    if (!path || !path[0])
+        return 0;
+
+    char dir[512];
+    SDL_strlcpy(dir, path, sizeof(dir));
+    char* last = SDL_strrchr(dir, '/');
+    if (!last)
+        return 1;
+    *last = 0;
+    if (!dir[0])
+        return 1;
+
+    for (char* p = dir + 1; *p; ++p)
+    {
+        if (*p != '/')
+            continue;
+        *p = 0;
+        if (mkdir(dir, 0777) != 0 && errno != EEXIST)
+            return 0;
+        *p = '/';
+    }
+    if (mkdir(dir, 0777) != 0 && errno != EEXIST)
+        return 0;
+    return 1;
+}
+
+static int WPK_GetLocalFileSize(const char* path, Sint64* outSize)
+{
+    if (outSize)
+        *outSize = -1;
+    if (!path || !path[0])
+        return 0;
+
+    SDL_RWops* fp = (SDL_RWFromFile)(path, "rb");
+    if (!fp)
+        return 0;
+
+    Sint64 size = SDL_RWsize(fp);
+    SDL_RWclose(fp);
+    if (outSize)
+        *outSize = size;
+    return 1;
+}
+
+static SDL_bool WPK_CopyToInternalStorage(const char* path, char outPath[512])
+{
+    const char* internalPath = SDL_AndroidGetInternalStoragePath();
+    if (!path || !path[0] || !internalPath || !internalPath[0] || !outPath)
+        return SDL_FALSE;
+
+    if (SDL_snprintf(outPath, 512, "%s/%s", internalPath, path) >= 512)
+        return SDL_FALSE;
+
+    SDL_RWops* src = SDL_RWFromFile(path, "rb");
+    if (!src)
+        return SDL_FALSE;
+
+    Sint64 srcSize = SDL_RWsize(src);
+    Sint64 dstSize = -1;
+    if (srcSize > 0 && WPK_GetLocalFileSize(outPath, &dstSize) && dstSize == srcSize)
+    {
+        SDL_RWclose(src);
+        return SDL_TRUE;
+    }
+
+    if (!WPK_EnsureParentDir(outPath))
+    {
+        SDL_RWclose(src);
+        return SDL_FALSE;
+    }
+
+    SDL_RWops* dst = (SDL_RWFromFile)(outPath, "wb");
+    if (!dst)
+    {
+        SDL_RWclose(src);
+        return SDL_FALSE;
+    }
+
+    const size_t chunkSize = 64 * 1024;
+    Uint8* buffer = (Uint8*)SDL_malloc(chunkSize);
+    if (!buffer)
+    {
+        SDL_RWclose(dst);
+        SDL_RWclose(src);
+        return SDL_FALSE;
+    }
+
+    size_t total = 0;
+    SDL_bool ok = SDL_TRUE;
+    for (;;)
+    {
+        size_t got = SDL_RWread(src, buffer, 1, chunkSize);
+        if (got == 0)
+            break;
+        if (SDL_RWwrite(dst, buffer, 1, got) != got)
+        {
+            ok = SDL_FALSE;
+            break;
+        }
+        total += got;
+    }
+
+    if (ok && srcSize >= 0 && total != (size_t)srcSize)
+        ok = SDL_FALSE;
+
+    SDL_free(buffer);
+    SDL_RWclose(dst);
+    SDL_RWclose(src);
+
+    if (!ok)
+    {
+        remove(outPath);
+        return SDL_FALSE;
+    }
+    return SDL_TRUE;
+}
 #endif
 
 #if defined(_WIN32)
@@ -776,7 +901,13 @@ static SDL_RWops* WPK_OpenWpkFile(WPK_UserData* ud, Uint32 wpkid)
 
     char path[512];
     SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s%u.wpk", ud->base_dir, lower_base_name, (unsigned)wpkid);
-    SDL_RWops* fp = SDL_RWFromFile(path, "rb");
+    const char* openPath = path;
+#if defined(__ANDROID__)
+    char localPath[512];
+    if (WPK_CopyToInternalStorage(path, localPath))
+        openPath = localPath;
+#endif
+    SDL_RWops* fp = SDL_RWFromFile(openPath, "rb");
     if (!fp)
     {
         if (wpkid != 0)
@@ -788,7 +919,12 @@ static SDL_RWops* WPK_OpenWpkFile(WPK_UserData* ud, Uint32 wpkid)
             return NULL;
         }
         SDL_snprintf(path, sizeof(path), "%s" WPK_SEP_STR "%s.wpk", ud->base_dir, lower_base_name);
-        fp = SDL_RWFromFile(path, "rb");
+        openPath = path;
+#if defined(__ANDROID__)
+        if (WPK_CopyToInternalStorage(path, localPath))
+            openPath = localPath;
+#endif
+        fp = SDL_RWFromFile(openPath, "rb");
     }
     if (!fp)
     {
@@ -1189,9 +1325,13 @@ static size_t WPK_RWreadAll(SDL_RWops* fp, void* dst, size_t size)
 
     size_t total = 0;
     Uint8* out = (Uint8*)dst;
+    const size_t chunkSize = 64 * 1024;
     while (total < size)
     {
-        size_t chunk = SDL_RWread(fp, out + total, 1, size - total);
+        size_t want = size - total;
+        if (want > chunkSize)
+            want = chunkSize;
+        size_t chunk = SDL_RWread(fp, out + total, 1, want);
         if (chunk == 0)
             break;
         total += chunk;
