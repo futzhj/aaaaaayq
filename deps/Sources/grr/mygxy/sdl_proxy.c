@@ -40,7 +40,7 @@
     X(SDL_UpperBlit, PFN_SDL_UpperBlit) \
     X(SDL_Delay, PFN_SDL_Delay) \
     X(SDL_AddTimer, PFN_SDL_AddTimer) \
-    X(IMG_Load_RW, PFN_IMG_Load_RW) \
+    X(IMG_Load_RW, PFN_IMG_Load_RW)
 
 #define DECLARE_SDL_PROXY(name, type) type proxy_##name = NULL;
 SDL_PROXY_SYMBOLS(DECLARE_SDL_PROXY)
@@ -74,7 +74,7 @@ void init_sdl_proxy(void) {
     if (!sdl_handle) sdl_handle = dlopen("SDL2", RTLD_LAZY | RTLD_GLOBAL);
 #endif
     
-    #define RESOLVE_SDL_PROXY(name, type) \
+#define RESOLVE_SDL_PROXY(name, type) \
         proxy_##name = (type)dlsym(handle, #name); \
         if (!proxy_##name && gsdl_handle) proxy_##name = (type)dlsym(gsdl_handle, #name); \
         if (!proxy_##name && sdl_handle) proxy_##name = (type)dlsym(sdl_handle, #name); \

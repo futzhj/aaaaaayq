@@ -152,7 +152,7 @@
     X(luaL_addvalue, PFN_luaL_addvalue) \
     X(luaL_pushresult, PFN_luaL_pushresult) \
     X(luaL_pushresultsize, PFN_luaL_pushresultsize) \
-    X(luaL_buffinitsize, PFN_luaL_buffinitsize) \
+    X(luaL_buffinitsize, PFN_luaL_buffinitsize)
 
 #define DECLARE_LUA_PROXY(name, type) type proxy_##name = NULL;
 LUA_PROXY_SYMBOLS(DECLARE_LUA_PROXY)
@@ -166,29 +166,7 @@ static void __cdecl _init_lua_proxy(void) { init_lua_proxy(); }
 #else
 __attribute__((constructor))
 #endif
-
-#if defined(_MSC_VER)
-#pragma section(".CRT$XCU",read)
-static void __cdecl _init_lua_proxy(void);
-__declspec(allocate(".CRT$XCU")) void (__cdecl *_init_lua_proxy_) (void) = _init_lua_proxy;
-static void __cdecl _init_lua_proxy(void) { init_lua_proxy(); }
-#else
-__attribute__((constructor))
-#endif
-
-#if defined(_MSC_VER)
-#pragma section(".CRT$XCU",read)
-static void __cdecl _init_lua_proxy(void);
-__declspec(allocate(".CRT$XCU")) void (__cdecl *_init_lua_proxy_) (void) = _init_lua_proxy;
-static void __cdecl _init_lua_proxy(void) { init_lua_proxy(); }
-#else
-__attribute__((constructor))
-#endif
 void init_lua_proxy(void) {
-    static int is_initialized = 0;
-    if (is_initialized) return;
-    is_initialized = 1;
-
     // Search order for Lua symbols:
     // 1. RTLD_DEFAULT  - globally exported shared library symbols
     // 2. dlopen(NULL)  - entire process symbol space (finds statically linked Lua)
@@ -211,7 +189,7 @@ void init_lua_proxy(void) {
 #endif
     
     // Macro for 4-level symbol lookup: RTLD_DEFAULT -> dlopen(NULL) -> engine lib -> lua lib
-    #define RESOLVE_LUA_PROXY(name, type) \
+#define RESOLVE_LUA_PROXY(name, type) \
         proxy_##name = (type)dlsym(handle, #name); \
         if (!proxy_##name && self_handle) proxy_##name = (type)dlsym(self_handle, #name); \
         if (!proxy_##name && gge_handle) proxy_##name = (type)dlsym(gge_handle, #name); \
@@ -221,10 +199,4 @@ void init_lua_proxy(void) {
     LUA_PROXY_SYMBOLS(RESOLVE_LUA_PROXY)
 }
 
-#endif // Android Proxy Guards#define LUA_PROXY_SYMBOLS(X) \
-
-#define DECLARE_LUA_PROXY(name, type) type proxy_##name = NULL;
-LUA_PROXY_SYMBOLS(DECLARE_LUA_PROXY)#define LUA_PROXY_SYMBOLS(X) \
-
-#define DECLARE_LUA_PROXY(name, type) type proxy_##name = NULL;
-LUA_PROXY_SYMBOLS(DECLARE_LUA_PROXY)
+#endif // Android Proxy Guards
