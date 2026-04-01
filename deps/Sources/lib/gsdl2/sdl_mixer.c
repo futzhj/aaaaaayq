@@ -336,6 +336,11 @@ static int LUA_Mix_LoadMUS_RW(lua_State* L)
         Mix_Music** ud = (Mix_Music**)lua_newuserdata(L, sizeof(Mix_Music*));
         *ud = mc;
         luaL_setmetatable(L, "Mix_Music");
+        
+        /* 强绑定：将 rw 设为 Music 的 uservalue 确保 rw 生命周期和音乐绝对吻合 */
+        lua_pushvalue(L, 1); 
+        lua_setuservalue(L, -2);
+        
         return 1;
     }
     return 0;
@@ -350,6 +355,14 @@ static int LUA_Mix_FreeChunk(lua_State* L)
     Mix_Chunk** mc = (Mix_Chunk**)luaL_checkudata(L, 1, "Mix_Chunk");
     if (*mc)
     {
+        /* 必须立即停止所有正在播放且引用了该 Chunk 的通道！ */
+        int num_channels = Mix_AllocateChannels(-1);
+        for (int i = 0; i < num_channels; ++i) {
+            if (Mix_GetChunk(i) == *mc) {
+                Mix_HaltChannel(i);
+            }
+        }
+        
         Mix_FreeChunk(*mc);
         *mc = NULL;
     }

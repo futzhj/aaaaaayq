@@ -788,6 +788,9 @@ static int WPK_TryParseThx24Header(const Uint8* data, size_t size, Uint32* outCo
     Uint32 count = WPK_ReadU32LE(data + 8);
     if (count == 0)
         return 0;
+    /* 防御整数溢出漏洞：(size_t)count * 24 可能在 32 位系统上触发溢出 */
+    if (size < 12 || count > (size - 12) / 24)
+        return 0;
     size_t need = 12 + (size_t)count * 24;
     if (need != size)
         return 0;
@@ -2751,6 +2754,13 @@ static int WPK_NEW(lua_State* L)
         Uint32 unknown = WPK_ReadU32LE(data + 4);
 
         if (recordCount == 0)
+        {
+            SDL_free(data);
+            return 0;
+        }
+
+        /* 防御整数溢出漏洞：(size_t)recordCount * 28 可能在 32 位系统上触发溢出，导致绕过下方的 need 校验 */
+        if (size < headerStart || recordCount > (size - headerStart) / recordSize)
         {
             SDL_free(data);
             return 0;

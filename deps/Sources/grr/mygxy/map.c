@@ -442,6 +442,9 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id)
         SDL_RWread(ud->file, &masknum, sizeof(Uint32), 1) != 1)//附近遮罩数量
         return 0;
 
+    if (masknum > 65535)
+        return 0;
+
     if (masknum > 0 && ud->flag == MAP_FLAG_M10 &&
         SDL_RWseek(ud->file, sizeof(Uint32) * masknum, RW_SEEK_CUR) == -1)
         return 0;
@@ -615,7 +618,7 @@ static int _getmasksinfo(MAP_UserData* ud, Uint32 id, MAP_MaskInfo** mask, Uint3
         SDL_RWread(ud->file, &masknum, sizeof(Uint32), 1) != 1)//附近遮罩ID
         return 0;
 
-    if (masknum == 0)
+    if (masknum == 0 || masknum > 65535)
         return 0;
 
     masklist = (MAP_MaskInfo*)SDL_malloc(masknum * sizeof(MAP_MaskInfo));

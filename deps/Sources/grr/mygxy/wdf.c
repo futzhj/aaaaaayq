@@ -105,6 +105,14 @@ static int WDF_NEW(lua_State* L)
         SDL_RWclose(fp);
         return 0;
     }
+
+    Sint64 fileSize = SDL_RWsize(fp);
+    if (head.number == 0 || (fileSize > 0 && head.number > (Uint32)(fileSize / sizeof(WDF_FileInfo))))
+    {
+        SDL_RWclose(fp);
+        return 0;
+    }
+
     WDF_UserData* ud = (WDF_UserData*)lua_newuserdata(L, sizeof(WDF_UserData));
     SDL_strlcpy(ud->path, file, 256);
     ud->number = head.number;
