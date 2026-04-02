@@ -1,4 +1,3 @@
-
 package com.GGELUA.game;
 
 import org.libsdl.app.SDLActivity;
@@ -9,5 +8,11 @@ import org.libsdl.app.SDLActivity;
 
 public class GGEActivity extends SDLActivity
 {
-
+    @Override
+    protected String[] getLibraries() {
+        return new String[] {
+            "vgmstream", // Load this first so it's in memory for fsb.c
+            "main"       // Then load the main game engine
+        };
+    }
 }
