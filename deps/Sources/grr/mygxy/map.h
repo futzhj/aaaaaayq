@@ -120,6 +120,7 @@ struct MAP_UserData
 
     SDL_mutex* req_mutex;
     SDL_cond* req_cond;
+    SDL_cond* clear_cond;
     SDL_mutex* res_mutex;
 
     int closing;

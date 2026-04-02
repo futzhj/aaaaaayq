@@ -963,6 +963,13 @@ static int SDLCALL WorkerThreadMain(void* data) {
                 else _getmasksf_ctx(ud, mask->id, mask, &ctx);
             }
             PushResQueue(ud, task);
+
+            SDL_LockMutex(ud->req_mutex);
+            ud->active_tasks--;
+            if (ud->closing && ud->active_tasks == 0) {
+                SDL_CondSignal(ud->clear_cond);
+            }
+            SDL_UnlockMutex(ud->req_mutex);
         }
     }
     return 0;
@@ -1140,7 +1147,6 @@ static int LUA_Run(lua_State* L)
         }
 
         SDL_LockMutex(ud->req_mutex);
-        ud->active_tasks--;
         SDL_CondSignal(ud->req_cond);
         SDL_UnlockMutex(ud->req_mutex);
 
@@ -1822,8 +1828,9 @@ static int MAP_NEW(lua_State* L)
 
     ud->req_mutex = SDL_CreateMutex();
     ud->req_cond = SDL_CreateCond();
+    ud->clear_cond = SDL_CreateCond();
     ud->res_mutex = SDL_CreateMutex();
-    if (!ud->req_mutex || !ud->req_cond || !ud->res_mutex)
+    if (!ud->req_mutex || !ud->req_cond || !ud->clear_cond || !ud->res_mutex)
         goto openerr;
 
     ud->num_workers = 4;
@@ -1995,6 +2002,28 @@ static int LUA_Clear(lua_State* L)
     MAP_UserData* ud = (MAP_UserData*)luaL_checkudata(L, 1, MAP_NAME);
 
     SDL_LockMutex(ud->req_mutex);
+    ud->closing = 1;
+    
+    MAP_Task* curr = ud->req_queue_head;
+    while (curr) {
+        MAP_Task* next = curr->next;
+        if (curr->cb_ref != LUA_REFNIL && curr->cb_ref != LUA_NOREF) {
+            luaL_unref(L, LUA_REGISTRYINDEX, curr->cb_ref);
+        }
+        if (curr->type == TIME_TYPE_MAP) {
+            MAP_Data* map = (MAP_Data*)curr->data;
+            if (map) map->loading = 0;
+        }
+        SDL_free(curr);
+        ud->active_tasks--;
+        curr = next;
+    }
+    ud->req_queue_head = NULL;
+    ud->req_queue_tail = NULL;
+
+    while (ud->active_tasks > 0) {
+        SDL_CondWait(ud->clear_cond, ud->req_mutex);
+    }
 
     for (Uint32 n = 0; n < ud->mapnum; n++) {
         if (ud->map[n].lua_ref != LUA_REFNIL) {
@@ -2034,6 +2063,31 @@ static int LUA_Clear(lua_State* L)
         ud->mem[1].size = 0;
     }
 
+    SDL_LockMutex(ud->res_mutex);
+    MAP_Task* rcurr = ud->res_queue_head;
+    while (rcurr) {
+        MAP_Task* next = rcurr->next;
+        if (rcurr->type == TIME_TYPE_MAP && rcurr->data) {
+            MAP_Data* map = (MAP_Data*)rcurr->data;
+            map->loading = 0;
+            // The Surface and mask are cleared by the loop above, since map points to ud->map array.
+            // Wait, rcurr->data is a pointer to ud->map[n].
+        } else if (rcurr->type == TIME_TYPE_MASK && rcurr->data) {
+            MASK_Data* mask = (MASK_Data*)rcurr->data;
+            if (mask->sf) SDL_FreeSurface(mask->sf);
+            SDL_free(mask);
+        }
+        if (rcurr->cb_ref != LUA_REFNIL && rcurr->cb_ref != LUA_NOREF) {
+            luaL_unref(L, LUA_REGISTRYINDEX, rcurr->cb_ref);
+        }
+        SDL_free(rcurr);
+        rcurr = next;
+    }
+    ud->res_queue_head = NULL;
+    ud->res_queue_tail = NULL;
+    SDL_UnlockMutex(ud->res_mutex);
+
+    ud->closing = 0;
     SDL_UnlockMutex(ud->req_mutex);
 
     return 0;
@@ -2137,6 +2191,7 @@ static int LUA_GC(lua_State* L)
     ud->req_mutex = NULL;
     if (ud->res_mutex) { SDL_DestroyMutex(ud->res_mutex); ud->res_mutex = NULL; }
     if (ud->req_cond) { SDL_DestroyCond(ud->req_cond); ud->req_cond = NULL; }
+    if (ud->clear_cond) { SDL_DestroyCond(ud->clear_cond); ud->clear_cond = NULL; }
     return 0;
 }
 
