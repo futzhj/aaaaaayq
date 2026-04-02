@@ -75,6 +75,7 @@ typedef struct {
     void* mem1; // 线程专属缓冲区 1
     size_t mem1_size;
     SDL_RWops* rw; // 线程专属独立文件句柄（指向共享只读内存）
+    MAP_UserData* ud;
 } MAP_Worker;
 
 struct MAP_UserData
