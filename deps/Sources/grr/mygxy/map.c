@@ -1100,6 +1100,7 @@ static int LUA_Run(lua_State* L)
                 map->mask = NULL;
                 map->masknum = 0;
             }
+            map->loading = 0;
             SDL_free(time);
         }
         else if (time->type == TIME_TYPE_MASK)
@@ -1167,6 +1168,13 @@ static int LUA_GetMap(lua_State* L)
         SDL_UnlockMutex(ud->req_mutex);
 
         MAP_Task* time = (MAP_Task*)SDL_malloc(sizeof(MAP_Task));
+        if (!time) {
+            SDL_LockMutex(ud->req_mutex);
+            map->loading = 0;
+            ud->active_tasks--;
+            SDL_UnlockMutex(ud->req_mutex);
+            return 0;
+        }
         time->type = TIME_TYPE_MAP;
         time->ud = ud;
         time->data = (void*)map;
@@ -1179,7 +1187,7 @@ static int LUA_GetMap(lua_State* L)
         SDL_Surface* out_sf = NULL;
 
         SDL_LockMutex(ud->req_mutex);
-        if (!ud->closing && ud->file)
+        if (!ud->closing && ud->file && !map->loading)
         {
             if (!map->sf)
                 map->sf = _getmapsf(ud, id);
@@ -1237,6 +1245,13 @@ static int LUA_GetMapInfo(lua_State* L)
         SDL_UnlockMutex(ud->req_mutex);
 
         MAP_Task* time = (MAP_Task*)SDL_malloc(sizeof(MAP_Task));
+        if (!time) {
+            SDL_LockMutex(ud->req_mutex);
+            map->loading = 0;
+            ud->active_tasks--;
+            SDL_UnlockMutex(ud->req_mutex);
+            return 0;
+        }
         time->type = TIME_TYPE_MAP;
         time->ud = ud;
         time->data = (void*)map;
@@ -1252,10 +1267,10 @@ static int LUA_GetMapInfo(lua_State* L)
     MAP_MaskInfo* mask = NULL;
 
     SDL_LockMutex(ud->req_mutex);
-    if (!ud->closing && ud->file)
-    {
-        if (!map->sf)
-            map->sf = _getmapsf(ud, id);
+        if (!ud->closing && ud->file && !map->loading)
+        {
+            if (!map->sf)
+                map->sf = _getmapsf(ud, id);
 
         if (map->sf)
         {
@@ -1867,6 +1882,12 @@ static int LUA_Clear(lua_State* L)
 
         if (ud->map[n].sf)
             SDL_FreeSurface(ud->map[n].sf);
+            
+        if (ud->map[n].mask) {
+            SDL_free(ud->map[n].mask);
+            ud->map[n].mask = NULL;
+            ud->map[n].masknum = 0;
+        }
 
     }
     SDL_memset(ud->map, 0, ud->mapnum * sizeof(MAP_Data));
