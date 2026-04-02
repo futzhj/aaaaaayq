@@ -2363,117 +2363,6 @@ static int WPK_GetData(lua_State* L)
     return 0;
 }
 
-static int WPK_LoadThxAndBind(lua_State* L)
-{
-    WPK_UserData* ud = (WPK_UserData*)luaL_checkudata(L, 1, WPK_NAME);
-    size_t len = 0;
-    const Uint8* data = (const Uint8*)luaL_checklstring(L, 2, &len);
-    if (len < 8 || ud->number == 0)
-        return 0;
-    if (!(data[0] == 'T' && data[1] == 'H' && data[2] == 'D' && data[3] == 'O'))
-        return 0;
-
-    Uint32 thxCount = 0;
-    const Uint8* useData = data;
-    Uint8* tmp = NULL;
-    int thx24 = WPK_TryParseThx24Header(data, len, &thxCount);
-    if (!thx24 && len >= 68)
-    {
-        tmp = (Uint8*)SDL_malloc(len);
-        if (tmp)
-        {
-            SDL_memcpy(tmp, data, len);
-            THX_XorRev64Inplace(tmp, len);
-            thx24 = WPK_TryParseThx24Header(tmp, len, &thxCount);
-            if (thx24)
-                useData = tmp;
-            else
-            {
-                SDL_free(tmp);
-                tmp = NULL;
-            }
-        }
-    }
-    if (thx24)
-    {
-        for (Uint32 i = 0; i < thxCount; i++)
-        {
-            const Uint8* rec = useData + 12 + (size_t)i * 24;
-            Uint32 hash = WPK_ReadU32LE(rec);
-            char md5[33];
-            WPK_BinToLowerHex32(md5, rec + 8);
-            int idx = WPK_FindByMd5(ud, md5);
-            if (idx >= 0)
-                ud->list[idx].hash = hash;
-        }
-        if (tmp)
-            SDL_free(tmp);
-        return 0;
-    }
-
-    static const size_t headerCandidates[] = {8, 12, 16, 20, 24, 32, 40, 64};
-    size_t header = 0;
-    size_t number = 0;
-    for (size_t i = 0; i < (sizeof(headerCandidates) / sizeof(headerCandidates[0])); i++)
-    {
-        size_t h = headerCandidates[i];
-        if (len <= h)
-            continue;
-        size_t payload = len - h;
-        if (payload % 0x40 != 0)
-            continue;
-        size_t n = payload / 0x40;
-        if (n == 0)
-            continue;
-        header = h;
-        number = n;
-        break;
-    }
-    if (!number)
-        return 0;
-
-    for (size_t i = 0; i < number; i++)
-    {
-        const Uint8* rec = data + header + i * 0x40;
-        char md5[33];
-        Uint32 hash = 0;
-        if (!WPK_TryParseThdRecord(rec, md5, &hash))
-            continue;
-        int idx = WPK_FindByMd5(ud, md5);
-        if (idx >= 0)
-            ud->list[idx].hash = hash;
-    }
-
-    if (tmp)
-        SDL_free(tmp);
-
-    return 0;
-}
-
-static int WPK_GetHashMap(lua_State* L)
-{
-    WPK_UserData* ud = (WPK_UserData*)luaL_checkudata(L, 1, WPK_NAME);
-    
-    Uint32 count = 0;
-    for (Uint32 i = 0; i < ud->number; i++)
-    {
-        if (ud->list[i].hash != 0)
-            count++;
-    }
-    
-    lua_createtable(L, 0, count);
-    for (Uint32 i = 0; i < ud->number; i++)
-    {
-        if (ud->list[i].hash != 0)
-        {
-            lua_pushinteger(L, (lua_Integer)ud->list[i].hash);
-            lua_pushinteger(L, (lua_Integer)(i + 1));
-            lua_rawset(L, -3);
-        }
-    }
-    return 1;
-}
-
 static int WPK_GetList(lua_State* L)
 {
     WPK_UserData* ud = (WPK_UserData*)luaL_checkudata(L, 1, WPK_NAME);
@@ -3259,8 +3148,6 @@ MYGXY_API int luaopen_mygxy_wpk(lua_State* L)
         {"__close", WPK_GC},
         {"GetData", WPK_GetData},
         {"GetList", WPK_GetList},
-        {"LoadThxAndBind", WPK_LoadThxAndBind},
-        {"GetHashMap", WPK_GetHashMap},
         {"Upsert", WPK_Upsert},
         {"SetHash", WPK_SetHash},
         {"SaveIdx", WPK_SaveIdx},
