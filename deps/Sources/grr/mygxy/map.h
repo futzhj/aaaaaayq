@@ -45,6 +45,7 @@ typedef struct
     Uint32 id;
     SDL_Surface* sf;
     MAP_MaskInfo* mask;
+    SDL_Surface** mask_sfs;
     Uint32 masknum;
     int loading;
     Uint32 lru_prev;

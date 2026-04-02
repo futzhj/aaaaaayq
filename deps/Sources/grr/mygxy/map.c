@@ -107,7 +107,7 @@ static size_t SDLCALL MAP_MemRW_Write(SDL_RWops* context, const void* ptr, size_
 
 static int SDLCALL MAP_MemRW_Close(SDL_RWops* context)
 {
-    free(context);
+    SDL_free(context); /* 与 MAP_RWFromOwnedMem 中 SDL_malloc 成对 */
     return 0;
 }
 
@@ -116,7 +116,7 @@ static SDL_RWops* MAP_RWFromOwnedMem(void* mem, size_t size)
     if (!mem)
         return NULL;
 
-    MAP_MemRW* m = (MAP_MemRW*)malloc(sizeof(MAP_MemRW));
+    MAP_MemRW* m = (MAP_MemRW*)SDL_malloc(sizeof(MAP_MemRW));
     if (!m)
         return NULL;
 
@@ -755,7 +755,9 @@ static Uint8* _getmaskdata_ctx(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP
         return 0;
 
     Uint8* data = (Uint8*)mem1;
+    if (width == 0 || height == 0) return 0;
     Uint8* dedata = (Uint8*)SDL_malloc(width * height);
+    if (!dedata) return 0; /* OOM 保护：避免空指针写入崩溃 */
     Uint8* alpha = dedata;
     int  bitidx = 0;
 
@@ -957,6 +959,24 @@ static int SDLCALL WorkerThreadMain(void* data) {
                 MAP_Data* map = (MAP_Data*)task->data;
                 map->sf = _getmapsf_ctx(ud, task->id, &ctx);
                 _getmasksinfo_ctx(ud, task->id, &map->mask, &map->masknum, &ctx);
+                if (map->masknum > 0 && map->mask) {
+                    map->mask_sfs = (SDL_Surface**)SDL_calloc(map->masknum, sizeof(SDL_Surface*));
+                    if (map->mask_sfs) {
+                        for (Uint32 i = 0; i < map->masknum; i++) {
+                            MASK_Data temp_mask;
+                            SDL_memset(&temp_mask, 0, sizeof(MASK_Data));
+                            temp_mask.id = task->id;
+                            temp_mask.info = map->mask[i];
+                            
+                            if (ud->mode == 0x9527)
+                                _getmasksf2_ctx(ud, task->id, &temp_mask, &ctx);
+                            else
+                                _getmasksf_ctx(ud, task->id, &temp_mask, &ctx);
+                                
+                            map->mask_sfs[i] = temp_mask.sf;
+                        }
+                    }
+                }
             } else if (task->type == TIME_TYPE_MASK) {
                 MASK_Data* mask = (MASK_Data*)task->data;
                 if (ud->mode == 0x9527) _getmasksf2_ctx(ud, mask->id, mask, &ctx);
@@ -1008,6 +1028,13 @@ static void MAP_DrainPendingNoCallback(lua_State* L, MAP_UserData* ud)
                     if (map)
                     {
                         map->loading = 0;
+                        if (map->mask_sfs) {
+                            for (Uint32 i = 0; i < map->masknum; i++) {
+                                if (map->mask_sfs[i]) SDL_FreeSurface(map->mask_sfs[i]);
+                            }
+                            SDL_free(map->mask_sfs);
+                            map->mask_sfs = NULL;
+                        }
                         if (map->mask)
                         {
                             SDL_free(map->mask);
@@ -1104,6 +1131,19 @@ static int LUA_Run(lua_State* L)
                     lua_setfield(L, -2, "w");
                     lua_pushinteger(L, info->rect.h);
                     lua_setfield(L, -2, "h");
+                    
+                    if (map->mask_sfs && map->mask_sfs[i]) {
+                        SDL_Surface** sf_ptr = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
+                        if (ud->mode == 0x9527) {
+                            *sf_ptr = map->mask_sfs[i];
+                            map->mask_sfs[i] = NULL;
+                        } else {
+                            *sf_ptr = SDL_DuplicateSurface(map->mask_sfs[i]);
+                        }
+                        luaL_setmetatable(L, "SDL_Surface");
+                        lua_setfield(L, -2, "sf");
+                    }
+                    
                     lua_seti(L, -2, i + 1);
                 }
 
@@ -1112,6 +1152,13 @@ static int LUA_Run(lua_State* L)
                 }
             }
 
+            if (map->mask_sfs) {
+                for (Uint32 i = 0; i < map->masknum; i++) {
+                    if (map->mask_sfs[i]) SDL_FreeSurface(map->mask_sfs[i]);
+                }
+                SDL_free(map->mask_sfs);
+                map->mask_sfs = NULL;
+            }
             if (map->mask)
             {
                 SDL_free(map->mask);
@@ -1208,6 +1255,13 @@ static void _lru_evict(lua_State* L, MAP_UserData* ud) {
         if (evict_map->sf) {
             SDL_FreeSurface(evict_map->sf);
             evict_map->sf = NULL;
+        }
+        if (evict_map->mask_sfs) {
+            for (Uint32 i = 0; i < evict_map->masknum; i++) {
+                if (evict_map->mask_sfs[i]) SDL_FreeSurface(evict_map->mask_sfs[i]);
+            }
+            SDL_free(evict_map->mask_sfs);
+            evict_map->mask_sfs = NULL;
         }
         if (evict_map->mask) {
             SDL_free(evict_map->mask);
@@ -1833,7 +1887,13 @@ static int MAP_NEW(lua_State* L)
     if (!ud->req_mutex || !ud->req_cond || !ud->clear_cond || !ud->res_mutex)
         goto openerr;
 
-    ud->num_workers = 4;
+    /* Worker 线程数自适应：取逻辑核数的一半，限制在 [2, 8]，充分利用多核并发解码 */
+    {
+        int cpu = SDL_GetCPUCount();
+        ud->num_workers = cpu > 1 ? (cpu / 2) : 1;
+        if (ud->num_workers < 2) ud->num_workers = 2;
+        if (ud->num_workers > 8) ud->num_workers = 8;
+    }
     ud->workers = SDL_calloc(ud->num_workers, sizeof(MAP_Worker));
     if (!ud->workers)
         goto openerr;
@@ -1857,7 +1917,7 @@ static int MAP_NEW(lua_State* L)
         goto openerr;
 
     //遮罩部分
-    if (head.flag == 'M1.0') {
+    if (head.flag == MAP_FLAG_M10) {
         Uint32 maskoffset;
         if (SDL_RWread(rw, &maskoffset, sizeof(Uint32), 1) != 1)
             goto openerr;
@@ -2014,8 +2074,10 @@ static int LUA_Clear(lua_State* L)
             MAP_Data* map = (MAP_Data*)curr->data;
             if (map) map->loading = 0;
         }
+        /* active_tasks-- 必须在 SDL_free 之前，防止 worker 同时完成
+         * 将计数减到负数后发出 clear_cond 信号造成 CondWait 死锁 */
+        if (ud->active_tasks > 0) ud->active_tasks--;
         SDL_free(curr);
-        ud->active_tasks--;
         curr = next;
     }
     ud->req_queue_head = NULL;
@@ -2034,6 +2096,13 @@ static int LUA_Clear(lua_State* L)
         if (ud->map[n].sf)
             SDL_FreeSurface(ud->map[n].sf);
             
+        if (ud->map[n].mask_sfs) {
+            for (Uint32 i = 0; i < ud->map[n].masknum; i++) {
+                if (ud->map[n].mask_sfs[i]) SDL_FreeSurface(ud->map[n].mask_sfs[i]);
+            }
+            SDL_free(ud->map[n].mask_sfs);
+            ud->map[n].mask_sfs = NULL;
+        }
         if (ud->map[n].mask) {
             SDL_free(ud->map[n].mask);
             ud->map[n].mask = NULL;
@@ -2137,6 +2206,13 @@ static int LUA_GC(lua_State* L)
             if (ud->map[n].sf)
                 SDL_FreeSurface(ud->map[n].sf);
 
+            if (ud->map[n].mask_sfs) {
+                for (Uint32 i = 0; i < ud->map[n].masknum; i++) {
+                    if (ud->map[n].mask_sfs[i]) SDL_FreeSurface(ud->map[n].mask_sfs[i]);
+                }
+                SDL_free(ud->map[n].mask_sfs);
+                ud->map[n].mask_sfs = NULL;
+            }
             if (ud->map[n].mask)
                 SDL_free(ud->map[n].mask);
         }
