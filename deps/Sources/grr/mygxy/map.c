@@ -800,6 +800,11 @@ static int _getmasksf_ctx(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Deco
     SDL_Surface* msf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, rect->w, rect->h, 32, SDL_PIXELFORMAT_ARGB8888);
     //SDL_SetSurfaceBlendMode(msf, SDL_BLENDMODE_BLEND);
 
+    if (!msf) {
+        SDL_free(alpha);
+        return 0;
+    }
+
     //从地表扣图
     Uint32 mapid = (rect->x / 320) + (rect->y / 240) * ud->colnum;
     int sfx = -(rect->x % 320);
@@ -947,7 +952,8 @@ static int SDLCALL WorkerThreadMain(void* data) {
         while (!ud->closing && ud->req_queue_head == NULL) {
             SDL_CondWait(ud->req_cond, ud->req_mutex);
         }
-        if (ud->closing && ud->req_queue_head == NULL) {
+        if (ud->closing) {
+            while (PopReqQueue(ud)); // 清空并丢弃任务，防止主线程死锁
             SDL_UnlockMutex(ud->req_mutex);
             break;
         }
@@ -1249,6 +1255,8 @@ static void _lru_evict(lua_State* L, MAP_UserData* ud) {
         Uint32 evict_id = ud->lru_tail;
         if (evict_id == 0xFFFFFFFF) break;
         MAP_Data* evict_map = &ud->map[evict_id];
+        
+        if (evict_map->loading) break; // 跳过正在被 Worker 线程操作的地图，避免 Use-After-Free
         
         _lru_remove(ud, evict_id);
         
