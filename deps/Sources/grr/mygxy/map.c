@@ -20,6 +20,8 @@ typedef struct {
 static void _lru_remove(MAP_UserData* ud, Uint32 id);
 static void _lru_push(MAP_UserData* ud, Uint32 id);
 static void _lru_evict(lua_State* L, MAP_UserData* ud);
+static void MAP_UnrefRegistryRef(lua_State* L, int* ref);
+static void MAP_PushSurfaceUserdata(lua_State* L, SDL_Surface* sf);
 
 //申请内存
 static void* _getmem_ctx(void** mem_ptr, size_t* mem_size, size_t size)
@@ -1217,6 +1219,29 @@ static void MAP_DiscardTaskWithoutCallback(MAP_Task* task)
     }
 }
 
+static void MAP_FreeTaskChain(lua_State* L, MAP_Task* node, int discard_with_result, int* active_tasks)
+{
+    while (node)
+    {
+        MAP_Task* next = node->next;
+
+        MAP_UnrefRegistryRef(L, &node->cb_ref);
+        if (discard_with_result) {
+            MAP_DiscardTaskWithoutCallback(node);
+        }
+        else {
+            MAP_AbortPendingTask(node);
+        }
+
+        if (active_tasks && *active_tasks > 0) {
+            (*active_tasks)--;
+        }
+
+        SDL_free(node);
+        node = next;
+    }
+}
+
 static void MAP_PopCallbackFunction(lua_State* L, MAP_Task* task)
 {
     if (!task || task->cb_ref == LUA_NOREF || task->cb_ref == LUA_REFNIL) {
@@ -1379,25 +1404,9 @@ static void MAP_DrainPendingNoCallback(lua_State* L, MAP_UserData* ud)
     ud->res_queue_tail = NULL;
     SDL_UnlockMutex(ud->res_mutex);
 
-    MAP_Task* lists[2] = { req_node, res_node };
-    for (int i = 0; i < 2; i++) {
-        MAP_Task* node = lists[i];
-        while (node)
-        {
-            MAP_Task* next = node->next;
-            MAP_Task* time = node;
-
-            if (time)
-            {
-                MAP_UnrefRegistryRef(L, &time->cb_ref);
-                MAP_DiscardTaskWithoutCallback(time);
-
-                SDL_free(time);
-            }
-
-            node = next;
-        }
-    }
+    MAP_FreeTaskChain(L, req_node, 1, NULL);
+    MAP_FreeTaskChain(L, res_node, 1, NULL);
+    ud->active_tasks = 0;
 }
 
 static int LUA_Run(lua_State* L)
@@ -2214,16 +2223,7 @@ static int LUA_Clear(lua_State* L)
     ud->closing = 1;
     
     MAP_Task* curr = ud->req_queue_head;
-    while (curr) {
-        MAP_Task* next = curr->next;
-        MAP_UnrefRegistryRef(L, &curr->cb_ref);
-        MAP_AbortPendingTask(curr);
-        /* active_tasks-- 必须在 SDL_free 之前，防止 worker 同时完成
-         * 将计数减到负数后发出 clear_cond 信号造成 CondWait 死锁 */
-        if (ud->active_tasks > 0) ud->active_tasks--;
-        SDL_free(curr);
-        curr = next;
-    }
+    MAP_FreeTaskChain(L, curr, 0, &ud->active_tasks);
     ud->req_queue_head = NULL;
     ud->req_queue_tail = NULL;
 
@@ -2238,20 +2238,7 @@ static int LUA_Clear(lua_State* L)
 
     SDL_LockMutex(ud->res_mutex);
     MAP_Task* rcurr = ud->res_queue_head;
-    while (rcurr) {
-        MAP_Task* next = rcurr->next;
-        if (rcurr->type == TIME_TYPE_MAP && rcurr->data) {
-            MAP_Data* map = (MAP_Data*)rcurr->data;
-            map->loading = 0;
-            // The Surface and mask are cleared by the loop above, since map points to ud->map array.
-            // Wait, rcurr->data is a pointer to ud->map[n].
-        } else if (rcurr->type == TIME_TYPE_MASK && rcurr->data) {
-            MAP_FreeMaskTaskData((MASK_Data*)rcurr->data);
-        }
-        MAP_UnrefRegistryRef(L, &rcurr->cb_ref);
-        SDL_free(rcurr);
-        rcurr = next;
-    }
+    MAP_FreeTaskChain(L, rcurr, 1, NULL);
     ud->res_queue_head = NULL;
     ud->res_queue_tail = NULL;
     SDL_UnlockMutex(ud->res_mutex);

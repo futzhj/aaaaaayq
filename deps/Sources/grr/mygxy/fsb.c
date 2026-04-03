@@ -1090,7 +1090,8 @@ static int fsb_decode_libvgmstream_to_wav(lua_State* L, const Uint8* fsb_data, U
             break;
     }
 
-    int ok = fsb_lua_push_wav(L, 0x0001u, 16u, (Uint32)lib->format->channels, (Uint32)lib->format->sample_rate, pcm ? pcm : "", (Uint32)pcm_len);
+    const void* wav_data = pcm ? (const void*)pcm : (const void*)"";
+    int ok = fsb_lua_push_wav(L, 0x0001u, 16u, (Uint32)lib->format->channels, (Uint32)lib->format->sample_rate, wav_data, (Uint32)pcm_len);
     SDL_free(pcm);
     fsb_close_libvgmstream(lib, sf, memsf, sf_owns_memsf);
 
