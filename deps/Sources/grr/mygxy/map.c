@@ -1922,3 +1922,4 @@ MYGXY_API int luaopen_mygxy_map(lua_State* L)
     lua_pushcfunction(L, MAP_NEW);
     return 1;
 }
+
