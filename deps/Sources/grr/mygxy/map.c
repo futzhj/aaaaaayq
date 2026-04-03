@@ -1293,13 +1293,21 @@ static void MAP_RunMapCallback(lua_State* L, MAP_UserData* ud, MAP_Task* task)
     Uint32 id = task->id;
 
     if (!map || !map->sf) {
-        lua_pop(L, 1);
+        lua_pushnil(L);
+        lua_pushnil(L);
+        if (lua_pcall(L, 2, 0, 0) != LUA_OK) {
+            lua_pop(L, 1);
+        }
         return;
     }
 
     SDL_Surface* out_sf = MAP_AcquireOutputSurface(L, ud, id, map);
     if (!out_sf) {
-        lua_pop(L, 1);
+        lua_pushnil(L);
+        lua_pushnil(L);
+        if (lua_pcall(L, 2, 0, 0) != LUA_OK) {
+            lua_pop(L, 1);
+        }
         return;
     }
 
@@ -1314,7 +1322,10 @@ static void MAP_RunMaskCallback(lua_State* L, MAP_Task* task)
 {
     MASK_Data* mask = (MASK_Data*)task->data;
     if (!mask || !mask->sf) {
-        lua_pop(L, 1);
+        lua_pushnil(L);
+        if (lua_pcall(L, 1, 0, 0) != LUA_OK) {
+            lua_pop(L, 1);
+        }
         return;
     }
 
@@ -1357,6 +1368,7 @@ static int SDLCALL WorkerThreadMain(void* data) {
         if (task) {
             if (task->type == TIME_TYPE_MAP) {
                 MAP_Data* map = (MAP_Data*)task->data;
+                MAP_ClearMapCache(map);
                 map->sf = _getmapsf_ctx(ud, task->id, &ctx);
                 _getmasksinfo_ctx(ud, task->id, &map->mask, &map->masknum, &ctx);
                 if (map->masknum > 0 && map->mask) {
