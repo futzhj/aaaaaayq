@@ -96,32 +96,51 @@ struct LuaDownload {
         // For file download, we need streaming
         if (!filepath.empty()) {
             // Download to file
+            // 断点续传：当 range 非空时以追加模式打开，否则覆写
+            bool append_mode = !range.empty();
             FILE* fp = nullptr;
 #ifdef _WIN32
             int wlen = MultiByteToWideChar(CP_UTF8, 0, filepath.c_str(), -1, NULL, 0);
             if (wlen > 0) {
                 std::wstring wpath(wlen, 0);
                 MultiByteToWideChar(CP_UTF8, 0, filepath.c_str(), -1, &wpath[0], wlen);
-                fp = _wfopen(wpath.c_str(), L"wb");
+                fp = _wfopen(wpath.c_str(), append_mode ? L"ab" : L"wb");
             }
 #else
-            fp = fopen(filepath.c_str(), "wb");
+            fp = fopen(filepath.c_str(), append_mode ? "ab" : "wb");
 #endif
             if (!fp) {
                 status = -1;
                 return;
             }
 
-            resp.http_cb = [this, fp](HttpMessage* msg, http_parser_state state, const char* data, size_t size) {
+            resp.http_cb = [this, &fp, append_mode](HttpMessage* msg, http_parser_state state, const char* data, size_t size) {
                 if (cancelled.load()) return;
                 if (state == HP_HEADERS_COMPLETE) {
+                    // 断点续传安全检测：请求了 Range 但服务器返回 200（不支持），
+                    // 需要截断文件重新写入，防止追加导致数据损坏
+                    if (append_mode && msg->status_code == 200) {
+                        if (fp) {
+                            fclose(fp);
+#ifdef _WIN32
+                            int twl = MultiByteToWideChar(CP_UTF8, 0, filepath.c_str(), -1, NULL, 0);
+                            if (twl > 0) {
+                                std::wstring twp(twl, 0);
+                                MultiByteToWideChar(CP_UTF8, 0, filepath.c_str(), -1, &twp[0], twl);
+                                fp = _wfopen(twp.c_str(), L"wb");
+                            }
+#else
+                            fp = fopen(filepath.c_str(), "wb");
+#endif
+                        }
+                    }
                     // Get content-length
                     std::string cl = msg->GetHeader("Content-Length");
                     if (!cl.empty()) {
                         total_size = std::stoll(cl);
                     }
                 } else if (state == HP_BODY) {
-                    if (data && size > 0) {
+                    if (data && size > 0 && fp) {
                         fwrite(data, 1, size, fp);
                         current_size += size;
                     }
@@ -131,9 +150,20 @@ struct LuaDownload {
             };
 
             int ret = client.send(&req, &resp);
-            fclose(fp);
+            if (fp) fclose(fp);
 
-            if (ret != 0 || resp.status_code < 200 || resp.status_code >= 400) {
+            if (cancelled.load() || ret != 0 || resp.status_code < 200 || resp.status_code >= 400) {
+                // 删除下载失败/取消的残留文件，防止热更加载损坏资源
+#ifdef _WIN32
+                int rwl = MultiByteToWideChar(CP_UTF8, 0, filepath.c_str(), -1, NULL, 0);
+                if (rwl > 0) {
+                    std::wstring rwp(rwl, 0);
+                    MultiByteToWideChar(CP_UTF8, 0, filepath.c_str(), -1, &rwp[0], rwl);
+                    _wremove(rwp.c_str());
+                }
+#else
+                remove(filepath.c_str());
+#endif
                 status = -(resp.status_code ? resp.status_code : ret);
             } else {
                 status = 100;
@@ -146,6 +176,9 @@ struct LuaDownload {
                     std::string cl = msg->GetHeader("Content-Length");
                     if (!cl.empty()) {
                         total_size = std::stoll(cl);
+                        // 预分配内存减少大文件下载时的反复 realloc
+                        std::lock_guard<std::mutex> lock(data_mutex);
+                        memory_data.reserve(static_cast<size_t>(total_size.load()));
                     }
                 } else if (state == HP_BODY) {
                     if (data && size > 0) {
@@ -203,7 +236,17 @@ static int l_download_get_md5(lua_State* L) {
         EVP_MD_CTX* ctx = EVP_MD_CTX_new();
         if (ctx && EVP_DigestInit_ex(ctx, EVP_md5(), NULL)) {
             if (!self->filepath.empty()) {
-                FILE* f = fopen(self->filepath.c_str(), "rb");
+                FILE* f = nullptr;
+#ifdef _WIN32
+                int md5wl = MultiByteToWideChar(CP_UTF8, 0, self->filepath.c_str(), -1, NULL, 0);
+                if (md5wl > 0) {
+                    std::wstring md5wp(md5wl, 0);
+                    MultiByteToWideChar(CP_UTF8, 0, self->filepath.c_str(), -1, &md5wp[0], md5wl);
+                    f = _wfopen(md5wp.c_str(), L"rb");
+                }
+#else
+                f = fopen(self->filepath.c_str(), "rb");
+#endif
                 if (f) {
                     unsigned char buf[8192];
                     size_t n;
