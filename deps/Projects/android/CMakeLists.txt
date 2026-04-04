@@ -181,6 +181,7 @@ target_include_directories(libhv PUBLIC
     "${LIBHV_DIR}/evpp" "${LIBHV_DIR}/http" "${LIBHV_DIR}/http/client"
     "${LIBHV_DIR}/http/server" "${LIBHV_DIR}/ssl"
     "${LIBHV_DIR}/cpputil" "${LIBHV_DIR}/util"
+    "${DEPS_DIR}/openssl/include"   # openssl.c 需要 <openssl/ssl.h>
 )
 target_compile_definitions(libhv PUBLIC HV_STATICLIB WITH_OPENSSL EVENT_EPOLL)
 set_target_properties(libhv PROPERTIES POSITION_INDEPENDENT_CODE ON)
