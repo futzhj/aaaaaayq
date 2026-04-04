@@ -129,6 +129,7 @@ target_include_directories(libhv PUBLIC
     "${LIBHV_DIR}/ssl"
     "${LIBHV_DIR}/cpputil"
     "${LIBHV_DIR}/util"
+    "${DEPS_DIR}/openssl/include"   # openssl.c 需要 <openssl/ssl.h>
 )
 target_compile_definitions(libhv PUBLIC
     HV_STATICLIB
