@@ -97,6 +97,12 @@ static size_t SDLCALL MAP_MemRW_Write(SDL_RWops* context, const void* ptr, size_
     return 0;
 }
 
+static Sint64 SDLCALL MAP_MemRW_Size(SDL_RWops* context)
+{
+    MAP_MemRW* m = (MAP_MemRW*)context;
+    return (Sint64)m->size;
+}
+
 static int SDLCALL MAP_MemRW_Close(SDL_RWops* context)
 {
     MAP_MemRW* m = (MAP_MemRW*)context;
@@ -121,7 +127,7 @@ static SDL_RWops* _MAP_RWFromMem(void* mem, size_t size, int owned)
     m->pos = 0;
     m->owned = owned;
 
-    m->rw.size = NULL;
+    m->rw.size = MAP_MemRW_Size;
     m->rw.seek = MAP_MemRW_Seek;
     m->rw.read = MAP_MemRW_Read;
     m->rw.write = MAP_MemRW_Write;
@@ -573,21 +579,9 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
 
     if (mem0 && info.size) {
         if (!sf) {
-            /* 复制一份独立内存给 IMG_Load_RW，
-             * 因为后续 _getmem 可能重新分配 m[0]，
-             * 导致 SDL_RWFromMem 内部指针悬挂 */
-            void* img_copy = SDL_malloc(info.size);
-            if (img_copy) {
-                SDL_memcpy(img_copy, mem0, info.size);
-                SDL_RWops* src = MAP_RWFromOwnedMem(img_copy, info.size);
-                if (src) {
-                    sf = IMG_Load_RW(src, SDL_TRUE); /* SDL_TRUE → close 释放 img_copy */
-                } else {
-                    SDL_free(img_copy);
-                }
-            }
+            SDL_RWops* src = SDL_RWFromMem(mem0, (int)info.size);
+            sf = IMG_Load_RW(src, SDL_TRUE);
         }
-        /* else: sf 已由 ujpeg 软解码创建 */
 
         if (sf && sf->format->format != SDL_PIXELFORMAT_ARGB8888) {
             SDL_Surface* nsf = SDL_ConvertSurfaceFormat(sf, SDL_PIXELFORMAT_ARGB8888, SDL_SWSURFACE);
@@ -897,54 +891,6 @@ static int _getmasksf(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem* tme
     mask->sf = msf;
     return 1;
 }
-//取遮罩（tmem: 临时缓冲区，传 NULL 使用 ud->mem）
-static int _getmasksf2(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem* tmem, SDL_RWops* rw)
-{
-    Uint8* alpha = _getmaskdata(ud, id, mask, tmem, rw);
-    SDL_Rect* rect = &mask->info.rect;
-
-    if (!alpha)
-        return 0;
-
-    SDL_Surface* msf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, rect->w, rect->h, 8, SDL_PIXELFORMAT_INDEX8);
-    if (!msf) {
-        SDL_free(alpha);
-        return 0;
-    }
-    SDL_Palette* palette = msf->format->palette;
-    palette->colors[0].r = 255;
-    palette->colors[0].g = 0;
-    palette->colors[0].b = 0;
-    palette->colors[0].a = 0;
-
-    palette->colors[1].r = 0;
-    palette->colors[1].g = 255;
-    palette->colors[1].b = 0;
-    palette->colors[1].a = 1;
-
-    palette->colors[2].r = 0;
-    palette->colors[2].g = 0;
-    palette->colors[2].b = 255;
-    palette->colors[2].a = 255;
-
-    palette->colors[3].r = 0;
-    palette->colors[3].g = 0;
-    palette->colors[3].b = 0;
-    palette->colors[3].a = 150;
-
-    Uint8* pixels = msf->pixels;
-    Uint8* palpha = alpha;
-    for (int h = 0; h < rect->h; h++)
-    {
-        SDL_memcpy(pixels, palpha, rect->w);
-        pixels += msf->pitch;
-        palpha += rect->w;
-    }
-
-    SDL_free(alpha);
-    mask->sf = msf;
-    return 1;
-}
 
 //载入线程（使用 time->mem 独立缓冲区 + 独立 RWops，不复用 ud->mem/ud->file）
 static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
@@ -1023,10 +969,7 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
                     mdata.id = time->id;
                     mdata.info = map->mask[i];
                     
-                    if (ud->mode == 0x9527)
-                        _getmasksf2(ud, time->id, &mdata, time->mem, task_rw);
-                    else
-                        _getmasksf(ud, time->id, &mdata, time->mem, task_rw);
+                    _getmasksf(ud, time->id, &mdata, time->mem, task_rw);
                         
                     fm->mask_sfs[i] = mdata.sf;
                 }
@@ -1038,10 +981,7 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
     {
         MASK_Data* mask = (MASK_Data*)time->data;
 
-        if (ud->mode == 0x9527)
-            _getmasksf2(ud, mask->id, mask, time->mem, task_rw);
-        else
-            _getmasksf(ud, mask->id, mask, time->mem, task_rw);
+        _getmasksf(ud, mask->id, mask, time->mem, task_rw);
     }
 
     SDL_RWclose(task_rw);
@@ -1588,10 +1528,7 @@ static int LUA_GetMask(lua_State* L)
         SDL_LockMutex(ud->mutex);
         if (!ud->closing && ud->file)
         {
-            if (ud->mode == 0x9527)
-                _getmasksf2(ud, id, &mask, NULL, ud->file);
-            else
-                _getmasksf(ud, id, &mask, NULL, ud->file);
+            _getmasksf(ud, id, &mask, NULL, ud->file);
         }
         SDL_UnlockMutex(ud->mutex);
 
