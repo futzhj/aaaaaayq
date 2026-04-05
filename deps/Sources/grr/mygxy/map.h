@@ -1,8 +1,6 @@
 #pragma once
 #include "lua_proxy.h"
 #include "sdl_proxy.h"
-#include "lua_proxy.h"
-#include "sdl_proxy.h"
 
 #include "SDL_timer.h"
 

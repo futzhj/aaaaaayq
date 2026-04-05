@@ -504,6 +504,8 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
                         return 0;
                     }
                     info.size = _fixjpeg(mem0, info.size, mem1, outmax);
+                    if (info.size == 0)
+                        return 0; /* fixjpeg 解码失败，跳过该图块 */
                     mem0 = mem1;
                 }//大话普通
             }
@@ -910,19 +912,19 @@ static int _getmasksf2(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem* tm
         return 0;
     }
     SDL_Palette* palette = msf->format->palette;
-    palette->colors[0].r = 0;
+    palette->colors[0].r = 255;
     palette->colors[0].g = 0;
     palette->colors[0].b = 0;
     palette->colors[0].a = 0;
 
     palette->colors[1].r = 0;
-    palette->colors[1].g = 0;
+    palette->colors[1].g = 255;
     palette->colors[1].b = 0;
     palette->colors[1].a = 1;
 
     palette->colors[2].r = 0;
     palette->colors[2].g = 0;
-    palette->colors[2].b = 0;
+    palette->colors[2].b = 255;
     palette->colors[2].a = 255;
 
     palette->colors[3].r = 0;
@@ -2048,7 +2050,19 @@ static int LUA_Clear(lua_State* L)
             if (time->cb_ref != LUA_NOREF && time->cb_ref != LUA_REFNIL)
                 luaL_unref(L, LUA_REGISTRYINDEX, time->cb_ref);
 
-            if (time->type == TIME_TYPE_MASK)
+            if (time->type == TIME_TYPE_MAP)
+            {
+                MAP_Data* map = (MAP_Data*)time->data;
+                if (map) {
+                    map->loading = 0;
+                    if (map->mask) {
+                        SDL_free(map->mask);
+                        map->mask = NULL;
+                        map->masknum = 0;
+                    }
+                }
+            }
+            else if (time->type == TIME_TYPE_MASK)
             {
                 MASK_Data* mask = (MASK_Data*)time->data;
                 if (mask) {
@@ -2061,6 +2075,14 @@ static int LUA_Clear(lua_State* L)
             {
                 MAPFULL_Data* fm = (MAPFULL_Data*)time->data;
                 if (fm) {
+                    if (fm->map) {
+                        fm->map->loading = 0;
+                        if (fm->map->mask) {
+                            SDL_free(fm->map->mask);
+                            fm->map->mask = NULL;
+                            fm->map->masknum = 0;
+                        }
+                    }
                     if (fm->mask_sfs) {
                         Uint32 masknum = fm->masknum;
                         for (Uint32 i = 0; i < masknum; i++) {
@@ -2071,6 +2093,8 @@ static int LUA_Clear(lua_State* L)
                     SDL_free(fm);
                 }
             }
+            _freemem(&time->mem[0]);
+            _freemem(&time->mem[1]);
             SDL_free(time);
         }
         node = next;
@@ -2086,24 +2110,23 @@ static int LUA_GC(lua_State* L)
     if (!ud->mutex)
         return 0;
 
-    SDL_RWops* rw = NULL;
-
+    /* 1. 设置 closing 标志 + 等待所有异步任务完成（它们仍需读 filebuf） */
     SDL_LockMutex(ud->mutex);
     ud->closing = 1;
-    rw = ud->file;
+    while (ud->active_tasks > 0) {
+        SDL_CondWait(ud->cond, ud->mutex);
+    }
+    SDL_UnlockMutex(ud->mutex);
+
+
+    /* 3. 所有异步任务已完成，安全关闭 rw */
+    SDL_LockMutex(ud->mutex);
+    SDL_RWops* rw = ud->file;
     ud->file = NULL;
     SDL_UnlockMutex(ud->mutex);
 
     if (rw && rw->close)
         rw->close(rw);
-
-    {
-        SDL_LockMutex(ud->mutex);
-        while (ud->active_tasks > 0) {
-            SDL_CondWait(ud->cond, ud->mutex);
-        }
-        SDL_UnlockMutex(ud->mutex);
-    }
 
     MAP_DrainPendingNoCallback(L, ud);
 
