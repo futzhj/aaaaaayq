@@ -326,7 +326,7 @@ static int _lzodecompress(void* in, void* out)
             t += 15 + *ip++;
         }
 
-        *(unsigned*)op = *(unsigned*)ip;
+        SDL_memcpy(op, ip, 4);
         op += 4;
         ip += 4;
         if (--t > 0)
@@ -335,7 +335,7 @@ static int _lzodecompress(void* in, void* out)
             {
                 do
                 {
-                    *(unsigned*)op = *(unsigned*)ip;
+                    SDL_memcpy(op, ip, 4);
                     op += 4;
                     ip += 4;
                     t -= 4;
@@ -394,7 +394,11 @@ static int _lzodecompress(void* in, void* out)
                 }
 
                 m_pos = op - 1;
-                m_pos -= (*(unsigned short*)ip) >> 2;
+                {
+                    unsigned short tmp;
+                    SDL_memcpy(&tmp, ip, 2);
+                    m_pos -= tmp >> 2;
+                }
                 ip += 2;
             }
             else if (t >= 16)
@@ -411,7 +415,11 @@ static int _lzodecompress(void* in, void* out)
                     }
                     t += 7 + *ip++;
                 }
-                m_pos -= (*(unsigned short*)ip) >> 2;
+                {
+                    unsigned short tmp;
+                    SDL_memcpy(&tmp, ip, 2);
+                    m_pos -= tmp >> 2;
+                }
                 ip += 2;
                 if (m_pos == op)
                     goto eof_found;
@@ -429,13 +437,13 @@ static int _lzodecompress(void* in, void* out)
 
             if (t >= 6 && (op - m_pos) >= 4)
             {
-                *(unsigned*)op = *(unsigned*)m_pos;
+                SDL_memcpy(op, m_pos, 4);
                 op += 4;
                 m_pos += 4;
                 t -= 2;
                 do
                 {
-                    *(unsigned*)op = *(unsigned*)m_pos;
+                    SDL_memcpy(op, m_pos, 4);
                     op += 4;
                     m_pos += 4;
                     t -= 4;
@@ -871,22 +879,11 @@ static int _getmasksf(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem* tme
     if (!alpha)
         return 0;
 
-    //if (rect->y < 0) { //负数(暂时不存在)
-    //    rect->height += rect->y;
-    //    rect->y = 0;
-    //}
-    //if (rect->x < 0) { //负数(1114:39,1217:158,1218:91)
-    //    rect->width += rect->x;
-    //    rect->x = 0;
-    //}
-
     SDL_Surface* msf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, rect->w, rect->h, 32, SDL_PIXELFORMAT_ARGB8888);
     if (!msf) {
         SDL_free(alpha);
         return 0;
     }
-    //SDL_SetSurfaceBlendMode(msf, SDL_BLENDMODE_BLEND);
-
     //从地表扣图
     Uint32 mapid = (rect->x / 320) + (rect->y / 240) * ud->colnum;
     int sfx = -(rect->x % 320);

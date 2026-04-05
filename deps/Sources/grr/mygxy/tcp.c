@@ -202,6 +202,16 @@ static int TCP_ClampRange(Uint32 start, Uint32 end, Uint32 limit, Uint32* outSta
 
 #define TCP_ALIGN4(x) (((x) + 3) & ~3U)
 
+static inline Uint16 TCP_ReadU16(const void* ptr) {
+    Uint16 v; SDL_memcpy(&v, ptr, 2); return v;
+}
+static inline Sint16 TCP_ReadS16(const void* ptr) {
+    Sint16 v; SDL_memcpy(&v, ptr, 2); return v;
+}
+static inline Uint32 TCP_ReadU32(const void* ptr) {
+    Uint32 v; SDL_memcpy(&v, ptr, 4); return v;
+}
+
 static Uint32 TCP_Pal8(const TCP_UserData* ud, Uint8 idx)
 {
     if (ud->pal_dyn && ud->pal_dyn != ud->pal && ud->pal_count && idx < ud->pal_count)
@@ -568,7 +578,7 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
     Uint8* frame = ud->data + safeFrameStart;
     Uint32 frameSize = safeFrameEnd - safeFrameStart;
     SP_INFO* info = (SP_INFO*)frame;
-    Uint32* line;
+    const Uint8* line;
 
     Uint8* rdata;
     Uint32 Color, h;
@@ -578,24 +588,24 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
 
     if (frameSize < sizeof(SP_INFO) + 4)
         return 0;
-    Uint32 maybeType = *(Uint32*)(frame + sizeof(SP_INFO));
+    Uint32 maybeType = TCP_ReadU32(frame + sizeof(SP_INFO));
     if (maybeType == 1 || maybeType == 2)
     {
         type = maybeType;
         if (frameSize < sizeof(SP_INFO) + 8)
             return 0;
-        maskSize = *(Uint32*)(frame + sizeof(SP_INFO) + 4);
+        maskSize = TCP_ReadU32(frame + sizeof(SP_INFO) + 4);
         if (maskSize > frameSize)
             return 0;
-        line = (Uint32*)(frame + sizeof(SP_INFO) + 8);
+        line = (const Uint8*)(frame + sizeof(SP_INFO) + 8);
     }
     else
     {
-        line = (Uint32*)(frame + sizeof(SP_INFO));
+        line = (const Uint8*)(frame + sizeof(SP_INFO));
     }
 
     {
-        size_t lineOff = (size_t)((Uint8*)line - frame);
+        size_t lineOff = (size_t)((const Uint8*)line - frame);
         size_t need = (size_t)info->height * sizeof(Uint32);
         if (lineOff > frameSize || need > frameSize - lineOff)
             return 0;
@@ -615,8 +625,8 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
 
     for (h = 0; h < info->height; h++)
     {
-        Uint32 lineStart = line[h];
-        Uint32 lineEnd = (h + 1 < info->height) ? line[h + 1] : frameSize;
+        Uint32 lineStart = TCP_ReadU32(line + h * 4);
+        Uint32 lineEnd = (h + 1 < info->height) ? TCP_ReadU32(line + (h + 1) * 4) : frameSize;
         if (lineStart >= frameSize)
             continue;
         if (lineEnd > frameSize)
@@ -633,7 +643,7 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
         { //法术隔行处理
             if (h > 0)
             {
-                Uint32 prevStart = line[h - 1];
+                Uint32 prevStart = TCP_ReadU32(line + (h - 1) * 4);
                 if (prevStart < frameSize && *(frame + prevStart))
                     SDL_memcpy(row, row - stride, linelen * 4);
             }
@@ -760,8 +770,8 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
 
     if ((type == 1 || type == 2) && maskSize > 0 && maskSize < frameSize)
     {
-        Sint16 headx = *(Sint16*)(ud->data + 12);
-        Sint16 heady = *(Sint16*)(ud->data + 14);
+        Sint16 headx = TCP_ReadS16(ud->data + 12);
+        Sint16 heady = TCP_ReadS16(ud->data + 14);
         Sint32 baseTopX = (Sint32)headx - info->x;
         Sint32 baseTopY = (Sint32)heady - info->y;
 
@@ -778,15 +788,15 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
             if (mframeSize < sizeof(SP_INFO) + 4)
                 return TCP_PushFrame(L, sf, info->width, info->height, info->x, info->y, opts);
 
-            Uint32* mline;
-            Uint32 mMaybeType = *(Uint32*)(mframe + sizeof(SP_INFO));
+            const Uint8* mline;
+            Uint32 mMaybeType = TCP_ReadU32(mframe + sizeof(SP_INFO));
             if (mMaybeType == 1 || mMaybeType == 2)
-                mline = (Uint32*)(mframe + sizeof(SP_INFO) + 8);
+                mline = (const Uint8*)(mframe + sizeof(SP_INFO) + 8);
             else
-                mline = (Uint32*)(mframe + sizeof(SP_INFO));
+                mline = (const Uint8*)(mframe + sizeof(SP_INFO));
 
             {
-                size_t mLineOff = (size_t)((Uint8*)mline - mframe);
+                size_t mLineOff = (size_t)((const Uint8*)mline - mframe);
                 size_t need = (size_t)minfo->height * sizeof(Uint32);
                 if (mLineOff > mframeSize || need > mframeSize - mLineOff)
                     goto skip_mask;
@@ -814,8 +824,8 @@ static int TCP_GetPS(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
                 if (dstY < 0 || dstY >= (Sint32)dstH)
                     continue;
 
-                Uint32 mLineStart = mline[mh];
-                Uint32 mLineEnd = (mh + 1 < minfo->height) ? mline[mh + 1] : mframeSize;
+                Uint32 mLineStart = TCP_ReadU32(mline + mh * 4);
+                Uint32 mLineEnd = (mh + 1 < minfo->height) ? TCP_ReadU32(mline + (mh + 1) * 4) : mframeSize;
                 if (mLineStart >= mframeSize)
                     continue;
                 if (mLineEnd > mframeSize)
@@ -1024,8 +1034,8 @@ static Uint32 TCP_DecodeTPLayer(
     if (layerPos + TCP_LAYER_HEADER_SIZE > dataEnd)
         return 0;
 
-    Uint16 layerW = *(Uint16*)(base + layerPos + 4);
-    Uint16 layerH = *(Uint16*)(base + layerPos + 6);
+    Uint16 layerW = TCP_ReadU16(base + layerPos + 4);
+    Uint16 layerH = TCP_ReadU16(base + layerPos + 6);
     if (!layerW || !layerH)
         return 0;
 
@@ -1064,9 +1074,9 @@ static Uint32 TCP_DecodeTPLayer(
         if (len == 1)
             v = base[layerPos + TCP_LAYER_HEADER_SIZE + i];
         else if (len == 2)
-            v = *(Uint16*)(base + layerPos + TCP_LAYER_HEADER_SIZE + i * 2);
+            v = TCP_ReadU16(base + layerPos + TCP_LAYER_HEADER_SIZE + i * 2);
         else
-            v = *(Uint32*)(base + layerPos + TCP_LAYER_HEADER_SIZE + i * 4);
+            v = TCP_ReadU32(base + layerPos + TCP_LAYER_HEADER_SIZE + i * 4);
         hexlist[i + 1] = v;
     }
 
@@ -1315,10 +1325,10 @@ static int TCP_GetPT(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
     if (firstLayerPos + 20 > safeFrameEnd)
         return 0;
 
-    Sint16 keyX = *(Sint16*)(base + firstLayerPos);
-    Sint16 keyY = *(Sint16*)(base + firstLayerPos + 2);
-    Uint16 width = *(Uint16*)(base + firstLayerPos + 4);
-    Uint16 height = *(Uint16*)(base + firstLayerPos + 6);
+    Sint16 keyX = TCP_ReadS16(base + firstLayerPos);
+    Sint16 keyY = TCP_ReadS16(base + firstLayerPos + 2);
+    Uint16 width = TCP_ReadU16(base + firstLayerPos + 4);
+    Uint16 height = TCP_ReadU16(base + firstLayerPos + 6);
     if (!width || !height)
         return 0;
 
@@ -1339,10 +1349,10 @@ static int TCP_GetPT(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
     while (currentPos + 20 <= safeFrameEnd && layerIndex < maxLayers)
     {
         // 读取当前图层的信息
-        Sint16 layerKeyX = *(Sint16*)(base + currentPos);
-        Sint16 layerKeyY = *(Sint16*)(base + currentPos + 2);
-        Uint16 layerW = *(Uint16*)(base + currentPos + 4);
-        Uint16 layerH = *(Uint16*)(base + currentPos + 6);
+        Sint16 layerKeyX = TCP_ReadS16(base + currentPos);
+        Sint16 layerKeyY = TCP_ReadS16(base + currentPos + 2);
+        Uint16 layerW = TCP_ReadU16(base + currentPos + 4);
+        Uint16 layerH = TCP_ReadU16(base + currentPos + 6);
 
         // 如果图层尺寸为0，说明没有更多图层
         if (!layerW || !layerH)
