@@ -2,7 +2,7 @@
 #include "map.h"
 
 #include <stdlib.h>
-#include <webp/decode.h>
+#include "webp/decode.h"
 
 /* ---------- 内嵌 WEBP 软解码 ----------
  * Android 预编译 libSDL_image.so 不含 WEBP 支持，
