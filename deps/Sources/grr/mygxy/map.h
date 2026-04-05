@@ -119,4 +119,5 @@ typedef struct
 {
     MAP_Data* map;
     SDL_Surface** mask_sfs;
+    Uint32 masknum;  /* 保存遮罩数量，drain 时不依赖 map->masknum */
 } MAPFULL_Data;
