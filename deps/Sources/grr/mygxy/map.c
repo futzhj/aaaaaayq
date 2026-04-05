@@ -18,7 +18,7 @@ static SDL_Surface* _webp_soft_decode(const Uint8* data, size_t data_size)
         return NULL;
 
     SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(
-        SDL_SWSURFACE, width, height, 32, SDL_PIXELFORMAT_RGBA8888);
+        SDL_SWSURFACE, width, height, 32, SDL_PIXELFORMAT_ABGR8888);
     if (!sf)
         return NULL;
 
