@@ -118,9 +118,7 @@ static MAP_RawPixels _stbi_raw_decode(const Uint8* data, size_t data_size)
 }
 
 /* ---------- 裸像素→SDL_Surface（仅主线程调用） ----------
- * pixel_format:
- *   地表用 SDL_PIXELFORMAT_RGB888 (XRGB8888, 不透明, 无 alpha 混合开销)
- *   遮罩用 SDL_PIXELFORMAT_ARGB8888 (带 alpha 通道, 半透明混合) */
+ * pixel_format: 由调用方指定（当前统一用 SDL_PIXELFORMAT_ARGB8888） */
 static SDL_Surface* _raw_to_surface(MAP_RawPixels* raw, Uint32 pixel_format)
 {
     if (!raw || !raw->pixels)
@@ -2411,6 +2409,10 @@ static int LUA_GC(lua_State* L)
         {
             if (ud->map[n].sf)
                 SDL_FreeSurface(ud->map[n].sf);
+
+            /* 异步任务已完成但 LUA_Run 尚未消费的裸像素 */
+            if (ud->map[n].raw.pixels)
+                SDL_free(ud->map[n].raw.pixels);
 
             if (ud->map[n].mask)
                 SDL_free(ud->map[n].mask);
