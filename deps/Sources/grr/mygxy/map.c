@@ -1324,7 +1324,12 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
         }
 
         /* 解码地表 → 裸像素（不创建 SDL_Surface） */
+        SDL_Log("[MAP] Timer decode start: id=%u type=%d fb=%p fb_size=%zu",
+                time->id, time->type, fb, fb_size);
         _getmapsf(ud, time->id, time->mem, task_rw, &time->result_raw);
+        SDL_Log("[MAP] Timer decode done: id=%u raw=%dx%d ptr=%p",
+                time->id, time->result_raw.width, time->result_raw.height,
+                (void*)time->result_raw.pixels);
         _getmasksinfo(ud, time->id, &time->result_mask, &time->result_masknum, task_rw);
         
         if (fm && time->result_masknum > 0 && time->result_mask)
