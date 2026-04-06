@@ -1,4 +1,4 @@
-#include "gge.h"
+ï»¿#include "gge.h"
 #include <SDL_image.h>
 
 static int LUA_IMG_Linked_Version(lua_State* L)
@@ -79,12 +79,52 @@ static int LUA_IMG_LoadARGB8888(lua_State* L)
     return 0;
 }
 
+#if defined(__ANDROID__)
+#include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
+#endif
+
+static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
+{
+    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
+    if (sf) return sf;
+#if defined(__ANDROID__)
+    Sint64 start = SDL_RWtell(rw);
+    Uint8 magic[12];
+    if (SDL_RWread(rw, magic, 1, 12) == 12) {
+        if (magic[0]=='R' && magic[1]=='I' && magic[2]=='F' && magic[3]=='F' &&
+            magic[8]=='W' && magic[9]=='E' && magic[10]=='B' && magic[11]=='P') {
+            Sint64 size = SDL_RWsize(rw);
+            if (size > 0) {
+                SDL_RWseek(rw, 0, RW_SEEK_SET);
+                Uint8* data = (Uint8*)SDL_malloc((size_t)size);
+                if (data && SDL_RWread(rw, data, 1, (size_t)size) == (size_t)size) {
+                    int w = 0, h = 0;
+                    if (WebPGetInfo(data, (size_t)size, &w, &h) && w > 0 && h > 0) {
+                        sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
+                        if (sf) {
+                            if (!WebPDecodeRGBAInto(data, (size_t)size, (uint8_t*)sf->pixels, (size_t)sf->pitch * h, sf->pitch)) {
+                                SDL_FreeSurface(sf);
+                                sf = NULL;
+                            }
+                        }
+                    }
+                }
+                if (data) SDL_free(data);
+            }
+            if (sf) return sf;
+        }
+    }
+    SDL_RWseek(rw, start, RW_SEEK_SET);
+#endif
+    return sf;
+}
+
 static int LUA_IMG_Load_RW(lua_State* L)
 {
     SDL_RWops* rw = *(SDL_RWops**)luaL_checkudata(L, 1, "SDL_RWops");
     Uint32 key = (Uint32)luaL_optinteger(L, 2, 0);
 
-    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
+    SDL_Surface* sf = GGE_IMG_Load_RW(rw);
     if (sf)
     {
         SDL_Surface** ud = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
@@ -100,7 +140,7 @@ static int LUA_IMG_LoadARGB8888_RW(lua_State* L)
     SDL_RWops* rw = *(SDL_RWops**)luaL_checkudata(L, 1, "SDL_RWops");
     Uint32 key = (Uint32)luaL_optinteger(L, 2, 0);
 
-    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
+    SDL_Surface* sf = GGE_IMG_Load_RW(rw);
     if (sf)
     {
         if (sf->format->format != SDL_PIXELFORMAT_ARGB8888)
@@ -190,9 +230,9 @@ static int LUA_IMG_LoadTexture_RW(lua_State* L)
     SDL_RWops* rw = *(SDL_RWops**)luaL_checkudata(L, 2, "SDL_RWops");
     int access = (int)luaL_optinteger(L, 3, SDL_TEXTUREACCESS_STATIC);
 
-    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
+    SDL_Surface* sf = GGE_IMG_Load_RW(rw);
     if (!sf)
-        sf = IMG_LoadTGA_RW(rw); //IMG_Load_RW »áºöÂÔTGA
+        sf = IMG_LoadTGA_RW(rw); //IMG_Load_RW ï¿½ï¿½ï¿½ï¿½ï¿½TGA
     if (!sf)
         return 0;
 
@@ -401,3 +441,4 @@ LUALIB_API int luaopen_gsdl2_image(lua_State* L)
     luaL_newlib(L, image_funcs);
     return 1;
 }
+

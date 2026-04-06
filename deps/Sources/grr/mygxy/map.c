@@ -668,12 +668,10 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
     }
 
     if (mem0 && info.size) {
-        if (!sf) {
-            SDL_RWops* src = SDL_RWFromMem(mem0, (int)info.size);
-            sf = IMG_Load_RW(src, SDL_TRUE);
-        }
-        /* IMG_Load_RW 失败 → 回退 WEBP 软解码
-         * (Android 预编译 libSDL_image 可能不含 WEBP 支持) */
+        /* 1. 优先尝试软解码 WEBP：
+         * iOS 平台下后台线程使用 IMG_Load_RW(ImageIO) 会因缺失 autoreleasepool
+         * 导致严重的内存泄漏、降速以及手机发烫，最后闪退。
+         * 纯 C 软解码库无副作用，且多端兼容性高！*/
         if (!sf && info.size >= 12) {
             const Uint8* hdr = (const Uint8*)mem0;
             if (hdr[0]=='R' && hdr[1]=='I' && hdr[2]=='F' && hdr[3]=='F' &&
@@ -681,6 +679,12 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
             {
                 sf = _webp_soft_decode(hdr, info.size);
             }
+        }
+
+        /* 2. 对于非 WEBP 图片（或解码失败），使用 IMG_Load_RW 处理 */
+        if (!sf) {
+            SDL_RWops* src = SDL_RWFromMem(mem0, (int)info.size);
+            sf = IMG_Load_RW(src, SDL_TRUE);
         }
 
         if (sf && sf->format->format != SDL_PIXELFORMAT_ARGB8888) {

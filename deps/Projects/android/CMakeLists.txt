@@ -524,7 +524,7 @@ target_include_directories(gsdl2 PRIVATE
     "${DEPS_DIR}/libsndfile/include"
 )
 target_link_libraries(gsdl2 PUBLIC lua54 PRIVATE sndfile)
-target_link_libraries(gsdl2 PRIVATE SDL2_prebuilt SDL_image_prebuilt SDL_mixer_prebuilt SDL_ttf_prebuilt)
+target_link_libraries(gsdl2 PRIVATE SDL2_prebuilt SDL_image_prebuilt SDL_mixer_prebuilt SDL_ttf_prebuilt webp_decode)
 
 # ============================================================================
 # 11. libmain.so — SHARED (SDL_main 入口 + GGE_LoadScript 脚本包加载)
