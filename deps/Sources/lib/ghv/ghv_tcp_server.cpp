@@ -33,7 +33,6 @@ struct SessionCrypto {
     KeyExchange      kex;           // ECDH 密钥协商（逐连接独立）
     uint32_t         send_seq = 0;
     ConnectionSecurityState state = ConnectionSecurityState::Plaintext;
-    std::vector<uint8_t> send_buf;
     std::vector<uint8_t> recv_buf;  // 加密帧接收缓冲（手动循环拆帧）
 };
 
@@ -385,11 +384,11 @@ static int l_tcp_server_broadcast(lua_State* L) {
                 fprintf(stderr, "[ghv] WARNING: server broadcast send_seq wrapped for conn, "
                                 "consider re-keying\n");
             }
-            session->send_buf.clear();
+            std::vector<uint8_t> frame_buf;
             if (session->crypto.EncryptAndSeal(
-                    reinterpret_cast<const uint8_t*>(data), len, seq, session->send_buf)) {
-                channel->write(reinterpret_cast<const char*>(session->send_buf.data()),
-                               session->send_buf.size());
+                    reinterpret_cast<const uint8_t*>(data), len, seq, frame_buf)) {
+                channel->write(reinterpret_cast<const char*>(frame_buf.data()),
+                               frame_buf.size());
             }
         } else {
             // 明文连接：直接发送

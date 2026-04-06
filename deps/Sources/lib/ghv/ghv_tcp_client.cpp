@@ -40,7 +40,7 @@ struct LuaTcpClient {
     AntiReplayWindow replay_window;
     uint32_t        send_seq_           = 0;
     ConnectionSecurityState security_state_ = ConnectionSecurityState::Plaintext;
-    std::vector<uint8_t> send_buf_;     // 复用发送缓冲区，避免每次发包堆分配 (C3)
+    // send_buf_ removed to avoid async IO memory races
     std::vector<uint8_t> recv_buf_;     // 加密帧接收缓冲（手动循环拆帧）
     KeyExchange         kex_;            // ECDH 密钥协商（X25519）
 
@@ -394,15 +394,15 @@ static int l_tcp_client_send(lua_State* L) {
                 fprintf(stderr, "[ghv] WARNING: client send_seq wrapped around, "
                                 "consider re-keying the connection\n");
             }
-            self->send_buf_.clear();  // clear 不释放内存，仅重置 size
+            std::vector<uint8_t> frame_buf;
             if (!self->crypto.EncryptAndSeal(
-                    reinterpret_cast<const uint8_t*>(data), len, seq, self->send_buf_)) {
+                    reinterpret_cast<const uint8_t*>(data), len, seq, frame_buf)) {
                 fprintf(stderr, "[ghv] send encryption failed\n");
                 lua_pushboolean(L, 0);
                 return 1;
             }
-            int ret = self->client->send(reinterpret_cast<const char*>(self->send_buf_.data()),
-                                          static_cast<int>(self->send_buf_.size()));
+            int ret = self->client->send(reinterpret_cast<const char*>(frame_buf.data()),
+                                          static_cast<int>(frame_buf.size()));
             lua_pushboolean(L, ret >= 0);
         } else {
             // Plaintext send (legacy)
