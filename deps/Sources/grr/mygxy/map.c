@@ -289,22 +289,40 @@ static Uint32 _fixjpeg(unsigned char* inbuf, Uint32 insize, unsigned char* outbu
     }
     return (Uint32)(op - outbuf);
 }
-//解压遮罩数据
-static int _lzodecompress(void* in, void* out)
+//解压遮罩数据（带输入/输出边界保护，防止损坏数据导致堆溢出）
+static int _lzodecompress(void* in, size_t in_size, void* out, size_t out_size)
 {
-    register unsigned char* op;
-    register unsigned char* ip;
-    register unsigned t;
-    register unsigned char* m_pos;
+    unsigned char* op;
+    unsigned char* ip;
+    unsigned t;
+    unsigned char* m_pos;
+
+    unsigned char* op_end;
+    unsigned char* ip_end;
+    unsigned char* out_base;
+
+    if (in_size == 0 || out_size == 0)
+        return -1;
 
     op = (unsigned char*)out;
     ip = (unsigned char*)in;
+    op_end = op + out_size;
+    ip_end = ip + in_size;
+    out_base = op;
 
+/* 安全宏：检查输入/输出/回溯指针边界 */
+#define LZO_CHECK_IP(need) do { if ((size_t)(ip_end - ip) < (size_t)(need)) return -1; } while(0)
+#define LZO_CHECK_OP(need) do { if ((size_t)(op_end - op) < (size_t)(need)) return -1; } while(0)
+#define LZO_CHECK_MPOS(p)  do { if ((p) < out_base || (p) >= op) return -1; } while(0)
+
+    LZO_CHECK_IP(1);
     if (*ip > 17)
     {
         t = *ip++ - 17;
         if (t < 4)
             goto match_next;
+        LZO_CHECK_OP(t);
+        LZO_CHECK_IP(t);
         do
             *op++ = *ip++;
         while (--t > 0);
@@ -313,19 +331,26 @@ static int _lzodecompress(void* in, void* out)
 
     while (1)
     {
+        LZO_CHECK_IP(1);
         t = *ip++;
         if (t >= 16)
             goto match;
         if (t == 0)
         {
+            LZO_CHECK_IP(1);
             while (*ip == 0)
             {
                 t += 255;
                 ip++;
+                LZO_CHECK_IP(1);
+                if (t > out_size) return -1; /* 防止 t 溢出导致超大拷贝 */
             }
             t += 15 + *ip++;
         }
 
+        /* t 为 literal run 长度减3，实际需要复制 t+1 组 4 字节 */
+        LZO_CHECK_OP(t + 4);
+        LZO_CHECK_IP(t + 4);
         SDL_memcpy(op, ip, 4);
         op += 4;
         ip += 4;
@@ -353,14 +378,18 @@ static int _lzodecompress(void* in, void* out)
 
     first_literal_run:
 
+        LZO_CHECK_IP(1);
         t = *ip++;
         if (t >= 16)
             goto match;
 
+        LZO_CHECK_IP(1);
         m_pos = op - 0x0801;
         m_pos -= t >> 2;
         m_pos -= *ip++ << 2;
+        LZO_CHECK_MPOS(m_pos);
 
+        LZO_CHECK_OP(3);
         *op++ = *m_pos++;
         *op++ = *m_pos++;
         *op++ = *m_pos;
@@ -372,11 +401,12 @@ static int _lzodecompress(void* in, void* out)
         match:
             if (t >= 64)
             {
-
+                LZO_CHECK_IP(1);
                 m_pos = op - 1;
                 m_pos -= (t >> 2) & 7;
                 m_pos -= *ip++ << 3;
                 t = (t >> 5) - 1;
+                LZO_CHECK_MPOS(m_pos);
 
                 goto copy_match;
             }
@@ -385,21 +415,26 @@ static int _lzodecompress(void* in, void* out)
                 t &= 31;
                 if (t == 0)
                 {
+                    LZO_CHECK_IP(1);
                     while (*ip == 0)
                     {
                         t += 255;
                         ip++;
+                        LZO_CHECK_IP(1);
+                        if (t > out_size) return -1;
                     }
                     t += 31 + *ip++;
                 }
 
                 m_pos = op - 1;
+                LZO_CHECK_IP(2);
                 {
                     unsigned short tmp;
                     SDL_memcpy(&tmp, ip, 2);
                     m_pos -= tmp >> 2;
                 }
                 ip += 2;
+                LZO_CHECK_MPOS(m_pos);
             }
             else if (t >= 16)
             {
@@ -408,13 +443,17 @@ static int _lzodecompress(void* in, void* out)
                 t &= 7;
                 if (t == 0)
                 {
+                    LZO_CHECK_IP(1);
                     while (*ip == 0)
                     {
                         t += 255;
                         ip++;
+                        LZO_CHECK_IP(1);
+                        if (t > out_size) return -1;
                     }
                     t += 7 + *ip++;
                 }
+                LZO_CHECK_IP(2);
                 {
                     unsigned short tmp;
                     SDL_memcpy(&tmp, ip, 2);
@@ -424,12 +463,16 @@ static int _lzodecompress(void* in, void* out)
                 if (m_pos == op)
                     goto eof_found;
                 m_pos -= 0x4000;
+                LZO_CHECK_MPOS(m_pos);
             }
             else
             {
+                LZO_CHECK_IP(1);
                 m_pos = op - 1;
                 m_pos -= t >> 2;
                 m_pos -= *ip++ << 2;
+                LZO_CHECK_MPOS(m_pos);
+                LZO_CHECK_OP(2);
                 *op++ = *m_pos++;
                 *op++ = *m_pos;
                 goto match_done;
@@ -437,6 +480,7 @@ static int _lzodecompress(void* in, void* out)
 
             if (t >= 6 && (op - m_pos) >= 4)
             {
+                LZO_CHECK_OP(t + 2);
                 SDL_memcpy(op, m_pos, 4);
                 op += 4;
                 m_pos += 4;
@@ -456,6 +500,7 @@ static int _lzodecompress(void* in, void* out)
             else
             {
             copy_match:
+                LZO_CHECK_OP(t + 2);
                 *op++ = *m_pos++;
                 *op++ = *m_pos++;
                 do
@@ -470,15 +515,20 @@ static int _lzodecompress(void* in, void* out)
                 break;
 
         match_next:
+            LZO_CHECK_OP(t);
+            LZO_CHECK_IP(t);
             do
                 *op++ = *ip++;
             while (--t > 0);
+            LZO_CHECK_IP(1);
             t = *ip++;
         }
     }
 
 eof_found:
-    //   if (ip != ip_end) return -1;
+#undef LZO_CHECK_IP
+#undef LZO_CHECK_OP
+#undef LZO_CHECK_MPOS
     return (int)(op - (Uint8*)out);
 }
 //取地表（tmem: 临时缓冲区，传 NULL 使用 ud->mem；rw: 文件句柄）
@@ -816,8 +866,16 @@ static Uint8* _getmaskdata(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem
     height = mask->info.rect.h;
     size = mask->info.size;
 
+    /* 遮罩尺寸合理性校验：防止损坏元数据导致超大分配或溢出 */
+    if (width == 0 || height == 0 || width > 8192 || height > 8192)
+        return 0;
+    if (size == 0 || size > 16 * 1024 * 1024)  /* 单个遮罩压缩数据不应超过 16MB */
+        return 0;
+
     void* mem0, * mem1;
     int len = ((width + 3) >> 2) * height;// 4对齐>>2等于除以4
+    if (len <= 0)
+        return 0;
     if (!(mem1 = _getmem(&m[1], len)))
         return 0;
 
@@ -838,7 +896,7 @@ static Uint8* _getmaskdata(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem
             continue;
         if (SDL_RWread(rw, mem0, sizeof(Uint8), s) != s)
             continue;
-        if (_lzodecompress(mem0, mem1) == len)
+        if (_lzodecompress(mem0, (size_t)s, mem1, (size_t)len) == len)
             ok = 1;
     }
 
