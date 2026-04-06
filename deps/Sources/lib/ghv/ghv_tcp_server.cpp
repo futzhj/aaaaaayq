@@ -34,6 +34,7 @@ struct SessionCrypto {
     uint32_t         send_seq = 0;
     ConnectionSecurityState state = ConnectionSecurityState::Plaintext;
     std::vector<uint8_t> recv_buf;  // 加密帧接收缓冲（手动循环拆帧）
+    std::vector<uint8_t> send_buf;  // 发送缓冲复用
 };
 
 // 安全事件枚举 — 用于通知 Lua 状态机具体的安全威胁类型 (M1)

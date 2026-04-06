@@ -81,45 +81,77 @@ static int LUA_IMG_LoadARGB8888(lua_State* L)
 
 #if defined(__ANDROID__)
 #include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
+#define STB_IMAGE_STATIC
+#define STBI_NO_HDR
+#define STBI_NO_LINEAR
+#define STB_IMAGE_IMPLEMENTATION
+#include "../grr/mygxy/stb_image.h"
 #endif
 
 static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
 {
-#if defined(__ANDROID__)
     Sint64 start = SDL_RWtell(rw);
     if (start >= 0) {
-        Uint8 magic[12];
-        if (SDL_RWread(rw, magic, 1, 12) == 12) {
-            if (magic[0]=='R' && magic[1]=='I' && magic[2]=='F' && magic[3]=='F' &&
-                magic[8]=='W' && magic[9]=='E' && magic[10]=='B' && magic[11]=='P') {
-                
-                Sint64 total_size = SDL_RWsize(rw);
-                Sint64 remain = total_size - start;
-                if (remain > 0) {
-                    SDL_RWseek(rw, start, RW_SEEK_SET);
-                    Uint8* data = (Uint8*)SDL_malloc((size_t)remain);
-                    if (data && SDL_RWread(rw, data, 1, (size_t)remain) == (size_t)remain) {
-                        int w = 0, h = 0;
-                        if (WebPGetInfo(data, (size_t)remain, &w, &h) && w > 0 && h > 0) {
-                            SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
-                            if (sf) {
-                                if (!WebPDecodeRGBAInto(data, (size_t)remain, (uint8_t*)sf->pixels, (size_t)sf->pitch * h, sf->pitch)) {
-                                    SDL_FreeSurface(sf);
-                                    sf = NULL;
-                                }
-                            }
-                            if (data) SDL_free(data);
-                            if (sf) return sf;
-                        }
-                    }
-                    if (data) SDL_free(data);
-                }
-            }
-        }
         SDL_RWseek(rw, start, RW_SEEK_SET);
     }
+    
+    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
+    if (sf) return sf;
+
+#if defined(__ANDROID__)
+    if (start >= 0) {
+        SDL_RWseek(rw, start, RW_SEEK_SET);
+        Sint64 total_size = SDL_RWsize(rw);
+        Sint64 remain = total_size - start;
+        
+        if (remain > 0) {
+            Uint8* data = (Uint8*)SDL_malloc((size_t)remain);
+            if (data && SDL_RWread(rw, data, 1, (size_t)remain) == (size_t)remain) {
+                
+                // 1. WebP 
+                int w = 0, h = 0;
+                if (WebPGetInfo(data, (size_t)remain, &w, &h) && w > 0 && h > 0) {
+                    sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
+                    if (sf) {
+                        if (!WebPDecodeRGBAInto(data, (size_t)remain, (uint8_t*)sf->pixels, (size_t)sf->pitch * h, sf->pitch)) {
+                            SDL_FreeSurface(sf);
+                            sf = NULL;
+                        }
+                    }
+                }
+                
+                // 2. stb_image (PNG, JPG, BMP)
+                if (!sf) {
+                    int c = 0;
+                    stbi_uc* pixels = stbi_load_from_memory(data, (int)remain, &w, &h, &c, 4);
+                    if (pixels) {
+                        sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
+                        if (sf) {
+                            if (SDL_MUSTLOCK(sf)) SDL_LockSurface(sf);
+                            for (int y = 0; y < h; ++y) {
+                                stbi_uc* src_row = pixels + (size_t)y * w * 4;
+                                Uint8* dst_row = (Uint8*)sf->pixels + (size_t)y * sf->pitch;
+                                SDL_memcpy(dst_row, src_row, (size_t)w * 4);
+                            }
+                            if (SDL_MUSTLOCK(sf)) SDL_UnlockSurface(sf);
+                        }
+                        stbi_image_free(pixels);
+                    }
+                }
+                
+            }
+            if (data) {
+                SDL_free(data);
+            }
+        }
+        
+        if (!sf) {
+            SDL_RWseek(rw, start, RW_SEEK_SET);
+        }
+    }
 #endif
-    return IMG_Load_RW(rw, SDL_FALSE);
+
+    return sf;
 }
 
 
