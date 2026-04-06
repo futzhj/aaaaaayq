@@ -1023,6 +1023,58 @@ LUALIB_API const char *luaL_gsub (lua_State *L, const char *s,
 }
 
 
+/*
+** iOS/macOS: 使用独立 malloc_zone_t 替代默认 nanov2 分配器。
+** 后台 mygxy JPEG 解码线程的碎片化 malloc/free 会破坏 nanov2 的
+** guard page，导致主线程 Lua VM 在 hash 表扩容时触发
+** nanov2_guard_corruption_detected → SIGABRT。
+** 将 Lua VM 的所有内存分配隔离到独立 zone，
+** 不与 mygxy 解码线程和 Metal/UIKit 的默认 zone 竞争。
+*/
+#if defined(__APPLE__) && !defined(_WIN32)
+#include <malloc/malloc.h>
+#include <os/lock.h>
+
+static malloc_zone_t* _lua_zone = NULL;
+static os_unfair_lock  _lua_zone_lock = OS_UNFAIR_LOCK_INIT;
+
+static void _lua_ensure_zone(void)
+{
+    if (_lua_zone) return;
+    os_unfair_lock_lock(&_lua_zone_lock);
+    if (!_lua_zone) {
+        _lua_zone = malloc_create_zone(0, 0);
+        if (_lua_zone)
+            malloc_set_zone_name(_lua_zone, "lua_vm");
+    }
+    os_unfair_lock_unlock(&_lua_zone_lock);
+}
+
+static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
+  (void)ud; (void)osize;
+  _lua_ensure_zone();
+  if (nsize == 0) {
+    if (ptr) {
+      if (_lua_zone)
+        malloc_zone_free(_lua_zone, ptr);
+      else
+        free(ptr);
+    }
+    return NULL;
+  }
+  else {
+    if (_lua_zone) {
+      if (ptr == NULL)
+        return malloc_zone_malloc(_lua_zone, nsize);
+      else
+        return malloc_zone_realloc(_lua_zone, ptr, nsize);
+    }
+    return realloc(ptr, nsize);
+  }
+}
+
+#else
+/* 非 Apple 平台：保持原始 Lua 默认分配器 */
 static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
   (void)ud; (void)osize;  /* not used */
   if (nsize == 0) {
@@ -1032,6 +1084,7 @@ static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
   else
     return realloc(ptr, nsize);
 }
+#endif
 
 
 /*
