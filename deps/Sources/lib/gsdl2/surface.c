@@ -88,12 +88,8 @@ static int LUA_FreeSurface(lua_State* L)
     SDL_Surface** sf = (SDL_Surface**)luaL_checkudata(L, 1, "SDL_Surface");
     if (*sf)
     {
-        (*sf)->refcount--;
-        if ((*sf)->refcount == 0)
-        {
-            SDL_FreeSurface(*sf);
-            *sf = NULL;
-        }
+        SDL_FreeSurface(*sf);
+        *sf = NULL;
     }
     return 0;
 }
