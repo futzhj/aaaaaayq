@@ -4,6 +4,28 @@
 #include <stdlib.h>
 #include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
 
+/* ---------- 内嵌 stb_image 纯 C JPEG/PNG 解码 ----------
+ * 后台线程（SDLTimer）不能调用 IMG_Load_RW，因为 iOS 上它会走
+ * ImageIO (ObjC/CoreGraphics)，在无 @autoreleasepool 的线程中
+ * 导致内存泄漏、堆损坏和闪退。
+ * stb_image 是纯 C 实现，线程安全，零 ObjC 依赖。
+ * 使用 STB_IMAGE_STATIC 确保所有函数为 static，不与 SDL_image
+ * 内部同名符号冲突。
+ */
+#define STB_IMAGE_STATIC
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_JPEG
+#define STBI_ONLY_PNG
+#define STBI_NO_STDIO
+#define STBI_NO_HDR
+#define STBI_NO_LINEAR
+#define STBI_NO_FAILURE_STRINGS
+#define STBI_MALLOC(sz)           SDL_malloc(sz)
+#define STBI_REALLOC(p,newsz)     SDL_realloc(p,newsz)
+#define STBI_FREE(p)              SDL_free(p)
+#define STBI_ASSERT(x)            SDL_assert(x)
+#include "stb_image.h"
+
 /* ---------- 内嵌 WEBP 软解码 ----------
  * Android 预编译 libSDL_image.so 不含 WEBP 支持，
  * IMG_Load_RW 会返回 NULL。此函数作为回退路径，
@@ -32,6 +54,44 @@ static SDL_Surface* _webp_soft_decode(const Uint8* data, size_t data_size)
         return NULL;
     }
 
+    return sf;
+}
+
+/* ---------- 纯 C 软解码 JPEG/PNG（后台线程安全） ----------
+ * 使用 stb_image 从内存解码 JPEG/PNG 为 ABGR8888 Surface。
+ * 仅在异步路径（tmem != NULL）调用，主线程同步路径仍走 IMG_Load_RW。
+ */
+static SDL_Surface* _stbi_soft_decode(const Uint8* data, size_t data_size)
+{
+    int width = 0, height = 0, channels = 0;
+
+    /* stbi_load_from_memory 输出 RGBA (4通道) */
+    unsigned char* pixels = stbi_load_from_memory(
+        data, (int)data_size, &width, &height, &channels, 4);
+    if (!pixels || width <= 0 || height <= 0)
+    {
+        if (pixels) stbi_image_free(pixels);
+        return NULL;
+    }
+
+    SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(
+        SDL_SWSURFACE, width, height, 32, SDL_PIXELFORMAT_ABGR8888);
+    if (!sf)
+    {
+        stbi_image_free(pixels);
+        return NULL;
+    }
+
+    /* 逐行拷贝（处理 pitch 对齐差异） */
+    const int row_bytes = width * 4;
+    for (int y = 0; y < height; y++)
+    {
+        SDL_memcpy(
+            (Uint8*)sf->pixels + y * sf->pitch,
+            pixels + y * row_bytes,
+            row_bytes);
+    }
+    stbi_image_free(pixels);
     return sf;
 }
 
@@ -668,10 +728,15 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
     }
 
     if (mem0 && info.size) {
-        /* 1. 优先尝试软解码 WEBP：
-         * iOS 平台下后台线程使用 IMG_Load_RW(ImageIO) 会因缺失 autoreleasepool
-         * 导致严重的内存泄漏、降速以及手机发烫，最后闪退。
-         * 纯 C 软解码库无副作用，且多端兼容性高！*/
+        /* ---- 后台线程（tmem != NULL）：全部使用纯 C 软解码 ----
+         * iOS 平台下后台线程使用 IMG_Load_RW 会走 ImageIO (ObjC/CoreGraphics)，
+         * 在无 @autoreleasepool 的线程中导致内存泄漏、堆损坏和闪退。
+         * 纯 C 软解码库无 ObjC 依赖，线程安全，多端行为一致。
+         *
+         * 主线程（tmem == NULL）：仍使用 IMG_Load_RW，行为不变。
+         */
+
+        /* 1. WEBP 软解码（libwebp 纯 C） */
         if (!sf && info.size >= 12) {
             const Uint8* hdr = (const Uint8*)mem0;
             if (hdr[0]=='R' && hdr[1]=='I' && hdr[2]=='F' && hdr[3]=='F' &&
@@ -681,8 +746,13 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
             }
         }
 
-        /* 2. 对于非 WEBP 图片（或解码失败），使用 IMG_Load_RW 处理 */
-        if (!sf) {
+        /* 2. JPEG/PNG 软解码（stb_image 纯 C） — 仅后台线程 */
+        if (!sf && tmem) {
+            sf = _stbi_soft_decode((const Uint8*)mem0, info.size);
+        }
+
+        /* 3. 主线程同步路径或软解码全部失败的最终 fallback */
+        if (!sf && !tmem) {
             SDL_RWops* src = SDL_RWFromMem(mem0, (int)info.size);
             sf = IMG_Load_RW(src, SDL_TRUE);
         }
