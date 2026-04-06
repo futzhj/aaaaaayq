@@ -83,41 +83,45 @@ static int LUA_IMG_LoadARGB8888(lua_State* L)
 #include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
 #endif
 
-static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
+﻿static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
 {
-    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
-    if (sf) return sf;
 #if defined(__ANDROID__)
     Sint64 start = SDL_RWtell(rw);
-    Uint8 magic[12];
-    if (SDL_RWread(rw, magic, 1, 12) == 12) {
-        if (magic[0]=='R' && magic[1]=='I' && magic[2]=='F' && magic[3]=='F' &&
-            magic[8]=='W' && magic[9]=='E' && magic[10]=='B' && magic[11]=='P') {
-            Sint64 size = SDL_RWsize(rw);
-            if (size > 0) {
-                SDL_RWseek(rw, 0, RW_SEEK_SET);
-                Uint8* data = (Uint8*)SDL_malloc((size_t)size);
-                if (data && SDL_RWread(rw, data, 1, (size_t)size) == (size_t)size) {
-                    int w = 0, h = 0;
-                    if (WebPGetInfo(data, (size_t)size, &w, &h) && w > 0 && h > 0) {
-                        sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
-                        if (sf) {
-                            if (!WebPDecodeRGBAInto(data, (size_t)size, (uint8_t*)sf->pixels, (size_t)sf->pitch * h, sf->pitch)) {
-                                SDL_FreeSurface(sf);
-                                sf = NULL;
+    if (start >= 0) {
+        Uint8 magic[12];
+        if (SDL_RWread(rw, magic, 1, 12) == 12) {
+            if (magic[0]=='R' && magic[1]=='I' && magic[2]=='F' && magic[3]=='F' &&
+                magic[8]=='W' && magic[9]=='E' && magic[10]=='B' && magic[11]=='P') {
+                
+                Sint64 total_size = SDL_RWsize(rw);
+                Sint64 remain = total_size - start;
+                if (remain > 0) {
+                    SDL_RWseek(rw, start, RW_SEEK_SET);
+                    Uint8* data = (Uint8*)SDL_malloc((size_t)remain);
+                    if (data && SDL_RWread(rw, data, 1, (size_t)remain) == (size_t)remain) {
+                        int w = 0, h = 0;
+                        if (WebPGetInfo(data, (size_t)remain, &w, &h) && w > 0 && h > 0) {
+                            SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
+                            if (sf) {
+                                if (!WebPDecodeRGBAInto(data, (size_t)remain, (uint8_t*)sf->pixels, (size_t)sf->pitch * h, sf->pitch)) {
+                                    SDL_FreeSurface(sf);
+                                    sf = NULL;
+                                }
                             }
+                            if (data) SDL_free(data);
+                            if (sf) return sf;
                         }
                     }
+                    if (data) SDL_free(data);
                 }
-                if (data) SDL_free(data);
             }
-            if (sf) return sf;
         }
+        SDL_RWseek(rw, start, RW_SEEK_SET);
     }
-    SDL_RWseek(rw, start, RW_SEEK_SET);
 #endif
-    return sf;
+    return IMG_Load_RW(rw, SDL_FALSE);
 }
+
 
 static int LUA_IMG_Load_RW(lua_State* L)
 {
