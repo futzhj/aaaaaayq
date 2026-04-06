@@ -10,6 +10,14 @@
 #include "ujpeg/ujpeg.h"
 #define MAP_NAME "xyq_map"
 
+/* 后台线程安全的像素缓冲区（不依赖任何 SDL Surface API）
+ * 后台线程只产出此结构，主线程消费时才创建 SDL_Surface */
+typedef struct {
+    Uint32* pixels;   /* ARGB8888 像素数据，SDL_malloc 分配 */
+    int     width;
+    int     height;
+} MAP_RawPixels;
+
 typedef struct
 {
     void* mem;
@@ -41,7 +49,8 @@ typedef struct
 typedef struct
 {
     Uint32 id;
-    SDL_Surface* sf;
+    SDL_Surface* sf;       /* 主线程缓存（同步路径） */
+    MAP_RawPixels raw;     /* 后台线程输出（异步路径） */
     MAP_MaskInfo* mask;
     Uint32 masknum;
     int loading;
@@ -50,8 +59,9 @@ typedef struct
 typedef struct
 {
     Uint32 id;
-    SDL_Surface* sf;
-    MAP_MaskInfo info; //遮罩信息
+    SDL_Surface* sf;       /* 主线程（同步路径） */
+    MAP_RawPixels raw;     /* 后台线程输出（异步路径） */
+    MAP_MaskInfo info;     /* 遮罩信息 */
 } MASK_Data;
 
 typedef struct
@@ -116,6 +126,6 @@ typedef struct
 typedef struct
 {
     MAP_Data* map;
-    SDL_Surface** mask_sfs;
-    Uint32 masknum;  /* 保存遮罩数量，drain 时不依赖 map->masknum */
+    MAP_RawPixels* mask_raws;  /* 后台线程产出的遮罩裸像素 */
+    Uint32 masknum;            /* 保存遮罩数量，drain 时不依赖 map->masknum */
 } MAPFULL_Data;

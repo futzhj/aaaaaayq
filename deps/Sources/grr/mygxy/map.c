@@ -26,47 +26,43 @@
 #define STBI_ASSERT(x)            SDL_assert(x)
 #include "stb_image.h"
 
-/* ---------- 内嵌 WEBP 软解码 ----------
- * Android 预编译 libSDL_image.so 不含 WEBP 支持，
- * IMG_Load_RW 会返回 NULL。此函数作为回退路径，
- * 直接调用 libwebp API 解码 WEBP 数据为 ARGB8888 Surface。
+/* ---------- 裸像素解码 WEBP（后台线程安全） ----------
+ * 不调用任何 SDL Surface API（SDL_CreateRGBSurfaceWithFormat 内部的
+ * SDL_AllocFormat 操作全局格式缓存链表，非线程安全）。
+ * 只使用 SDL_malloc 分配裸 ARGB8888 像素缓冲区。
  */
-static SDL_Surface* _webp_soft_decode(const Uint8* data, size_t data_size)
+static MAP_RawPixels _webp_raw_decode(const Uint8* data, size_t data_size)
 {
+    MAP_RawPixels raw = { NULL, 0, 0 };
     int width = 0, height = 0;
     if (!WebPGetInfo(data, data_size, &width, &height))
-        return NULL;
+        return raw;
     if (width <= 0 || height <= 0 || width > 8192 || height > 8192)
-        return NULL;
+        return raw;
 
-    /* 两步解码：先到独立缓冲区，再逐行安全拷贝到 Surface
-     * 避免 WebPDecodeRGBAInto 直接写 Surface 时因 pitch 对齐差异越界 */
     const int row_bytes = width * 4;
     const size_t rgba_size = (size_t)row_bytes * height;
     uint8_t* rgba = (uint8_t*)SDL_malloc(rgba_size);
     if (!rgba)
-        return NULL;
+        return raw;
 
     if (!WebPDecodeRGBAInto(data, data_size, rgba, rgba_size, row_bytes))
     {
         SDL_free(rgba);
-        return NULL;
+        return raw;
     }
 
-    /* 直接输出 ARGB8888，同时做 RGBA→ARGB 通道交换
-     * 消除后台线程中 SDL_ConvertSurfaceFormat 的线程安全隐患 */
-    SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(
-        SDL_SWSURFACE, width, height, 32, SDL_PIXELFORMAT_ARGB8888);
-    if (!sf) {
+    Uint32* out = (Uint32*)SDL_malloc((size_t)width * height * sizeof(Uint32));
+    if (!out) {
         SDL_free(rgba);
-        return NULL;
+        return raw;
     }
 
+    /* RGBA → ARGB8888 通道交换 */
     for (int y = 0; y < height; y++) {
         const uint8_t* src = rgba + y * row_bytes;
-        Uint32* dst = (Uint32*)((uint8_t*)sf->pixels + y * sf->pitch);
+        Uint32* dst = out + y * width;
         for (int x = 0; x < width; x++) {
-            /* RGBA bytes → ARGB8888 uint32: (A<<24)|(R<<16)|(G<<8)|B */
             dst[x] = ((Uint32)src[3] << 24) | ((Uint32)src[0] << 16)
                    | ((Uint32)src[1] << 8)  |  (Uint32)src[2];
             src += 4;
@@ -74,40 +70,40 @@ static SDL_Surface* _webp_soft_decode(const Uint8* data, size_t data_size)
     }
 
     SDL_free(rgba);
-    return sf;
+    raw.pixels = out;
+    raw.width = width;
+    raw.height = height;
+    return raw;
 }
 
-/* ---------- 纯 C 软解码 JPEG/PNG（后台线程安全） ----------
- * 使用 stb_image 从内存解码 JPEG/PNG 为 ARGB8888 Surface。
- * 直接做 RGBA→ARGB 通道交换，消除后台线程 SDL_ConvertSurfaceFormat 调用。
- * 仅在异步路径（tmem != NULL）调用，主线程同步路径仍走 IMG_Load_RW。
+/* ---------- 裸像素解码 JPEG/PNG（后台线程安全） ----------
+ * 使用 stb_image 解码，输出裸 ARGB8888 像素。
+ * 不调用任何 SDL Surface/Format API。
  */
-static SDL_Surface* _stbi_soft_decode(const Uint8* data, size_t data_size)
+static MAP_RawPixels _stbi_raw_decode(const Uint8* data, size_t data_size)
 {
+    MAP_RawPixels raw = { NULL, 0, 0 };
     int width = 0, height = 0, channels = 0;
 
-    /* stbi_load_from_memory 输出 RGBA (4通道) */
     unsigned char* pixels = stbi_load_from_memory(
         data, (int)data_size, &width, &height, &channels, 4);
     if (!pixels || width <= 0 || height <= 0)
     {
         if (pixels) stbi_image_free(pixels);
-        return NULL;
+        return raw;
     }
 
-    SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(
-        SDL_SWSURFACE, width, height, 32, SDL_PIXELFORMAT_ARGB8888);
-    if (!sf)
-    {
+    Uint32* out = (Uint32*)SDL_malloc((size_t)width * height * sizeof(Uint32));
+    if (!out) {
         stbi_image_free(pixels);
-        return NULL;
+        return raw;
     }
 
-    /* 逐行拷贝 + RGBA→ARGB 通道交换 */
+    /* RGBA → ARGB8888 通道交换 */
     for (int y = 0; y < height; y++)
     {
         const unsigned char* src = pixels + (size_t)y * width * 4;
-        Uint32* dst = (Uint32*)((Uint8*)sf->pixels + y * sf->pitch);
+        Uint32* dst = out + y * width;
         for (int x = 0; x < width; x++) {
             dst[x] = ((Uint32)src[3] << 24) | ((Uint32)src[0] << 16)
                    | ((Uint32)src[1] << 8)  |  (Uint32)src[2];
@@ -115,7 +111,60 @@ static SDL_Surface* _stbi_soft_decode(const Uint8* data, size_t data_size)
         }
     }
     stbi_image_free(pixels);
+    raw.pixels = out;
+    raw.width = width;
+    raw.height = height;
+    return raw;
+}
+
+/* ---------- 裸像素→SDL_Surface（仅主线程调用） ----------
+ * pixel_format:
+ *   地表用 SDL_PIXELFORMAT_RGB888 (XRGB8888, 不透明, 无 alpha 混合开销)
+ *   遮罩用 SDL_PIXELFORMAT_ARGB8888 (带 alpha 通道, 半透明混合) */
+static SDL_Surface* _raw_to_surface(MAP_RawPixels* raw, Uint32 pixel_format)
+{
+    if (!raw || !raw->pixels)
+        return NULL;
+    SDL_Surface* sf = SDL_CreateRGBSurfaceWithFormat(
+        SDL_SWSURFACE, raw->width, raw->height, 32, pixel_format);
+    if (!sf) {
+        SDL_free(raw->pixels);
+        raw->pixels = NULL;
+        return NULL;
+    }
+    /* 逐行拷贝（处理 pitch 对齐差异） */
+    const int row_bytes = raw->width * (int)sizeof(Uint32);
+    for (int y = 0; y < raw->height; y++) {
+        SDL_memcpy(
+            (Uint8*)sf->pixels + y * sf->pitch,
+            raw->pixels + y * raw->width,
+            row_bytes);
+    }
+    SDL_free(raw->pixels);
+    raw->pixels = NULL;
     return sf;
+}
+
+/* ---------- 裸像素 Blit（替代 SDL_BlitSurface，后台线程安全） ---------- */
+static void _blit_raw_tile(const MAP_RawPixels* tile,
+                           Uint32* canvas, int canvas_w, int canvas_h,
+                           int dst_x, int dst_y)
+{
+    if (!tile || !tile->pixels || !canvas) return;
+    int src_x = 0, src_y = 0;
+    int copy_w = tile->width, copy_h = tile->height;
+
+    if (dst_x < 0) { src_x = -dst_x; copy_w += dst_x; dst_x = 0; }
+    if (dst_y < 0) { src_y = -dst_y; copy_h += dst_y; dst_y = 0; }
+    if (dst_x + copy_w > canvas_w) copy_w = canvas_w - dst_x;
+    if (dst_y + copy_h > canvas_h) copy_h = canvas_h - dst_y;
+    if (copy_w <= 0 || copy_h <= 0) return;
+
+    for (int y = 0; y < copy_h; y++) {
+        Uint32* d = canvas + (dst_y + y) * canvas_w + dst_x;
+        const Uint32* s = tile->pixels + (src_y + y) * tile->width + src_x;
+        SDL_memcpy(d, s, (size_t)copy_w * sizeof(Uint32));
+    }
 }
 
 #if defined(_WIN32)
@@ -616,22 +665,24 @@ eof_found:
 }
 //取地表（tmem: 临时缓冲区，传 NULL 使用 ud->mem；rw: 文件句柄）
 // ★ 0x9527 不缓存模式：不读/写 ud->map[id].sf，避免 Timer 线程竞态
-//   调用方负责 SDL_FreeSurface（同步路径由 Lua userdata 管理，
-//   异步路径由 TimerCallback/LUA_Run 管理）
-static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RWops* rw)
+// ★ out_raw: 后台线程模式（tmem != NULL）时，输出裸像素到此指针。
+//   主线程（out_raw == NULL）仍返回 SDL_Surface*。
+static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RWops* rw, MAP_RawPixels* out_raw)
 {
     MAP_Mem* m = tmem ? tmem : ud->mem;
     int no_cache = (ud->mode == 0x9527);
+    int is_async = (tmem != NULL && out_raw != NULL);
 
     if (id >= ud->mapnum)
         return 0;
 
-    /* 仅缓存模式使用缓存的 sf */
-    if (!no_cache && ud->map[id].sf)
+    /* 仅主线程+缓存模式使用缓存的 sf */
+    if (!is_async && !no_cache && ud->map[id].sf)
         return ud->map[id].sf;
 
     Uint32 masknum;//遮罩数量
     SDL_Surface* sf = NULL;
+    MAP_RawPixels raw = { NULL, 0, 0 };
 
     if (SDL_RWseek(rw, ud->maplist[id], RW_SEEK_SET) == -1 ||
         SDL_RWread(rw, &masknum, sizeof(Uint32), 1) != 1)//附近遮罩数量
@@ -698,25 +749,22 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
                 SDL_memcpy(mem0, ud->jpeh.mem, ud->jpeh.size);
 
                 ujImage img = ujCreate();
-                //ujSetChromaMode(img, UJ_CHROMA_MODE_FAST);
                 ujDecode(img, mem0, (int)ud->jpeh.size + info.size, 1);
                 if (ujIsValid(img)) {
                     info.size = ujGetImageSize(img);
                     if ((mem1 = _getmem(&m[1], info.size)) && ujGetImage(img, mem1)) {
-                        //!ujIsColor(img)  P5灰度？
-                        /* 直接输出 ARGB8888，避免后续 SDL_ConvertSurfaceFormat */
-                        sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, 320, 240, 32, SDL_PIXELFORMAT_ARGB8888);
-                        if (sf) {
-                            int w = ujGetWidth(img);
-                            int h = ujGetHeight(img);
-                            if (w > 320) w = 320;
-                            if (h > 240) h = 240;
+                        int w = ujGetWidth(img);
+                        int h = ujGetHeight(img);
+                        if (w > 320) w = 320;
+                        if (h > 240) h = 240;
 
+                        /* 直接输出到裸像素缓冲区（不调用 SDL_CreateRGBSurfaceWithFormat） */
+                        Uint32* px = (Uint32*)SDL_calloc((size_t)320 * 240, sizeof(Uint32));
+                        if (px) {
                             Uint8* src = (Uint8*)mem1;
-
                             if (!ujIsColor(img)) {
                                 for (int y = 0; y < h; y++) {
-                                    Uint32* row = (Uint32*)((Uint8*)sf->pixels + y * sf->pitch);
+                                    Uint32* row = px + y * 320;
                                     for (int x = 0; x < w; x++) {
                                         Uint8 g = src[y * w + x];
                                         row[x] = 0xFF000000u | ((Uint32)g << 16) | ((Uint32)g << 8) | g;
@@ -724,7 +772,7 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
                                 }
                             } else {
                                 for (int y = 0; y < h; y++) {
-                                    Uint32* row = (Uint32*)((Uint8*)sf->pixels + y * sf->pitch);
+                                    Uint32* row = px + y * 320;
                                     Uint8* srow = src + y * w * 3;
                                     for (int x = 0; x < w; x++) {
                                         row[x] = 0xFF000000u | ((Uint32)srow[0] << 16) | ((Uint32)srow[1] << 8) | srow[2];
@@ -732,6 +780,9 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
                                     }
                                 }
                             }
+                            raw.pixels = px;
+                            raw.width = 320;
+                            raw.height = 240;
                         }
                     }
                     ujFree(img);
@@ -762,59 +813,55 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
         if (info.size > 16 * 1024 * 1024)
             return 0;
 
-        /* ---- 后台线程（tmem != NULL）：全部使用纯 C 软解码 ----
-         * iOS 平台下后台线程使用 IMG_Load_RW 会走 ImageIO (ObjC/CoreGraphics)，
-         * 在无 @autoreleasepool 的线程中导致内存泄漏、堆损坏和闪退。
-         * 纯 C 软解码库无 ObjC 依赖，线程安全，多端行为一致。
-         *
-         * ★ 所有软解码器现已直接输出 ARGB8888 格式，
-         *   后台线程不再调用 SDL_ConvertSurfaceFormat（该函数使用
-         *   全局格式缓存，非线程安全，会导致堆损坏）。
-         *
-         * 主线程（tmem == NULL）：仍使用 IMG_Load_RW，行为不变。
-         */
-
-        /* 1. WEBP 软解码（libwebp 纯 C）→ 直出 ARGB8888 */
-        if (!sf && info.size >= 12) {
+        /* 1. WEBP 裸像素解码（libwebp 纯 C，无 SDL API） */
+        if (!raw.pixels && info.size >= 12) {
             const Uint8* hdr = (const Uint8*)mem0;
             if (hdr[0]=='R' && hdr[1]=='I' && hdr[2]=='F' && hdr[3]=='F' &&
                 hdr[8]=='W' && hdr[9]=='E' && hdr[10]=='B' && hdr[11]=='P')
             {
-                sf = _webp_soft_decode(hdr, info.size);
+                raw = _webp_raw_decode(hdr, info.size);
             }
         }
 
-        /* 2. JPEG/PNG 软解码（stb_image 纯 C）→ 直出 ARGB8888，仅后台线程 */
-        if (!sf && tmem) {
-            sf = _stbi_soft_decode((const Uint8*)mem0, info.size);
+        /* 2. JPEG/PNG 裸像素解码（stb_image 纯 C，无 SDL API） */
+        if (!raw.pixels) {
+            raw = _stbi_raw_decode((const Uint8*)mem0, info.size);
         }
 
-        /* 3. 主线程同步路径或软解码全部失败的最终 fallback */
-        if (!sf && !tmem) {
+        if (is_async) {
+            /* ---- 后台线程：返回裸像素，零 SDL Surface API 调用 ----
+             * SDL_CreateRGBSurfaceWithFormat 内部的 SDL_AllocFormat()
+             * 操作全局格式缓存链表（无锁），与主线程竞态导致堆损坏。
+             * 后台线程只产出裸 ARGB8888 像素，主线程消费时再创建 Surface。 */
+            *out_raw = raw;
+            return NULL;
+        }
+
+        /* ---- 主线程路径 ---- */
+        if (raw.pixels) {
+            sf = _raw_to_surface(&raw, SDL_PIXELFORMAT_RGB888);
+        } else {
+            /* 主线程最终 fallback：使用 IMG_Load_RW */
             SDL_RWops* src = SDL_RWFromMem(mem0, (int)info.size);
             sf = IMG_Load_RW(src, SDL_TRUE);
         }
 
-        /* 格式转换：仅主线程允许调用 SDL_ConvertSurfaceFormat
-         * 后台线程的所有软解码路径已直出 ARGB8888，无需转换。
-         * 若后台线程仍出现非 ARGB8888 格式（不应发生），丢弃该 Surface
-         * 防止使用格式不匹配的数据导致渲染异常。 */
+        /* 格式转换（仅主线程安全） */
         if (sf && sf->format->format != SDL_PIXELFORMAT_ARGB8888) {
-            if (tmem) {
-                /* 后台线程：不调用 SDL_ConvertSurfaceFormat（非线程安全） */
-                SDL_FreeSurface(sf);
-                sf = NULL;
-            } else {
-                SDL_Surface* nsf = SDL_ConvertSurfaceFormat(sf, SDL_PIXELFORMAT_ARGB8888, SDL_SWSURFACE);
-                SDL_FreeSurface(sf);
-                sf = nsf;
-            }
+            SDL_Surface* nsf = SDL_ConvertSurfaceFormat(sf, SDL_PIXELFORMAT_ARGB8888, SDL_SWSURFACE);
+            SDL_FreeSurface(sf);
+            sf = nsf;
         }
 
-        /* 仅缓存模式写入 ud->map[id].sf */
+        /* 仅主线程缓存模式写入 ud->map[id].sf */
         if (!no_cache) {
             ud->map[id].sf = sf;
         }
+    }
+    else if (is_async && raw.pixels) {
+        /* MAPX ujImage 路径已产出 raw，返回给后台线程 */
+        *out_raw = raw;
+        return NULL;
     }
 
     return sf;
@@ -1059,6 +1106,62 @@ static int _getmasksf(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem* tme
     if (!alpha)
         return 0;
 
+    int is_async = (tmem != NULL);
+
+    if (is_async) {
+        /* ---- 后台线程：纯内存操作，零 SDL Surface API 调用 ---- */
+        Uint32* canvas = (Uint32*)SDL_calloc((size_t)rect->w * rect->h, sizeof(Uint32));
+        if (!canvas) {
+            SDL_free(alpha);
+            return 0;
+        }
+
+        /* 从地表图块拼合（手动 memcpy 替代 SDL_BlitSurface） */
+        Uint32 mapid = (rect->x / 320) + (rect->y / 240) * ud->colnum;
+        int sfx = -(rect->x % 320);
+        int sfy = -(rect->y % 240);
+        Uint32 curid = mapid;
+
+        for (int y = sfy; y < rect->h; y += 240) {
+            for (int x = sfx; x < rect->w; x += 320) {
+                MAP_RawPixels tile = { NULL, 0, 0 };
+                _getmapsf(ud, curid++, tmem, rw, &tile);
+                if (tile.pixels) {
+                    _blit_raw_tile(&tile, canvas, rect->w, rect->h, x, y);
+                    SDL_free(tile.pixels);
+                }
+            }
+            mapid += ud->colnum;
+            curid = mapid;
+        }
+
+        /* 填充透明通道 */
+        Uint8* palpha = alpha;
+        for (int y = 0; y < rect->h; y++) {
+            Uint32* row = canvas + y * rect->w;
+            for (int x = 0; x < rect->w; x++) {
+                Uint8 code = *palpha++;
+                Uint8 out_a = code;
+                if (code == 2)
+                    out_a = 255;
+                else if (code == 3)
+                    out_a = 150;
+
+                Uint32 px = row[x];
+                px = (px & 0xFFFFFFFCu) | (code & 3u);
+                px = (px & 0x00FFFFFFu) | ((Uint32)out_a << 24);
+                row[x] = px;
+            }
+        }
+
+        SDL_free(alpha);
+        mask->raw.pixels = canvas;
+        mask->raw.width = rect->w;
+        mask->raw.height = rect->h;
+        return 1;
+    }
+
+    /* ---- 主线程路径（原逻辑不变） ---- */
     SDL_Surface* msf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, rect->w, rect->h, 32, SDL_PIXELFORMAT_ARGB8888);
     if (!msf) {
         SDL_free(alpha);
@@ -1072,11 +1175,10 @@ static int _getmasksf(MAP_UserData* ud, Uint32 id, MASK_Data* mask, MAP_Mem* tme
 
     for (int y = sfy; y < msf->h; y += 240) {
         for (int x = sfx; x < msf->w; x += 320) {
-            SDL_Surface* sf = _getmapsf(ud, curid++, tmem, rw);
+            SDL_Surface* sf = _getmapsf(ud, curid++, NULL, rw, NULL);
             SDL_Rect xy = { x,y };
             if (sf) {
-                SDL_BlitSurface(sf, NULL, msf, &xy); //Blit后rect会清零
-                /* 不缓存模式下 _getmapsf 返回新分配的 sf，Blit 完即释放 */
+                SDL_BlitSurface(sf, NULL, msf, &xy);
                 if (ud->mode == 0x9527)
                     SDL_FreeSurface(sf);
             }
@@ -1162,7 +1264,7 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
         return 0;
     }
 
-    /* ---- 3. 无锁执行 I/O + 解码 ---- */
+    /* ---- 3. 无锁执行 I/O + 解码（后台线程：只产出裸像素） ---- */
     if (time->type == TIME_TYPE_MAP || time->type == TIME_TYPE_MAPFULL)
     {
         MAP_Data* map = NULL;
@@ -1174,14 +1276,15 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
             map = (MAP_Data*)time->data;
         }
 
-        map->sf = _getmapsf(ud, time->id, time->mem, task_rw);
+        /* 解码地表 → 裸像素（不创建 SDL_Surface） */
+        _getmapsf(ud, time->id, time->mem, task_rw, &map->raw);
         _getmasksinfo(ud, time->id, &map->mask, &map->masknum, task_rw);
         
         if (fm && map->masknum > 0 && map->mask)
         {
             fm->masknum = map->masknum;
-            fm->mask_sfs = (SDL_Surface**)SDL_calloc(map->masknum, sizeof(SDL_Surface*));
-            if (fm->mask_sfs) {
+            fm->mask_raws = (MAP_RawPixels*)SDL_calloc(map->masknum, sizeof(MAP_RawPixels));
+            if (fm->mask_raws) {
                 for (Uint32 i = 0; i < map->masknum; i++) {
                     MASK_Data mdata;
                     SDL_memset(&mdata, 0, sizeof(MASK_Data));
@@ -1190,7 +1293,7 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
                     
                     _getmasksf(ud, time->id, &mdata, time->mem, task_rw);
                         
-                    fm->mask_sfs[i] = mdata.sf;
+                    fm->mask_raws[i] = mdata.raw;
                 }
             }
         }
@@ -1237,34 +1340,39 @@ static void MAP_DrainPendingNoCallback(lua_State* L, MAP_UserData* ud)
             if (time->type == TIME_TYPE_MAP || time->type == TIME_TYPE_MAPFULL)
             {
                 MAP_Data* map = NULL;
-                SDL_Surface** mask_sfs = NULL;
+                MAP_RawPixels* mask_raws = NULL;
+                Uint32 saved_masknum = 0;
                 if (time->type == TIME_TYPE_MAP) {
                     map = (MAP_Data*)time->data;
                 } else {
                     MAPFULL_Data* fm = (MAPFULL_Data*)time->data;
                     if (fm) {
                         map = fm->map;
-                        mask_sfs = fm->mask_sfs;
+                        mask_raws = fm->mask_raws;
+                        saved_masknum = fm->masknum;
                     }
                 }
                 
                 if (map)
                 {
                     map->loading = 0;
-                    Uint32 saved_masknum = map->masknum;
+                    /* 释放后台线程产出的裸像素 */
+                    if (map->raw.pixels) {
+                        SDL_free(map->raw.pixels);
+                        map->raw.pixels = NULL;
+                    }
                     if (map->mask)
                     {
                         SDL_free(map->mask);
                         map->mask = NULL;
                         map->masknum = 0;
                     }
-                    if (mask_sfs)
+                    if (mask_raws)
                     {
                         for (Uint32 i = 0; i < saved_masknum; i++) {
-                            if (mask_sfs[i]) SDL_FreeSurface(mask_sfs[i]);
+                            if (mask_raws[i].pixels) SDL_free(mask_raws[i].pixels);
                         }
-                        SDL_free(mask_sfs);
-                        mask_sfs = NULL;
+                        SDL_free(mask_raws);
                     }
                 }
                 if (time->type == TIME_TYPE_MAPFULL) SDL_free(time->data);
@@ -1274,8 +1382,9 @@ static void MAP_DrainPendingNoCallback(lua_State* L, MAP_UserData* ud)
                 MASK_Data* mask = (MASK_Data*)time->data;
                 if (mask)
                 {
-                    if (mask->sf)
-                        SDL_FreeSurface(mask->sf);
+                    /* 释放后台线程产出的裸像素 */
+                    if (mask->raw.pixels)
+                        SDL_free(mask->raw.pixels);
                     SDL_free(mask);
                 }
             }
@@ -1319,7 +1428,10 @@ static int LUA_Run(lua_State* L)
             }
             Uint32 id = time->id;
 
-            if (!map->sf)
+            /* ★ 主线程：裸像素→SDL_Surface（地表用 RGB888 不透明格式） */
+            SDL_Surface* map_sf = _raw_to_surface(&map->raw, SDL_PIXELFORMAT_RGB888);
+
+            if (!map_sf)
             {
                 if (lua_isfunction(L, -1)) {
                     lua_pushnil(L);
@@ -1333,15 +1445,7 @@ static int LUA_Run(lua_State* L)
             {
                 {
                     SDL_Surface** sf = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
-                    if (ud->mode == 0x9527)
-                    {
-                        *sf = map->sf;
-                        map->sf = NULL;
-                    }
-                    else
-                    {
-                        *sf = SDL_DuplicateSurface(map->sf);
-                    }
+                    *sf = map_sf;
                     luaL_setmetatable(L, "SDL_Surface");
                 }
 
@@ -1365,12 +1469,15 @@ static int LUA_Run(lua_State* L)
                     lua_pushinteger(L, info->rect.h);
                     lua_setfield(L, -2, "h");
                     
-                    if (fm && fm->mask_sfs && fm->mask_sfs[i]) {
-                        SDL_Surface** msf = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
-                        *msf = fm->mask_sfs[i];
-                        fm->mask_sfs[i] = NULL;
-                        luaL_setmetatable(L, "SDL_Surface");
-                        lua_setfield(L, -2, "sf");
+                    /* ★ 遮罩用 ARGB8888（带 alpha 通道，半透明混合） */
+                    if (fm && fm->mask_raws && fm->mask_raws[i].pixels) {
+                        SDL_Surface* mask_sf = _raw_to_surface(&fm->mask_raws[i], SDL_PIXELFORMAT_ARGB8888);
+                        if (mask_sf) {
+                            SDL_Surface** msf = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
+                            *msf = mask_sf;
+                            luaL_setmetatable(L, "SDL_Surface");
+                            lua_setfield(L, -2, "sf");
+                        }
                     }
                     
                     lua_seti(L, -2, i + 1);
@@ -1379,7 +1486,6 @@ static int LUA_Run(lua_State* L)
                 lua_call(L, 2, 0);
             }
 
-            Uint32 saved_masknum = map->masknum;
             if (map->mask)
             {
                 SDL_free(map->mask);
@@ -1387,11 +1493,11 @@ static int LUA_Run(lua_State* L)
                 map->masknum = 0;
             }
             if (fm) {
-                if (fm->mask_sfs) {
-                    for (Uint32 i = 0; i < saved_masknum; i++) {
-                         if (fm->mask_sfs[i]) SDL_FreeSurface(fm->mask_sfs[i]);
+                if (fm->mask_raws) {
+                    for (Uint32 i = 0; i < fm->masknum; i++) {
+                         if (fm->mask_raws[i].pixels) SDL_free(fm->mask_raws[i].pixels);
                     }
-                    SDL_free(fm->mask_sfs);
+                    SDL_free(fm->mask_raws);
                 }
                 SDL_free(fm);
             }
@@ -1400,7 +1506,11 @@ static int LUA_Run(lua_State* L)
         else if (time->type == TIME_TYPE_MASK)
         {
             MASK_Data* mask = (MASK_Data*)time->data;
-            if (!mask->sf)
+
+            /* ★ 主线程：遮罩裸像素→SDL_Surface（ARGB8888 带 alpha） */
+            SDL_Surface* mask_sf = _raw_to_surface(&mask->raw, SDL_PIXELFORMAT_ARGB8888);
+
+            if (!mask_sf)
             {
                 if (lua_isfunction(L, -1)) {
                     lua_pushnil(L);
@@ -1412,7 +1522,7 @@ static int LUA_Run(lua_State* L)
             else
             {
                 SDL_Surface** sf = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
-                *sf = mask->sf;
+                *sf = mask_sf;
                 luaL_setmetatable(L, "SDL_Surface");
                 lua_call(L, 1, 0);
             }
@@ -1475,7 +1585,7 @@ static int LUA_GetMap(lua_State* L)
         if (!ud->closing && ud->file)
         {
             if (!map->sf)
-                map->sf = _getmapsf(ud, id, NULL, ud->file);
+                map->sf = _getmapsf(ud, id, NULL, ud->file, NULL);
 
             if (map->sf)
             {
@@ -1589,7 +1699,7 @@ static int LUA_GetMapInfo(lua_State* L)
     if (!ud->closing && ud->file)
     {
         if (!map->sf)
-            map->sf = _getmapsf(ud, id, NULL, ud->file);
+            map->sf = _getmapsf(ud, id, NULL, ud->file, NULL);
 
         if (map->sf)
         {
@@ -2211,6 +2321,10 @@ static int LUA_Clear(lua_State* L)
                 MAP_Data* map = (MAP_Data*)time->data;
                 if (map) {
                     map->loading = 0;
+                    if (map->raw.pixels) {
+                        SDL_free(map->raw.pixels);
+                        map->raw.pixels = NULL;
+                    }
                     if (map->mask) {
                         SDL_free(map->mask);
                         map->mask = NULL;
@@ -2222,8 +2336,8 @@ static int LUA_Clear(lua_State* L)
             {
                 MASK_Data* mask = (MASK_Data*)time->data;
                 if (mask) {
-                    if (mask->sf)
-                        SDL_FreeSurface(mask->sf);
+                    if (mask->raw.pixels)
+                        SDL_free(mask->raw.pixels);
                     SDL_free(mask);
                 }
             }
@@ -2233,18 +2347,22 @@ static int LUA_Clear(lua_State* L)
                 if (fm) {
                     if (fm->map) {
                         fm->map->loading = 0;
+                        if (fm->map->raw.pixels) {
+                            SDL_free(fm->map->raw.pixels);
+                            fm->map->raw.pixels = NULL;
+                        }
                         if (fm->map->mask) {
                             SDL_free(fm->map->mask);
                             fm->map->mask = NULL;
                             fm->map->masknum = 0;
                         }
                     }
-                    if (fm->mask_sfs) {
+                    if (fm->mask_raws) {
                         Uint32 masknum = fm->masknum;
                         for (Uint32 i = 0; i < masknum; i++) {
-                            if (fm->mask_sfs[i]) SDL_FreeSurface(fm->mask_sfs[i]);
+                            if (fm->mask_raws[i].pixels) SDL_free(fm->mask_raws[i].pixels);
                         }
-                        SDL_free(fm->mask_sfs);
+                        SDL_free(fm->mask_raws);
                     }
                     SDL_free(fm);
                 }
