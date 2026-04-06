@@ -85,7 +85,7 @@ static int LUA_IMG_LoadARGB8888(lua_State* L)
 #define STBI_NO_HDR
 #define STBI_NO_LINEAR
 #define STB_IMAGE_IMPLEMENTATION
-#include "../grr/mygxy/stb_image.h"
+#include "../../grr/mygxy/stb_image.h"
 #endif
 
 static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
