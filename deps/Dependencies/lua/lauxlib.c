@@ -1032,6 +1032,9 @@ LUALIB_API const char *luaL_gsub (lua_State *L, const char *s,
 ** 不与 mygxy 解码线程和 Metal/UIKit 的默认 zone 竞争。
 */
 #if defined(__APPLE__) && !defined(_WIN32)
+#include <stdint.h>
+#include <sys/types.h>
+#include <stddef.h>
 #include <malloc/malloc.h>
 #include <os/lock.h>
 

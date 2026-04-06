@@ -17,8 +17,6 @@
  * 非 Apple 平台直接转发到 SDL_malloc，零开销。
  * ========================================================================== */
 #if defined(__APPLE__) && !defined(_WIN32)
-#include <malloc/malloc.h>
-
 /* 在 map.c 中定义 */
 void* _map_zone_malloc(size_t sz);
 void* _map_zone_calloc(size_t count, size_t sz);

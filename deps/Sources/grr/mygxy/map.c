@@ -9,6 +9,10 @@
  * 声明在 map.h，实现在此。非 Apple 平台此段不编译。
  * ========================================================================== */
 #if defined(__APPLE__) && !defined(_WIN32)
+#include <stdint.h>
+#include <sys/types.h>
+#include <stddef.h>
+#include <malloc/malloc.h>
 #include <os/lock.h>
 
 static malloc_zone_t* _map_zone = NULL;

@@ -24,6 +24,9 @@
  * 如果 setenv 太晚（nano zone 已初始化），则下面的 zone_check 会报告状态。
  * ====================================================================== */
 #if defined(__APPLE__) && !defined(_WIN32)
+#include <stdint.h>
+#include <sys/types.h>
+#include <stddef.h>
 #include <malloc/malloc.h>
 #include <stdlib.h>
 
