@@ -839,7 +839,7 @@ static SDL_Surface* _getmapsf(MAP_UserData* ud, Uint32 id, MAP_Mem* tmem, SDL_RW
 
         /* ---- 主线程路径 ---- */
         if (raw.pixels) {
-            sf = _raw_to_surface(&raw, SDL_PIXELFORMAT_RGB888);
+            sf = _raw_to_surface(&raw, SDL_PIXELFORMAT_ARGB8888);
         } else {
             /* 主线程最终 fallback：使用 IMG_Load_RW */
             SDL_RWops* src = SDL_RWFromMem(mem0, (int)info.size);
@@ -1428,8 +1428,8 @@ static int LUA_Run(lua_State* L)
             }
             Uint32 id = time->id;
 
-            /* ★ 主线程：裸像素→SDL_Surface（地表用 RGB888 不透明格式） */
-            SDL_Surface* map_sf = _raw_to_surface(&map->raw, SDL_PIXELFORMAT_RGB888);
+            /* ★ 主线程：裸像素→SDL_Surface（ARGB8888） */
+            SDL_Surface* map_sf = _raw_to_surface(&map->raw, SDL_PIXELFORMAT_ARGB8888);
 
             if (!map_sf)
             {
