@@ -1,4 +1,4 @@
-﻿#include "gge.h"
+#include "gge.h"
 #include <SDL_image.h>
 
 static int LUA_IMG_Linked_Version(lua_State* L)
@@ -83,7 +83,7 @@ static int LUA_IMG_LoadARGB8888(lua_State* L)
 #include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
 #endif
 
-﻿static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
+static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
 {
 #if defined(__ANDROID__)
     Sint64 start = SDL_RWtell(rw);
