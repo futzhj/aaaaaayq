@@ -77,7 +77,9 @@ static int LUA_memset(lua_State* L)
     if (mem->ptr) {
         int c = (int)luaL_checknumber(L, 2);
         size_t len = (size_t)luaL_checknumber(L, 3);
-        SDL_memset(mem->ptr, c, len);
+        /* W11: 与 LUA_memcpy 一致的边界检查 */
+        if (len <= (size_t)mem->len)
+            SDL_memset(mem->ptr, c, len);
     }
     return 0;
 }
@@ -141,9 +143,12 @@ static int LUA_MemoryGetRWops(lua_State* L)
     SDL_RWops* rw = SDL_RWFromMem(mem->ptr, mem->len);
 
     if (rw) {
-        SDL_RWops** mem = (SDL_RWops**)lua_newuserdata(L, sizeof(SDL_RWops*));
-        *mem = rw;
+        SDL_RWops** ud = (SDL_RWops**)lua_newuserdata(L, sizeof(SDL_RWops*));
+        *ud = rw;
         luaL_setmetatable(L, "SDL_RWops");
+        /* W12: 持有 Memory 对象引用，防止 GC 释放后 RWops 变悬垂指针 */
+        lua_pushvalue(L, 1);
+        lua_setiuservalue(L, -2, 1);
         return 1;
     }
     return 0;
@@ -185,8 +190,9 @@ static int LUA_MemoryIndex(lua_State* L)
 
     if (lua_type(L, 2) == LUA_TNUMBER) {
         int i = (int)lua_tonumber(L, 2);
-        //if (i >= mem->len || i < 0)
-        //    return 0;
+        /* E9: 恢复边界检查——防止任意内存读取 */
+        if (i < 0 || i >= mem->len)
+            return 0;
 
         switch (mem->type)
         {
@@ -230,6 +236,9 @@ static int LUA_MemoryNewIndex(lua_State* L)
 {
     GGE_Memory* mem = (GGE_Memory*)luaL_checkudata(L, 1, "SDL_Memory");
     int i = (int)luaL_checkinteger(L, 2);
+    /* E9: 边界检查——防止任意内存写入 */
+    if (i < 0 || i >= mem->len)
+        return 0;
     Uint64 v = (Uint64)luaL_checkinteger(L, 3);
 
     switch (mem->type)

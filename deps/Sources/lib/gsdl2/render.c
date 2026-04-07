@@ -348,6 +348,9 @@ static int LUA_LockTextureToSurface(lua_State* L)
     SDL_Surface* sf;
     if (SDL_LockTextureToSurface(tex, rect, &sf) == 0)
     {
+        /* W14: 此 surface 属于纹理，不可被 Lua GC 释放（__gc 调 SDL_FreeSurface）
+         * 增加 refcount 使 SDL_FreeSurface 仅减引用计数而不实际释放 */
+        sf->refcount++;
         SDL_Surface** ud = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
         *ud = sf;
         luaL_setmetatable(L, "SDL_Surface");

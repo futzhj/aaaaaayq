@@ -101,8 +101,12 @@ static const luaL_Reg sdl_funcs[] = {
 int bind_timer(lua_State* L)
 {
     luaL_newmetatable(L, "SDL_Timer");
-    //lua_pushcfunction(L, LUA_RemoveTimer);
-    //lua_setfield(L, -2, "__gc");
+    /* E7: 恢复 __gc — 防止 Timer 泄漏和 UAF
+     * Timer 被 GC 时必须停止定时器、释放 TimeInfo */
+    lua_pushcfunction(L, LUA_RemoveTimer);
+    lua_setfield(L, -2, "__gc");
+    lua_pushcfunction(L, LUA_RemoveTimer);
+    lua_setfield(L, -2, "__close");
     lua_pop(L, 1);
 
     luaL_setfuncs(L, sdl_funcs, 0);

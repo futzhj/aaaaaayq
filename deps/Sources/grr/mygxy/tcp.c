@@ -5,6 +5,16 @@
 #include <TargetConditionals.h>
 #endif
 
+/* E8: stb_image 头文件（static 实现，每个编译单元独立静态副本）
+ * 用于 TCP_GetPR 的 iOS/Android stb_image fallback */
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
+#define STB_IMAGE_STATIC
+#define STBI_NO_HDR
+#define STBI_NO_LINEAR
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+#endif
+
 #if defined(_WIN32)
 #define MYGXY_API __declspec(dllexport)
 #else
@@ -1404,9 +1414,40 @@ static int TCP_GetPR(lua_State* L, TCP_UserData* ud, Uint32 id, const TCP_FrameO
     Uint32 blen = ud->rplist[id].len;
     if (ofs > ud->len || blen > ud->len - ofs)
         return 0;
-    SDL_RWops* src = SDL_RWFromMem(ud->data + ofs, blen);
 
-    SDL_Surface* sf = IMG_Load_RW(src, SDL_TRUE);
+    SDL_Surface* sf = NULL;
+
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
+    /* iOS/Android: 优先走 stb_image 纯 C 解码，避免 ImageIO 产生大量 ObjC 对象导致的 nanov2 堆损坏 */
+    {
+        Uint8* imgdata = ud->data + ofs;
+        int w = 0, h = 0, c = 0;
+        stbi_uc* pixels = stbi_load_from_memory(imgdata, (int)blen, &w, &h, &c, 4);
+        if (pixels && w > 0 && h > 0) {
+            sf = SDL_CreateRGBSurfaceWithFormat(SDL_SWSURFACE, w, h, 32, SDL_PIXELFORMAT_ABGR8888);
+            if (sf) {
+                if (SDL_MUSTLOCK(sf)) SDL_LockSurface(sf);
+                for (int y = 0; y < h; ++y) {
+                    stbi_uc* src_row = pixels + (size_t)y * w * 4;
+                    Uint8* dst_row = (Uint8*)sf->pixels + (size_t)y * sf->pitch;
+                    SDL_memcpy(dst_row, src_row, (size_t)w * 4);
+                }
+                if (SDL_MUSTLOCK(sf)) SDL_UnlockSurface(sf);
+            }
+            stbi_image_free(pixels);
+        } else {
+            if (pixels) stbi_image_free(pixels);
+        }
+    }
+#endif
+
+    if (!sf) {
+        SDL_RWops* src = SDL_RWFromMem(ud->data + ofs, blen);
+        if (src) {
+            sf = IMG_Load_RW(src, SDL_TRUE);
+        }
+    }
+
     if (!sf)
         return luaL_error(L, "Failed to load image: %s", SDL_GetError());
 

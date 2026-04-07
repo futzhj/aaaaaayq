@@ -41,8 +41,11 @@ static void MsgQueue_Destroy(MsgQueue* q) {
 
 static void MsgQueue_Push(MsgQueue* q, int id, const char* data, size_t len) {
 	ThreadMsg* m = (ThreadMsg*)SDL_malloc(sizeof(ThreadMsg));
+	/* W10: malloc 失败检查——iOS 内存紧张时防止 NULL 崩溃 */
+	if (!m) return;
 	m->id = id;
 	m->data = (char*)SDL_malloc(len);
+	if (!m->data) { SDL_free(m); return; }
 	SDL_memcpy(m->data, data, len);
 	m->len = len;
 	m->next = NULL;

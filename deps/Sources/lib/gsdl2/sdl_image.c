@@ -103,12 +103,10 @@ static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
         SDL_RWseek(rw, start, RW_SEEK_SET);
     }
     
-    SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
-    if (sf) return sf;
+    SDL_Surface* sf = NULL;
 
 #if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
     if (start >= 0) {
-        SDL_RWseek(rw, start, RW_SEEK_SET);
         Sint64 total_size = SDL_RWsize(rw);
         Sint64 remain = total_size - start;
         
@@ -158,6 +156,10 @@ static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
         }
     }
 #endif
+
+    if (!sf) {
+        sf = IMG_Load_RW(rw, SDL_FALSE);
+    }
 
     return sf;
 }

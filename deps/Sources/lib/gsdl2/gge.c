@@ -2,10 +2,12 @@
 #include <SDL_image.h>
 #include <SDL_syswm.h>
 
-//°ÑÍ¼ÏñµÄalphaÌáÈ¡µ½8Î»Ë÷Òı
+//æŠŠå›¾åƒçš„alphaæå–åˆ°8ä½ç´¢å¼•
 SDL_Surface* GGE_SurfaceAlphaToSurface(SDL_Surface* sf, int addpal)
 {
     SDL_Surface* nsf = SDL_CreateRGBSurfaceWithFormat(0, sf->w, sf->h, 8, SDL_PIXELFORMAT_INDEX8);
+    /* W13: åˆ›å»ºå¤±è´¥æ—¶ï¼ˆOOMï¼‰è¿”å› NULLï¼Œé˜²æ­¢åç»­ç©ºæŒ‡é’ˆè§£å¼•ç”¨ */
+    if (!nsf) return NULL;
     SDL_BlendMode blendMode;
     SDL_GetSurfaceBlendMode(sf, &blendMode);
 
@@ -27,7 +29,7 @@ SDL_Surface* GGE_SurfaceAlphaToSurface(SDL_Surface* sf, int addpal)
                 case 2:
                 {
                     SDL_GetRGBA(*(Uint16*)lrp, sf->format, &r, &g, &b, &a);
-                    *lwp = a; //FIXME Î´»¹Ô­
+                    *lwp = a; //FIXME æœªè¿˜åŸ
                     break;
                 }
                 case 4:
@@ -59,7 +61,7 @@ SDL_Surface* GGE_SurfaceAlphaToSurface(SDL_Surface* sf, int addpal)
     }
     return nsf;
 }
-//TextureÈ¡Í¸Ã÷
+//Textureå–é€æ˜
 int GGE_GetTextureAlpha(lua_State* L)
 {
     SDL_Texture* tex = *(SDL_Texture**)luaL_checkudata(L, 1, "SDL_Texture");
@@ -101,7 +103,7 @@ int GGE_GetTextureAlpha(lua_State* L)
     lua_pushinteger(L, 0);
     return 1;
 }
-//TextureÈ¡ÏñËØ
+//Textureå–åƒç´ 
 int GGE_GetTexturePixels(lua_State* L)
 {
     SDL_Texture* tex = *(SDL_Texture**)luaL_checkudata(L, 1, "SDL_Texture");
@@ -146,7 +148,7 @@ int GGE_GetTexturePixels(lua_State* L)
     lua_pushinteger(L, 0);
     return 4;
 }
-//Surface»Ò¶È
+//Surfaceç°åº¦
 int GGE_SurfaceToGrayscale(lua_State* L)
 {
     SDL_Surface* sf = *(SDL_Surface**)luaL_checkudata(L, 1, "SDL_Surface");
@@ -268,7 +270,7 @@ int GGE_SetSurfacePixel(lua_State* L)
     return 0;
 }
 
-//ÁÄÌì´°¿Ú
+//èŠå¤©çª—å£
 #ifdef _WIN32
 #include <Windows.h>
 int GGE_SetParent(lua_State* L)
@@ -284,12 +286,12 @@ int GGE_SetParent(lua_State* L)
     SDL_GetWindowWMInfo(Child, &cinfo);
     SDL_GetWindowWMInfo(Parent, &pinfo);
 
-    r = SetWindowLongPtr(cinfo.info.win.window, GWLP_HWNDPARENT, (LONG_PTR)pinfo.info.win.window); //64Î»
+    r = SetWindowLongPtr(cinfo.info.win.window, GWLP_HWNDPARENT, (LONG_PTR)pinfo.info.win.window); //64ä½
 
     style = GetWindowLong(cinfo.info.win.window, GWL_STYLE);
-    style &= ~(WS_MAXIMIZEBOX); //×î´ó»¯
-    style &= ~(WS_MINIMIZEBOX); //×îĞ¡»¯
-    style &= ~(WS_SYSMENU);     //²Ëµ¥
+    style &= ~(WS_MAXIMIZEBOX); //æœ€å¤§åŒ–
+    style &= ~(WS_MINIMIZEBOX); //æœ€å°åŒ–
+    style &= ~(WS_SYSMENU);     //èœå•
     SetWindowLong(cinfo.info.win.window, GWL_STYLE, style);
 
     return 0;

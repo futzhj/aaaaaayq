@@ -527,6 +527,8 @@ static int LUA_SurfaceIndex(lua_State* L)
 static const luaL_Reg surface_funcs[] = {
     {"__gc", LUA_FreeSurface},
     {"__close", LUA_FreeSurface},
+    {"关闭", LUA_FreeSurface},
+    {"Free", LUA_FreeSurface},
     {"__index", LUA_SurfaceIndex},
     //{"SetSurfacePalette", LUA_SetSurfacePalette},
     {"LockSurface", LUA_LockSurface},
