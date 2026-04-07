@@ -16,6 +16,14 @@
 #endif
 #include "TcpServer.h"
 
+// libhv 内部函数：为 IO handle 分配独立 readbuf（脱离共享 loop->readbuf）
+// 防止同一 hloop_process_events 内多个 socket 的读取覆写同一块内存
+extern "C" void hio_alloc_readbuf(hio_t* io, int len);
+// HLOOP_READ_BUFSIZE 定义在 hevent.h（内部头文件），这里用相同值
+#ifndef HLOOP_READ_BUFSIZE
+#define HLOOP_READ_BUFSIZE 65536
+#endif
+
 #include <cstring>
 #ifdef _WIN32
 #include <winsock2.h>
@@ -618,7 +626,16 @@ static int l_tcp_server_derive_and_encrypt(lua_State* L) {
     session->send_seq = 0;
     session->replay_window.Reset();
     session->recv_buf.clear();
-    fprintf(stderr, "[ghv] DIAG server encryption ACTIVATED for conn %u\n", id);
+
+    // 关键修复：分配私有 readbuf，脱离 loop->readbuf 共享缓冲
+    // 根因：libhv 的 hloop_s 维护一个全局 readbuf，所有未分配私有缓冲的 IO
+    // 共享同一块内存。当同一次 hloop_process_events 中多个 socket 同时 ready，
+    // 后读取的 socket 会覆写前一个 socket 的数据 → 导致加密帧串话 → MAC 失败。
+    if (channel->io()) {
+        hio_alloc_readbuf(channel->io(), HLOOP_READ_BUFSIZE);
+    }
+
+    fprintf(stderr, "[ghv] DIAG server encryption ACTIVATED for conn %u (private readbuf)\n", id);
 
     lua_pushboolean(L, 1);
     return 1;

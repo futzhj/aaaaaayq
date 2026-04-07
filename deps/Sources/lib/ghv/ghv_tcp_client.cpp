@@ -16,6 +16,12 @@
 #endif
 #include "TcpClient.h"
 
+// libhv 内部函数：为 IO handle 分配独立 readbuf（脱离共享 loop->readbuf）
+extern "C" void hio_alloc_readbuf(hio_t* io, int len);
+#ifndef HLOOP_READ_BUFSIZE
+#define HLOOP_READ_BUFSIZE 65536
+#endif
+
 #include <cstring>
 #ifdef _WIN32
 #include <winsock2.h>
@@ -572,6 +578,15 @@ static int l_tcp_client_derive_and_encrypt(lua_State* L) {
     self->security_state_ = ConnectionSecurityState::Encrypted;
     self->send_seq_ = 0;
     self->replay_window.Reset();
+
+    // 5. 关键修复：分配私有 readbuf，避免与 TcpServer 连接共享 loop->readbuf 导致串话
+    if (self->connected && self->client && self->client->channel) {
+        hio_t* io = self->client->channel->io();
+        if (io) {
+            hio_alloc_readbuf(io, HLOOP_READ_BUFSIZE);
+        }
+    }
+    fprintf(stderr, "[ghv] DIAG client encryption ACTIVATED (private readbuf)\n");
 
     lua_pushboolean(L, 1);
     return 1;
