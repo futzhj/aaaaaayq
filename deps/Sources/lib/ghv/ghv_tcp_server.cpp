@@ -270,6 +270,12 @@ static int l_tcp_server_start(lua_State* L) {
                     }
                     lua_pop(L, 1);
                 }
+                
+                // M6 极危漏洞阻断: 如果 lua_pcall 回调内部调用了 ghv:disconnect(id)，
+                // channel->close() 会被触发。在底层生命周期清理中 session 及其 recv_buf 可能已经被虚悬/销毁。
+                if (!channel->isConnected()) {
+                    break;
+                }
             }
             return;
         } else if (session && session->state == ConnectionSecurityState::Handshaking) {

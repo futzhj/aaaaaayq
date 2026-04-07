@@ -325,6 +325,11 @@ static int l_tcp_client_connect(lua_State* L) {
                     }
                     lua_pop(L, 1);
                 }
+
+                // M6 极危漏洞阻断: 客户端 lua_pcall 中可能触发断线重连或销毁
+                if (!channel->isConnected()) {
+                    break;
+                }
             }
             return;
         } else if (self->security_state_ == ConnectionSecurityState::Handshaking) {
