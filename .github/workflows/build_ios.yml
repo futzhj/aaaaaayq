@@ -95,6 +95,11 @@ jobs:
         echo "Using libcrypto.a: ${CRYPTO_LIB}"
         echo "Using libssl.a: ${SSL_LIB}"
 
+        # ASan 编译选项：定位 nanov2 堆损坏根源
+        # 产出的 framework 会在运行时检测越界/UAF，输出精确文件+行号
+        # ⚠️ ASan 版本速度慢 2-3 倍、内存多 2-3 倍，仅用于排查！抓到 bug 后记得去掉
+        ASAN_FLAGS="-fsanitize=address -fno-omit-frame-pointer -O1"
+
         cmake -G Xcode \
           -B "${IOS_DIR}/build-iphoneos" \
           -S "${IOS_DIR}" \
@@ -106,6 +111,8 @@ jobs:
           -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
           -DCMAKE_C_COMPILER_LAUNCHER=ccache \
           -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+          -DCMAKE_C_FLAGS="${ASAN_FLAGS}" \
+          -DCMAKE_CXX_FLAGS="${ASAN_FLAGS}" \
           -DCMAKE_INSTALL_PREFIX="${IOS_DIR}/install-iphoneos"
 
     - name: Build iphoneos (${{ matrix.configuration }})
