@@ -205,14 +205,9 @@ static int l_tcp_server_start(lua_State* L) {
             auto& rb = session->recv_buf;
             const uint8_t* incoming = static_cast<const uint8_t*>(buf->data());
             size_t incoming_len = buf->size();
-            // 诊断：加密模式收到数据时打印缓冲区状态
+            // 缓冲收到数据
             if (rb.empty()) {
-                // 首次/新一批数据到达，打印前 32 字节 hex
-                fprintf(stderr, "[ghv] DIAG server encrypted recv conn=%u incoming=%zu rb_before=%zu hex: ",
-                        channel->id(), incoming_len, rb.size());
-                for (size_t di = 0; di < 32 && di < incoming_len; ++di)
-                    fprintf(stderr, "%02X ", incoming[di]);
-                fprintf(stderr, "\n");
+                // ... (诊断日志已移除)
             }
             rb.insert(rb.end(), incoming, incoming + incoming_len);
 
@@ -249,15 +244,6 @@ static int l_tcp_server_start(lua_State* L) {
                 }
 
                 // 完整帧：就地解密（ptr 指向 rb 内部可写区域）
-                {
-                    // 诊断：在 DecryptAndVerify 前打印每帧帧头
-                    uint32_t diag_seq;
-                    memcpy(&diag_seq, ptr + 6, 4);
-                    fprintf(stderr, "[ghv] DIAG FRAME-BEFORE-DECRYPT conn=%u rb_total=%zu "
-                            "frame_size=%zu seq=%u magic=%02X%02X\n",
-                            channel->id(), rb.size(), frame_size, diag_seq,
-                            ptr[0], ptr[1]);
-                }
                 CryptoProtocol::DecryptResult decrypt_out;
                 if (!session->crypto.DecryptAndVerify(ptr, frame_size, decrypt_out)) {
                     fprintf(stderr, "[ghv] SECURITY: server decrypt/MAC failed for conn %u, kicking\n",
@@ -377,7 +363,6 @@ static int l_tcp_server_send(lua_State* L) {
                 lua_pushboolean(L, 0);
                 return 1;
             }
-            fprintf(stderr, "[ghv] DIAG SERVER-SEND conn=%u seq=%u len=%zu\n", id, seq, len);
             channel->write(reinterpret_cast<const char*>(session->send_buf.data()),
                            session->send_buf.size());
         } else {
@@ -614,9 +599,7 @@ static int l_tcp_server_derive_and_encrypt(lua_State* L) {
     }
 
     session->crypto.SetSessionKey(session_key, GHV_KEY_SIZE);
-    // 诊断：打印密钥指纹（前4字节），用于和客户端比对
-    fprintf(stderr, "[ghv] DIAG server deriveAndEncrypt conn=%u key_fp=%02X%02X%02X%02X\n",
-            id, session_key[0], session_key[1], session_key[2], session_key[3]);
+    // (诊断日志已移除)
     OPENSSL_cleanse(session_key, sizeof(session_key));
 
     // 禁用该连接的 libhv unpack — 加密模式由 C++ 手动拆帧接管
@@ -635,7 +618,7 @@ static int l_tcp_server_derive_and_encrypt(lua_State* L) {
         hio_alloc_readbuf(channel->io(), HLOOP_READ_BUFSIZE);
     }
 
-    fprintf(stderr, "[ghv] DIAG server encryption ACTIVATED for conn %u (private readbuf)\n", id);
+
 
     lua_pushboolean(L, 1);
     return 1;

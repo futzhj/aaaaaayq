@@ -263,13 +263,9 @@ static int l_tcp_client_connect(lua_State* L) {
             auto& rb = self->recv_buf_;
             const uint8_t* incoming = static_cast<const uint8_t*>(buf->data());
             size_t incoming_len = buf->size();
-            // 诊断：加密模式首次收到数据时打印缓冲区状态
+            // 缓冲收到数据
             if (rb.empty()) {
-                fprintf(stderr, "[ghv] DIAG client encrypted recv incoming=%zu rb_before=%zu hex: ",
-                        incoming_len, rb.size());
-                for (size_t di = 0; di < 32 && di < incoming_len; ++di)
-                    fprintf(stderr, "%02X ", incoming[di]);
-                fprintf(stderr, "\n");
+                // ... (诊断日志已移除)
             }
             rb.insert(rb.end(), incoming, incoming + incoming_len);
 
@@ -414,7 +410,6 @@ static int l_tcp_client_send(lua_State* L) {
                 lua_pushboolean(L, 0);
                 return 1;
             }
-            fprintf(stderr, "[ghv] DIAG CLIENT-SEND seq=%u len=%zu\n", seq, len);
             int ret = self->client->send(reinterpret_cast<const char*>(frame_buf.data()),
                                           static_cast<int>(frame_buf.size()));
             lua_pushboolean(L, ret >= 0);
@@ -561,9 +556,7 @@ static int l_tcp_client_derive_and_encrypt(lua_State* L) {
 
     // 2. 设置加密密钥
     self->crypto.SetSessionKey(session_key, GHV_KEY_SIZE);
-    // 诊断：打印密钥指纹（前4字节），用于和服务端比对
-    fprintf(stderr, "[ghv] DIAG client deriveAndEncrypt key_fp=%02X%02X%02X%02X\n",
-            session_key[0], session_key[1], session_key[2], session_key[3]);
+    // (诊断日志已移除)
     OPENSSL_cleanse(session_key, sizeof(session_key));  // 立即擦除
 
     // 3. 禁用 libhv unpack — 加密模式由 C++ 手动循环拆帧完全接管
@@ -586,7 +579,6 @@ static int l_tcp_client_derive_and_encrypt(lua_State* L) {
             hio_alloc_readbuf(io, HLOOP_READ_BUFSIZE);
         }
     }
-    fprintf(stderr, "[ghv] DIAG client encryption ACTIVATED (private readbuf)\n");
 
     lua_pushboolean(L, 1);
     return 1;
