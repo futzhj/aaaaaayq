@@ -165,10 +165,8 @@ static int l_tcp_client_connect(lua_State* L) {
             // 1. Disable Nagle algorithm for low-latency RPC
             int flag = 1;
             setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<const char*>(&flag), sizeof(flag));
-            // 2. Increase kernel send/recv buffers (256KB each)
-            int bufsize = 256 * 1024;
-            setsockopt(fd, SOL_SOCKET, SO_SNDBUF, reinterpret_cast<const char*>(&bufsize), sizeof(bufsize));
-            setsockopt(fd, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<const char*>(&bufsize), sizeof(bufsize));
+            // 2. (REMOVED) Windows 系统默认的 AFD 自动缓冲缩放能更好地应付爆发型大包数据
+            //    硬编码限制 256KB 反而容易导致发送满溢而触及 libhv 层 max_write_bufsize 断开
             // 3. Enable TCP keepalive
             setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, reinterpret_cast<const char*>(&flag), sizeof(flag));
             self->connected = true;
