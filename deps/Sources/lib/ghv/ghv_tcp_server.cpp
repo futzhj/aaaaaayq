@@ -353,13 +353,14 @@ static int l_tcp_server_send(lua_State* L) {
                 fprintf(stderr, "[ghv] WARNING: server send_seq wrapped for conn %u, "
                                 "consider re-keying\n", id);
             }
-            session->send_buf.clear();  // clear 不释放内存，仅重置 size
+            session->send_buf.clear();
             if (!session->crypto.EncryptAndSeal(
                     reinterpret_cast<const uint8_t*>(data), len, seq, session->send_buf)) {
                 fprintf(stderr, "[ghv] server send encryption failed for conn %u\n", id);
                 lua_pushboolean(L, 0);
                 return 1;
             }
+            fprintf(stderr, "[ghv] DIAG SERVER-SEND conn=%u seq=%u len=%zu\n", id, seq, len);
             channel->write(reinterpret_cast<const char*>(session->send_buf.data()),
                            session->send_buf.size());
         } else {

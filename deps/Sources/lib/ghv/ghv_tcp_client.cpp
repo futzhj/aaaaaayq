@@ -408,6 +408,7 @@ static int l_tcp_client_send(lua_State* L) {
                 lua_pushboolean(L, 0);
                 return 1;
             }
+            fprintf(stderr, "[ghv] DIAG CLIENT-SEND seq=%u len=%zu\n", seq, len);
             int ret = self->client->send(reinterpret_cast<const char*>(frame_buf.data()),
                                           static_cast<int>(frame_buf.size()));
             lua_pushboolean(L, ret >= 0);
