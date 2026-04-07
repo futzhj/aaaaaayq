@@ -151,6 +151,16 @@ static int GGE_LoadScript(lua_State* L)
 int SDL_main(int argc, char** argv)
 {
 #ifdef _WIN32
+    // 把当前工作目录加入DLL搜索路径
+    // 当 lib/mygxy.dll 被 LoadLibrary 加载时，它依赖的 ggelua.dll 在根目录
+    // 没有这行的话 LoadLibrary 只搜索 exe目录/system/lib目录，找不到根目录的dll
+    {
+        wchar_t cwd[MAX_PATH];
+        if (GetCurrentDirectoryW(MAX_PATH, cwd)) {
+            SetDllDirectoryW(cwd);
+        }
+    }
+
     CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
     info.cbSize = sizeof(info);
     info.dwFontSize.Y = 16;
