@@ -2,6 +2,7 @@
 #include "Astart.h"
 #include "DLinkList.h"
 #include <string.h>
+#include <new>
 //测距
 unsigned int CalcDistance(POINT p1, POINT p2)
 {
@@ -22,18 +23,20 @@ Map* WINAPI MapCreate(unsigned int width, unsigned int height, unsigned char* da
     map->height = height;
     map->data = data;
     map->size = width * height;
-    map->list = new DLinkList(map->size);
 
+    map->list = new(std::nothrow) DLinkList(map->size);
     if (!map->list)
     {
         free(map);
-        map = NULL;
+        return NULL;
     }
-    if (!(map->node = (GRID_NODE*)calloc(map->size, sizeof(GRID_NODE))))
+
+    map->node = (GRID_NODE*)calloc(map->size, sizeof(GRID_NODE));
+    if (!map->node)
     {
         delete map->list;
         free(map);
-        map = NULL;
+        return NULL;
     }
 
     return map;
@@ -41,8 +44,9 @@ Map* WINAPI MapCreate(unsigned int width, unsigned int height, unsigned char* da
 
 void WINAPI MapDestroy(Map* map)
 {
-    delete map->list;
-    free(map->node);
+    if (!map) return;
+    if (map->list) { delete map->list; map->list = NULL; }
+    if (map->node) { free(map->node); map->node = NULL; }
     free(map);
 }
 
@@ -106,26 +110,30 @@ bool WINAPI FindPath(Map* map, POINT* pStart, POINT* pEnd, bool mode)
 
             unsigned int beside_index = width * beside_pos.y + beside_pos.x; //相邻索引
             if (data[beside_index] != OK || beside_index + 1 >= size ||
-                beside_index + width >= size || beside_index - 1 < 0 || beside_index - width < 0)
+                beside_index + width >= size || beside_index < 1 || beside_index < width)
                 continue;
             switch (i)
             {
             case 1:
-                if (beside_index + 1 > size || data[beside_index + 1] != OK ||
-                    beside_index + width > size || data[beside_index + width] != OK)
+                if (beside_index + 1 >= size || data[beside_index + 1] != OK ||
+                    beside_index + width >= size || data[beside_index + width] != OK)
                     continue;
+                break;
             case 3:
                 if (beside_index < 1 || data[beside_index - 1] != OK ||
-                    beside_index + width > size || data[beside_index + width] != OK)
+                    beside_index + width >= size || data[beside_index + width] != OK)
                     continue;
+                break;
             case 5:
                 if (beside_index < 1 || data[beside_index - 1] != OK ||
                     beside_index < width || data[beside_index - width] != OK)
                     continue;
+                break;
             case 7:
-                if (beside_index + 1 > size || data[beside_index + 1] != OK ||
+                if (beside_index + 1 >= size || data[beside_index + 1] != OK ||
                     beside_index < width || data[beside_index - width] != OK)
                     continue;
+                break;
             }
 
             /* 检查是否已到达终点 */

@@ -257,6 +257,14 @@ static int l_tcp_client_connect(lua_State* L) {
             auto& rb = self->recv_buf_;
             const uint8_t* incoming = static_cast<const uint8_t*>(buf->data());
             size_t incoming_len = buf->size();
+            // 诊断：加密模式首次收到数据时打印缓冲区状态
+            if (rb.empty()) {
+                fprintf(stderr, "[ghv] DIAG client encrypted recv incoming=%zu rb_before=%zu hex: ",
+                        incoming_len, rb.size());
+                for (size_t di = 0; di < 32 && di < incoming_len; ++di)
+                    fprintf(stderr, "%02X ", incoming[di]);
+                fprintf(stderr, "\n");
+            }
             rb.insert(rb.end(), incoming, incoming + incoming_len);
 
             // P3-1: 循环解包，处理完毕立即从缓冲区截断并丢弃指针，避免 Lua pcall 重入引发的 Iterator Invalidation (UAF) 与内存争用
@@ -546,6 +554,9 @@ static int l_tcp_client_derive_and_encrypt(lua_State* L) {
 
     // 2. 设置加密密钥
     self->crypto.SetSessionKey(session_key, GHV_KEY_SIZE);
+    // 诊断：打印密钥指纹（前4字节），用于和服务端比对
+    fprintf(stderr, "[ghv] DIAG client deriveAndEncrypt key_fp=%02X%02X%02X%02X\n",
+            session_key[0], session_key[1], session_key[2], session_key[3]);
     OPENSSL_cleanse(session_key, sizeof(session_key));  // 立即擦除
 
     // 3. 禁用 libhv unpack — 加密模式由 C++ 手动循环拆帧完全接管

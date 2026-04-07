@@ -5,6 +5,7 @@
 static int astar_CheckPoint(lua_State* L)
 {
     Map* map = *(Map**)luaL_checkudata(L, 1, "gge_astar");
+    if (!map) return 0;
     int x = luaL_checkinteger(L, 2);
     int y = luaL_checkinteger(L, 3);
 
@@ -22,6 +23,7 @@ static int astar_CheckPoint(lua_State* L)
 static int astar_GetPoint(lua_State* L)
 {
     Map* map = *(Map**)luaL_checkudata(L, 1, "gge_astar");
+    if (!map) return 0;
     int x = luaL_checkinteger(L, 2);
     int y = luaL_checkinteger(L, 3);
 
@@ -39,6 +41,7 @@ static int astar_GetPoint(lua_State* L)
 static int astar_SetPoint(lua_State* L)
 {
     Map* map = *(Map**)luaL_checkudata(L, 1, "gge_astar");
+    if (!map) return 0;
     int x = luaL_checkinteger(L, 2);
     int y = luaL_checkinteger(L, 3);
     int v = luaL_checkinteger(L, 4);
@@ -54,6 +57,7 @@ static int astar_SetPoint(lua_State* L)
 static int astar_GetPath(lua_State* L)
 {
     Map* map = *(Map**)luaL_checkudata(L, 1, "gge_astar");
+    if (!map || !map->data) { lua_newtable(L); return 1; }
     POINT nodeStart, nodeEnd, nodeCur;
     nodeStart.x = luaL_checkinteger(L, 2);
     nodeStart.y = luaL_checkinteger(L, 3);
@@ -92,12 +96,25 @@ static int astar_new(lua_State* L)
 {
     int w = luaL_checkinteger(L, 1);
     int h = luaL_checkinteger(L, 2);
+
+    if (w <= 0 || h <= 0)
+        return luaL_error(L, "invalid map size: %dx%d", w, h);
+
     Map* map = MapCreate(w, h, NULL);
+    if (!map)
+        return luaL_error(L, "failed to create map");
+
+    /* 创建 userdata 并 **立即** 设置 metatable，
+       确保后续任何 luaL_error/longjmp 都能触发 __gc 清理 */
     Map** ud = (Map**)lua_newuserdata(L, sizeof(Map*));
     *ud = map;
+    luaL_getmetatable(L, "gge_astar");
+    lua_setmetatable(L, -2);
+
     map->data = (unsigned char*)malloc(map->size);
     if (!map->data)
-        return 0;
+        return luaL_error(L, "failed to allocate map data (%u bytes)", map->size);
+
     if (lua_isuserdata(L, 3) && lua_isnumber(L, 4))
     {
         const void* data = (char*)lua_topointer(L, 3);
@@ -114,20 +131,30 @@ static int astar_new(lua_State* L)
         if (len == map->size)
             memcpy(map->data, data, len);
     }
-    luaL_getmetatable(L, "gge_astar");
-    lua_setmetatable(L, -2);
     return 1;
 }
 
 static int astar_gc(lua_State* L)
 {
-    Map* map = *(Map**)luaL_checkudata(L, 1, "gge_astar");
+    Map** ud = (Map**)luaL_checkudata(L, 1, "gge_astar");
+    Map* map = *ud;
+
+    /* 空指针守卫：防止双重释放 */
+    if (!map)
+        return 0;
+
+    /* 立即清除 userdata 中的指针，阻断重入 */
+    *ud = NULL;
+
+    /* 先释放 data 缓冲区 */
     if (map->data)
     {
         free(map->data);
-        MapDestroy(map);
         map->data = NULL;
     }
+
+    /* 无论 data 是否为 NULL，都必须销毁 Map 自身（list + node + map） */
+    MapDestroy(map);
 
     return 0;
 }

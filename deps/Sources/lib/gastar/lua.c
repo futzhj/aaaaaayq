@@ -79,6 +79,7 @@ static int astar_gc(lua_State* L)
 	{
 		free(map->data);
 		map->data = NULL;
+		MapDestroy(map);
 	}
 
 	return 0;

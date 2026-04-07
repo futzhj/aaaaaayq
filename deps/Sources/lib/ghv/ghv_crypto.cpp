@@ -307,6 +307,20 @@ bool CryptoProtocol::DecryptAndVerify(uint8_t* frame, size_t frame_len,
         if (EVP_DecryptFinal_ex(ctx, ciphertext_ptr + out_len, &final_len) != 1) {
             // MAC verification FAILED — packet was tampered with
             fprintf(stderr, "[ghv_crypto] DecryptAndVerify: MAC verification FAILED (tampered packet)\n");
+            // ── 诊断信息 ──
+            fprintf(stderr, "[ghv_crypto] DIAG frame_len=%zu ciphertext_len=%zu seq_no=%u\n",
+                    frame_len, ciphertext_len, seq_no);
+            fprintf(stderr, "[ghv_crypto] DIAG header[%u]: ", GHV_HEADER_SIZE);
+            for (size_t di = 0; di < GHV_HEADER_SIZE && di < frame_len; ++di)
+                fprintf(stderr, "%02X ", frame[di]);
+            fprintf(stderr, "\n");
+            fprintf(stderr, "[ghv_crypto] DIAG tag[%u]: ", GHV_TAG_SIZE);
+            for (size_t di = 0; di < GHV_TAG_SIZE; ++di)
+                fprintf(stderr, "%02X ", tag_copy[di]);
+            fprintf(stderr, "\n");
+            // 打印 session_key 前 4 字节指纹（用于比对双方密钥是否一致）
+            fprintf(stderr, "[ghv_crypto] DIAG key_fingerprint=%02X%02X%02X%02X\n",
+                    session_key_[0], session_key_[1], session_key_[2], session_key_[3]);
             break;
         }
 
