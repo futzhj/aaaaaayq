@@ -160,7 +160,18 @@ bool CryptoProtocol::EncryptAndSeal(const uint8_t* plaintext, size_t plain_len,
     hdr->SetSeqNo(seq_no);
 
     // Generate nonce and write to header
+    // 诊断：检测 nonce_counter_ 是否被堆腐蚀
+    if (nonce_counter_ > static_cast<uint64_t>(seq_no) + 1000) {
+        fprintf(stderr, "[ghv_crypto] !!CORRUPTION!! nonce_counter_=%llu but seq_no=%u "
+                        "(expected ~%u). Heap corruption detected!\n",
+                static_cast<unsigned long long>(nonce_counter_), seq_no, seq_no);
+    }
     BuildNonce(hdr->nonce, seq_no);
+    // 诊断：打印生成的 nonce hex
+    fprintf(stderr, "[ghv_crypto] DIAG EncryptAndSeal seq=%u counter=%llu nonce: ",
+            seq_no, static_cast<unsigned long long>(nonce_counter_));
+    for (int ni = 0; ni < 12; ++ni) fprintf(stderr, "%02X ", hdr->nonce[ni]);
+    fprintf(stderr, "\n");
 
     // Pointers into frame
     uint8_t* ciphertext_ptr = frame + GHV_HEADER_SIZE;

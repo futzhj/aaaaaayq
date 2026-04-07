@@ -95,11 +95,6 @@ jobs:
         echo "Using libcrypto.a: ${CRYPTO_LIB}"
         echo "Using libssl.a: ${SSL_LIB}"
 
-        # ASan 编译选项：定位 nanov2 堆损坏根源
-        # 产出的 framework 会在运行时检测越界/UAF，输出精确文件+行号
-        # ⚠️ ASan 版本速度慢 2-3 倍、内存多 2-3 倍，仅用于排查！抓到 bug 后记得去掉
-        ASAN_FLAGS="-fsanitize=address -fno-omit-frame-pointer -O1"
-
         cmake -G Xcode \
           -B "${IOS_DIR}/build-iphoneos" \
           -S "${IOS_DIR}" \
@@ -111,10 +106,6 @@ jobs:
           -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
           -DCMAKE_C_COMPILER_LAUNCHER=ccache \
           -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-          -DCMAKE_C_FLAGS="${ASAN_FLAGS}" \
-          -DCMAKE_CXX_FLAGS="${ASAN_FLAGS}" \
-          -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address" \
-          -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=address" \
           -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
           -DCMAKE_INSTALL_PREFIX="${IOS_DIR}/install-iphoneos"
 
@@ -236,14 +227,7 @@ jobs:
         cp -R "${INSTALL_DIR}/Frameworks/"*.framework "${APP_DIR}/Frameworks/"
         echo "  ✅ Frameworks 已复制"
 
-        # 复制 ASAN 动态库（由于启用了 ASan 编译，需要打包这个库才能在真机运行）
-        ASAN_DYLIB=$(find $(xcode-select -p)/Toolchains -name "libclang_rt.asan_ios_dynamic.dylib" | head -n 1)
-        if [ -n "$ASAN_DYLIB" ] && [ -f "$ASAN_DYLIB" ]; then
-          cp "$ASAN_DYLIB" "${APP_DIR}/Frameworks/"
-          chmod 755 "${APP_DIR}/Frameworks/libclang_rt.asan_ios_dynamic.dylib"
-          echo "  ✅ Copied ASAN dylib: $ASAN_DYLIB"
-          codesign --force --sign - --timestamp=none "${APP_DIR}/Frameworks/libclang_rt.asan_ios_dynamic.dylib"
-        fi
+
 
         # 复制主程序二进制
         cp "${INSTALL_DIR}/GGELUA.app/GGELUA" "${APP_DIR}/GGELUA"
