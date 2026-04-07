@@ -1,6 +1,10 @@
 #include "gge.h"
 #include <SDL_image.h>
 
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
+
 static int LUA_IMG_Linked_Version(lua_State* L)
 {
     const SDL_version* ver = IMG_Linked_Version();
@@ -79,7 +83,11 @@ static int LUA_IMG_LoadARGB8888(lua_State* L)
     return 0;
 }
 
-#if defined(__ANDROID__)
+/* W4+I5: iOS 和 Android 均启用 stb_image fallback
+ * iOS 上 IMG_Load_RW 走 ImageIO (ObjC) 后端，高频调用产生大量
+ * 临时 NSObject，加剧 nanov2 堆碎片化 → nanov2_guard_corruption_detected
+ * stb_image 是纯 C 实现，不产生 ObjC 对象 */
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
 #include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
 #define STB_IMAGE_STATIC
 #define STBI_NO_HDR
@@ -98,7 +106,7 @@ static SDL_Surface* GGE_IMG_Load_RW(SDL_RWops* rw)
     SDL_Surface* sf = IMG_Load_RW(rw, SDL_FALSE);
     if (sf) return sf;
 
-#if defined(__ANDROID__)
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
     if (start >= 0) {
         SDL_RWseek(rw, start, RW_SEEK_SET);
         Sint64 total_size = SDL_RWsize(rw);

@@ -396,7 +396,8 @@ static int LUA_GetRenderTarget(lua_State* L)
     if (tex)
     {
         GGE_Texture* gt = (GGE_Texture*)SDL_GetTextureUserData(tex);
-        SDL_Texture** ud = (SDL_Texture**)lua_newuserdata(L, sizeof(GGE_Texture));
+        /* W8: sizeof 应为 SDL_Texture*（指针），与其他 texture userdata 一致 */
+        SDL_Texture** ud = (SDL_Texture**)lua_newuserdata(L, sizeof(SDL_Texture*));
         *ud = tex;
         if (gt)
             gt->refcount++;

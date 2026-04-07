@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include "../../../Dependencies/SDL_image/external/libwebp-1.3.2/src/webp/decode.h"
 
+/* I2: C 层异步任务并发硬上限
+ * 防止 Lua 层 bug 导致无限提交 Timer 任务，耗尽线程和内存 */
+#define MAP_MAX_ACTIVE_TASKS 8
+
 /* ==========================================================================
  * iOS 独立 malloc zone 实现
  * 声明在 map.h，实现在此。非 Apple 平台此段不编译。
@@ -95,36 +99,30 @@ static MAP_RawPixels _webp_raw_decode(const Uint8* data, size_t data_size)
     if (width <= 0 || height <= 0 || width > 8192 || height > 8192)
         return raw;
 
+    /* 单缓冲区：直接解码到目标缓冲区，然后 in-place RGBA→ARGB 交换
+     * 峰值内存 = width*height*4（原实现为 2 倍） */
     const int row_bytes = width * 4;
-    const size_t rgba_size = (size_t)row_bytes * height;
-    uint8_t* rgba = (uint8_t*)MAP_MALLOC(rgba_size);
-    if (!rgba)
+    const size_t pixel_size = (size_t)width * height * sizeof(Uint32);
+    Uint32* out = (Uint32*)MAP_MALLOC(pixel_size);
+    if (!out)
         return raw;
 
-    if (!WebPDecodeRGBAInto(data, data_size, rgba, rgba_size, row_bytes))
+    if (!WebPDecodeRGBAInto(data, data_size, (uint8_t*)out, pixel_size, row_bytes))
     {
-        MAP_FREE(rgba);
+        MAP_FREE(out);
         return raw;
     }
 
-    Uint32* out = (Uint32*)MAP_MALLOC((size_t)width * height * sizeof(Uint32));
-    if (!out) {
-        MAP_FREE(rgba);
-        return raw;
-    }
-
-    /* RGBA → ARGB8888 通道交换 */
+    /* in-place RGBA → ARGB8888 通道交换 */
     for (int y = 0; y < height; y++) {
-        const uint8_t* src = rgba + y * row_bytes;
-        Uint32* dst = out + y * width;
+        Uint32* row = out + y * width;
         for (int x = 0; x < width; x++) {
-            dst[x] = ((Uint32)src[3] << 24) | ((Uint32)src[0] << 16)
-                   | ((Uint32)src[1] << 8)  |  (Uint32)src[2];
-            src += 4;
+            uint8_t* p = (uint8_t*)(row + x);
+            row[x] = ((Uint32)p[3] << 24) | ((Uint32)p[0] << 16)
+                   | ((Uint32)p[1] << 8)  |  (Uint32)p[2];
         }
     }
 
-    MAP_FREE(rgba);
     raw.pixels = out;
     raw.width = width;
     raw.height = height;
@@ -140,6 +138,9 @@ static MAP_RawPixels _stbi_raw_decode(const Uint8* data, size_t data_size)
     MAP_RawPixels raw = { NULL, 0, 0 };
     int width = 0, height = 0, channels = 0;
 
+    /* stbi_load_from_memory 通过 STBI_MALLOC（= MAP_MALLOC）分配像素
+     * 返回的就是 width*height*4 字节的 RGBA 缓冲区
+     * 直接在其上做 in-place 通道交换，无需第二次分配 */
     unsigned char* pixels = stbi_load_from_memory(
         data, (int)data_size, &width, &height, &channels, 4);
     if (!pixels || width <= 0 || height <= 0)
@@ -148,25 +149,20 @@ static MAP_RawPixels _stbi_raw_decode(const Uint8* data, size_t data_size)
         return raw;
     }
 
-    Uint32* out = (Uint32*)MAP_MALLOC((size_t)width * height * sizeof(Uint32));
-    if (!out) {
-        stbi_image_free(pixels);
-        return raw;
-    }
-
-    /* RGBA → ARGB8888 通道交换 */
+    /* in-place RGBA → ARGB8888 通道交换（零额外分配） */
+    Uint32* px = (Uint32*)pixels;
     for (int y = 0; y < height; y++)
     {
-        const unsigned char* src = pixels + (size_t)y * width * 4;
-        Uint32* dst = out + y * width;
+        Uint32* row = px + y * width;
         for (int x = 0; x < width; x++) {
-            dst[x] = ((Uint32)src[3] << 24) | ((Uint32)src[0] << 16)
-                   | ((Uint32)src[1] << 8)  |  (Uint32)src[2];
-            src += 4;
+            uint8_t* p = (uint8_t*)(row + x);
+            row[x] = ((Uint32)p[3] << 24) | ((Uint32)p[0] << 16)
+                   | ((Uint32)p[1] << 8)  |  (Uint32)p[2];
         }
     }
-    stbi_image_free(pixels);
-    raw.pixels = out;
+    /* 不调用 stbi_image_free，直接移交所有权给 raw.pixels
+     * 因为 STBI_FREE = MAP_FREE，后续释放兼容 */
+    raw.pixels = px;
     raw.width = width;
     raw.height = height;
     return raw;
@@ -1338,6 +1334,14 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
         
         if (fm && time->result_masknum > 0 && time->result_mask)
         {
+            /* E3: 遮罩数量安全阀——防止单次 GetMapFull 分配过多内存
+             * 32 个遮罩 × 1000×800×4 ≈ 100MB，已是 iOS 承受上限 */
+            #define MAP_MAX_MASKS_PER_TILE 32
+            if (time->result_masknum > MAP_MAX_MASKS_PER_TILE) {
+                SDL_Log("[MAP] Warning: masknum %u exceeds limit %d, clamping",
+                        time->result_masknum, MAP_MAX_MASKS_PER_TILE);
+                time->result_masknum = MAP_MAX_MASKS_PER_TILE;
+            }
             fm->masknum = time->result_masknum;
             fm->mask_raws = (MAP_RawPixels*)MAP_CALLOC(time->result_masknum, sizeof(MAP_RawPixels));
             if (fm->mask_raws) {
@@ -1346,6 +1350,14 @@ static Uint32 SDLCALL TimerCallback(Uint32 interval, void* param)
                     SDL_memset(&mdata, 0, sizeof(MASK_Data));
                     mdata.id = time->id;
                     mdata.info = time->result_mask[i];
+
+                    /* E3: 单遮罩面积安全阀——超过 4096×4096 直接跳过 */
+                    SDL_Rect* mr = &mdata.info.rect;
+                    if ((Sint64)mr->w * mr->h > 4096LL * 4096LL) {
+                        SDL_Log("[MAP] Warning: mask %u area %dx%d too large, skipping",
+                                i, mr->w, mr->h);
+                        continue;
+                    }
                     
                     _getmasksf(ud, time->id, &mdata, time->mem, task_rw);
                         
@@ -1625,7 +1637,7 @@ static int LUA_GetMap(lua_State* L)
     if (has_cb)
     {
         SDL_LockMutex(ud->mutex);
-        if (ud->closing || map->loading)
+        if (ud->closing || map->loading || ud->active_tasks >= MAP_MAX_ACTIVE_TASKS)
         {
             SDL_UnlockMutex(ud->mutex);
             return 0;
@@ -1704,7 +1716,7 @@ static int LUA_GetMapFull(lua_State* L)
     if (has_cb)
     {
         SDL_LockMutex(ud->mutex);
-        if (ud->closing || map->loading)
+        if (ud->closing || map->loading || ud->active_tasks >= MAP_MAX_ACTIVE_TASKS)
         {
             SDL_UnlockMutex(ud->mutex);
             return 0;
@@ -1755,7 +1767,7 @@ static int LUA_GetMapInfo(lua_State* L)
     if (has_cb)
     {
         SDL_LockMutex(ud->mutex);
-        if (ud->closing || map->loading)
+        if (ud->closing || map->loading || ud->active_tasks >= MAP_MAX_ACTIVE_TASKS)
         {
             SDL_UnlockMutex(ud->mutex);
             return 0;
@@ -1904,7 +1916,7 @@ static int LUA_GetMask(lua_State* L)
     if (has_cb)
     {
         SDL_LockMutex(ud->mutex);
-        if (ud->closing)
+        if (ud->closing || ud->active_tasks >= MAP_MAX_ACTIVE_TASKS)
         {
             SDL_UnlockMutex(ud->mutex);
             return 0;
@@ -2601,6 +2613,14 @@ MYGXY_API int luaopen_mygxy_map(lua_State* L)
 #ifdef _DEBUG
     setvbuf(stdout, NULL, _IONBF, 0);
 #endif // DEBUG
+
+    /* W1: 提前初始化 iOS malloc zone
+     * 确保所有 MAP_MALLOC/REALLOC 调用都在 zone 初始化之后，
+     * 消除 stbi 的 STBI_REALLOC 可能用标准 realloc 处理 zone 内存的风险 */
+#if defined(__APPLE__) && TARGET_OS_IPHONE
+    _map_ensure_zone();
+#endif
+
     luaL_newmetatable(L, MAP_NAME);
     luaL_setfuncs(L, funcs, 0);
     lua_pushvalue(L, -1);

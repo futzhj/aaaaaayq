@@ -124,6 +124,10 @@ static int LUA_RWFromStr(lua_State* L)
         SDL_RWops** ud = (SDL_RWops**)lua_newuserdata(L, sizeof(SDL_RWops*));
         *ud = rw;
         luaL_setmetatable(L, "SDL_RWops");
+        /* W7: 将 Lua 字符串作为 uservalue 保存，防止 GC 回收导致 UAF
+         * SDL_RWFromConstMem 仅保存指针，不拷贝数据 */
+        lua_pushvalue(L, 1);
+        lua_setiuservalue(L, -2, 1);
         return 1;
     }
 

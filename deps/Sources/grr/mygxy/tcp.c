@@ -1,6 +1,10 @@
 #include "sdl_proxy.h"
 #include "tcp.h"
 
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
+
 #if defined(_WIN32)
 #define MYGXY_API __declspec(dllexport)
 #else
@@ -337,8 +341,16 @@ static void TCP_ParseFrameOpts(lua_State* L, TCP_FrameOpts* opts)
 
     if (opts->outline < 0)
         opts->outline = 0;
+    /* E5: 移动端描边半径上限从 64 降至 8
+     * radius=64 时四重循环 O(w*h*radius²) ≈ 40 亿次操作
+     * 在主线程执行会冻结数秒，触发 iOS Watchdog (0x8badf00d) */
+#if defined(__ANDROID__) || defined(__IPHONEOS__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
+    if (opts->outline > 8)
+        opts->outline = 8;
+#else
     if (opts->outline > 64)
         opts->outline = 64;
+#endif
 }
 
 static SDL_Surface* TCP_EnsureARGB8888(SDL_Surface* sf)

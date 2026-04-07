@@ -315,7 +315,7 @@ static int LUA_DuplicateSurface(lua_State* L)
 {
     SDL_Surface* sf = *(SDL_Surface**)luaL_checkudata(L, 1, "SDL_Surface");
     SDL_Surface* rsf = SDL_DuplicateSurface(sf);
-    if (sf)
+    if (rsf)
     {
         SDL_Surface** ud = (SDL_Surface**)lua_newuserdata(L, sizeof(SDL_Surface*));
         *ud = rsf;
