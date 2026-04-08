@@ -109,6 +109,11 @@ bool HttpHandler::Init(int http_version) {
 }
 
 void HttpHandler::Reset() {
+    // [FIX] WebSocket connections must never be Reset.
+    // After upgradeWebSocket() sets protocol=WEBSOCKET, the ws_parser/ws_channel
+    // are the active protocol handlers. Reset() would reinitialize the HTTP parser
+    // and clear writer callbacks, corrupting WebSocket state and causing crashes.
+    if (protocol == WEBSOCKET) return;
     state = WANT_RECV;
     error = 0;
     req->Reset();
@@ -339,6 +344,14 @@ void HttpHandler::onMessageComplete() {
         if (iter_upgrade != req->headers.end()) {
             handleUpgrade(iter_upgrade->second.c_str());
             status_code = resp->status_code;
+        }
+        // [FIX] After successful WebSocket upgrade, the connection has been handed
+        // off to ws_parser/ws_channel. We must NOT call Reset() (which would destroy
+        // WebSocket state) or set WANT_CLOSE. Setting status_code=NEXT and
+        // state=HANDLE_CONTINUE prevents the cleanup logic below from firing.
+        if (protocol == WEBSOCKET) {
+            status_code = HTTP_STATUS_NEXT;
+            state = HANDLE_CONTINUE;
         }
     } else {
         status_code = HandleHttpRequest();
