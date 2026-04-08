@@ -78,6 +78,24 @@ struct LuaWSServer {
         server->registerHttpService(&http_service);
         server->setProcessNum(0);
         server->setThreadNum(0);  // Minimal: acceptor loop handles all
+
+        // Disable static file handler to avoid path traversal or disk IO
+        http_service.document_root = "";
+
+        // [Security] Intercept HTTP requests before body is buffered (prevents OOM on large rogue uploads)
+        hv::HttpService* pHttpService = &http_service;
+        http_service.headerHandler = [pHttpService](HttpRequest* req, HttpResponse* resp) -> int {
+            // Allow WebSocket handshakes
+            if (req->IsUpgrade()) return HTTP_STATUS_NEXT;
+
+            // Allow explicitly registered HTTP API routes (e.g., /pay/notify)
+            if (pHttpService->pathHandlers.find(req->path) != pHttpService->pathHandlers.end()) {
+                return HTTP_STATUS_NEXT;
+            }
+
+            // Reject all other traffic early
+            return HTTP_STATUS_FORBIDDEN;
+        };
     }
 
     ~LuaWSServer() {
